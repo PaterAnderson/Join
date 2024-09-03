@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/fonts.css">
+    <link rel="stylesheet" href="style/index.css">
+    <title>Document</title>
+    <style>
+        aside {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            background-color: #2A3647;
+            width: 232px;
+            height: 100%;
+            left: 0;
+            top: 0;
+        }
+
+        .aside-content {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            padding: 32px 0px 32px 0px;
+        }
+
+        .aside-menu {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+            gap: 20px;
+            width: 232px;
+        }
+
+        .menu-table {
+            color: #CDCDCD;
+            width: 100%; 
+            border-collapse: separate;
+            border-spacing: 0px 15px;
+        }
+
+        .menu-table td{
+            padding: 8px 0px 8px 0px;
+            cursor: pointer;
+            
+        }
+
+        .menu-table td:first-child {
+            text-align: center;
+            width: 30px;
+            padding-right: 8px;
+            padding-left: 56px;
+
+        }
+
+        .menu-table tr:hover {
+            background-color: #2A3D59;
+            color: white;
+        }
+
+        .menu-table tr:hover .menu-icon{
+            filter: brightness(0) invert(1); 
+        }
+
+        .legal-div{
+            display: flex;
+            flex-direction: column;
+            color: #CDCDCD;
+            width: 100%;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .legal-hover{
+            width: 100%;
+            text-align: center;
+            padding: 8px 0px 8px 0px;
+        }
+
+        .legal-hover:hover{
+            font-weight: 700;
+            color: #29ABE2;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+    </header>
+    <aside>
+        <div class="aside-content">
+            <img src="assets/icons/join-logo.svg">
+            <div class="aside-menu text-body">
+                <table class="menu-table">
+                    <tr>
+                        <td><img class="menu-icon" src="assets/icons/summary.svg"></td>
+                        <td>Summer</td>
+                    </tr>
+                    <tr>
+                        <td><img class="menu-icon" src="assets/icons/add-task.svg"></td>
+                        <td>Add Task</td>
+                    </tr>
+                    <tr>
+                        <td><img class="menu-icon" src="assets/icons/board.svg"></td>
+                        <td>Board</td>
+                    </tr>
+                    <tr>
+                        <td><img class="menu-icon" src="assets/icons/contacts.svg"></td>
+                        <td>Contacts</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="legal-div text-body">
+            <div class="legal-hover">Privacy Policy</div>
+            <div class="legal-hover">Legal notice</div>
+            </div>
+        </div>
+    </aside>
+    <main></main>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.heading-1 {
+    /* Version 2/t1 */
+
+    font-family: "Inter", sans-serif;
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73.2px;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+}
+
+.welcome-text {
+    /* Version 2/t2 */
+
+    font-family: "Inter", sans-serif;
+    font-size: 47px;
+    font-weight: 500;
+    line-height: 56.4px;
+    text-align: left;
+    color: rgba(42, 54, 71, 1);
+}
+
+.welcome-name {
+    font-family: "Inter", sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 76.8px;
+    text-align: left;
+    color: rgba(41, 171, 226, 1);
+}
+
+.dashboard-number {
+    font-family: "Inter", sans-serif;
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 76.8px;
+    text-align: center;
+    color: rgba(0, 0, 0, 1)
+}
+
+.text-body {
+    /*  Version 2/body  */
+
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(255, 255, 255, 1);
+}
+
+.ui-p {
+    /* Version 2/t6 */
+
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(42, 54, 71, 1);
+}
+
+.card-h {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(42, 54, 71, 1);
+}
+
+.card-p .legal-notice {
+    /* Version 2/body; */
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(168, 168, 168, 1);
+}
+
+.contact-link {
+    /* Version 2/body; */
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: rgba(0, 124, 238, 1);
+}
+
+
+.board-h {
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+    color: rgba(66, 82, 110, 1);
+}
+
+.dashboard-date {
+    font-family: "Inter", sans-serif;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 25.2px;
+    text-align: left;
+    color: rgba(42, 54, 71, 1);
+}
