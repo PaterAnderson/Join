@@ -1,0 +1,114 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../assets/fonts/Inter/inter.ttf') format('truetype');
+}
+
+body {
+    font-family: "Inter", sans-serif;
+}
+
+.login-div {
+    position: absolute;
+    width: 652px;
+    height: 493px;
+    background-color: #ffffffff;
+    border-radius: 30px;
+    left: calc((100% / 2) - (652px / 2));
+    top: calc((100% / 2) - (493px / 2));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-div span {
+    width: 315px;
+    height: 89px;
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73.2px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 48px;
+    margin-bottom: 32px;
+}
+
+.underline-log-in {
+    height: 3px;
+    width: 146px;
+    background-color: #29ABE2;
+}
+
+.input-div {
+    width: 422px;
+    height: 196px;
+
+    margin-bottom: 32px;
+}
+
+.input-div form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: inherit;
+    justify-content: space-between;
+}
+
+.input {
+    width: 422px;
+    height: 48px;
+    margin-bottom: 32px;
+    border-radius: 10px;
+    border: 1px solid #D1D1D1;
+
+    padding: 0px 21px 0px 21px;
+
+font-size: 20px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+
+}
+
+.remember-me {
+    width: 100%;
+}
+
+.remember-me-inner {
+    margin-left: 39px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.buttons-login-div {
+    width: 322px;
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.log-in-button {
+    width: 110px;
+    height: 48px;
+    border-radius: 8px;
+    background-color: #2A3647;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.guest-log-in-button {
+    width: 177px;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid #2A3647;
+    background-color: #ffffffff;
+    color: #2A3647;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: 700;
+}
