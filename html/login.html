@@ -39,7 +39,7 @@
 
             <div class="input-div">
 
-                <form autocomplete="on" id="login_form" onsubmit="loginSubmit();">
+                <form autocomplete="on" id="login_form" onsubmit="loginSubmit(); return false;">
 
                     <div>
 
@@ -59,7 +59,7 @@
 
                     <div class="remember-me">
                         <div class="remember-me-inner"><input id="rememberMe" class="log-in-checkbox" maxlength="30" type="checkbox"
-                                style="margin-right: 12px;" onchange="toggleAutocomplete()">
+                                style="margin-right: 12px;">
 
                             <div style="margin-bottom: 1px;">
                                 Remember me

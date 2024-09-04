@@ -39,12 +39,12 @@
             <div class="register-inputs">
 
 
-                <form autocomplete="on" id="register_form" onsubmit="registerSubmit();">
+                <form autocomplete="on" id="register_form" onsubmit="registerSubmit(); return false;">
 
 
                     <div class="input-outside3">
 
-                        <input class="input" id="name" maxlength="30" type="name" required placeholder="Name"
+                        <input class="input" id="user" maxlength="30" type="name" required placeholder="Name"
                             autocomplete="on" />
                         <img src="../assets/fonts/person.png" alt="">
 
@@ -60,16 +60,16 @@
 
                     <div class="input-outside2">
 
-                        <input class="input" id="password" maxlength="30" type="password" required
-                            placeholder="Password" autocomplete="on" />
+                        <input onfocus="inputForPasswordOnFocus()" class="input" id="password" maxlength="30" type="password" required
+                            placeholder="Password" autocomplete="off" />
                         <img src="../assets/fonts/lock.png" alt="">
 
                     </div>
 
                     <div class="input-outside2">
 
-                        <input class="input" id="confirm_password" maxlength="30" type="password" required
-                            placeholder="Confirm Password" autocomplete="on" />
+                        <input onfocus="inputForConfirmPasswordOnFocus()" class="input" id="confirm_password" maxlength="30" type="password" required
+                            placeholder="Confirm Password" autocomplete="off" />
                         <img src="../assets/fonts/lock.png" alt="">
 
                     </div>
@@ -88,6 +88,9 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="password-notice display-none" id="password_notice">Your passwords don't match. Please try again.</div>
 
 
             </div>

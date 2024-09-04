@@ -1,6 +1,11 @@
 
 function loginStart() {
 
+    checkReturnToIndexHTML();
+}
+
+function checkReturnToIndexHTML() {
+
     const startedJoin = sessionStorage.getItem('started');
 
     if (!startedJoin) {
@@ -13,23 +18,30 @@ function loginStart() {
 // Funktion, die beim Formular-Submit aufgerufen wird
 function loginSubmit() {
 
-
-    console.log('login submit');
-
-
-
-
+    savePassword();
+    //window.location.href = '../html/summary.html';
 };
 
+function savePassword() {
 
+    const rememberMe = document.getElementById('rememberMe');
+    if (rememberMe.checked) {
 
-function toggleAutocomplete() {
+        if ('PasswordCredential' in window) {
 
-
-
-    console.log('remember me');
-
-
+            const form = document.querySelector('form');
+            const cred = new PasswordCredential({
+                id: form.elements.email.value,
+                password: form.elements.password.value
+            });
+            navigator.credentials.store(cred).then(function () {
+                //          console.log('Credentials stored successfully!');
+                //          form.submit(); // Formular nach dem Speichern abschicken
+            }).catch(function (error) {
+                console.error('Error storing credentials:', error);
+            });
+        }
+    }
 }
 
 function toRegister() {
