@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join</title>
+
+    <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" href="../style/login.css">
+    <link rel="stylesheet" href="../style/login_responsive.css">
+    <link rel="stylesheet" href="../style/register.css">
+
+    <script src="../script/register.js"></script>
+
+</head>
+
+<body onload="registerStart()" class="for-center">
+
+    <div class="main-div display-none for-center" id="main_div">
+
+
+        <img class="capa2" src="../assets/img/Capa.png" alt="">
+
+
+        <div class="register-sign-up-div">
+
+
+            <img class="arrow-left" onclick="returnToLogin()" src="../assets/fonts/arrow_left.png" alt="">
+
+
+            <div class="register-sign-up-form">Sign up
+
+                <div class="underline-log-in"></div>
+
+            </div>
+
+
+            <div class="register-inputs">
+
+
+                <form autocomplete="on" id="register_form" onsubmit="registerSubmit();">
+
+
+                    <div class="input-outside3">
+
+                        <input class="input" id="name" maxlength="30" type="name" required placeholder="Name"
+                            autocomplete="on" />
+                        <img src="../assets/fonts/person.png" alt="">
+
+                    </div>
+
+                    <div class="input-outside">
+
+                        <input class="input" id="email" maxlength="30" type="email" required placeholder="Email"
+                            autocomplete="on" />
+                        <img src="../assets/fonts/mail.png" alt="">
+
+                    </div>
+
+                    <div class="input-outside2">
+
+                        <input class="input" id="password" maxlength="30" type="password" required
+                            placeholder="Password" autocomplete="on" />
+                        <img src="../assets/fonts/lock.png" alt="">
+
+                    </div>
+
+                    <div class="input-outside2">
+
+                        <input class="input" id="confirm_password" maxlength="30" type="password" required
+                            placeholder="Confirm Password" autocomplete="on" />
+                        <img src="../assets/fonts/lock.png" alt="">
+
+                    </div>
+
+
+                </form>
+
+
+                <div class="remember-me">
+                    <div class="remember-me-inner"><input id="rememberMe" class="log-in-checkbox" type="checkbox"
+                            style="margin-right: 12px;" onchange="toggleAutocomplete()">
+
+                        <div style="margin-bottom: 1px;">
+                            I accept the
+                            <a href="#" style="margin-left: 2px;">Privacy policy</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <button form="register_form" class="register-sign-up-button">Sign up</button>
+
+
+        </div>
+
+
+
+
+        <div class="policy-notice-div">
+
+            <span>Privacy Policy</span>
+            <span>Legal notice</span>
+
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>

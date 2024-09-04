@@ -1,0 +1,102 @@
+.register-sign-up-div {
+    width: 598px;
+    height: 630px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffffff;
+    border-radius: 30px;
+    position: relative;
+}
+
+.register-sign-up-form {
+    width: 315px;
+    height: 89px;
+    font-size: 61px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    margin-bottom: 32px;
+}
+
+.input-outside3 {
+    display: flex;
+    align-items: center;
+    width: 422px;
+    height: 48px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    justify-content: space-between;
+}
+
+.input-outside2,
+.input-outside {
+    margin-bottom: 24px;
+}
+
+.input-outside3 img {
+    width: 21px;
+    height: 21px;
+    margin-right: 21px;
+}
+
+.register-inputs {
+    width: 422px;
+    height: 326px;
+    margin-bottom: 32px;
+}
+
+.remember-me {
+    display: flex;
+    justify-content: center;
+    transform: translateX(4px);
+    margin-top: 33px;
+}
+
+.remember-me a {
+    color: #29ABE2;
+    text-decoration: none;
+}
+
+.remember-me a:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.remember-me-inner {
+    margin-left: 0px;
+    width: 240px;
+}
+
+.register-sign-up-button {
+    width: 126px;
+    height: 55px;
+    border-radius: 8px;
+    background-color: #2A3647;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: 700;
+    border: none;
+}
+
+.arrow-left {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    left: 52px;
+    top: 64px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.arrow-left:hover {
+    scale: 1.1;
+    background-color: #f5f6f7ff;
+}
+
+

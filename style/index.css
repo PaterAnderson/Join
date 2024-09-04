@@ -1,6 +1,8 @@
 
 body {
     background-color: #f5f6f7ff;
+    margin: 0;
+    height: 100vh;
 }
 
 .capa {
@@ -16,8 +18,13 @@ body {
     position: absolute;
     width: 100px;
     height: 122px;
-    left: calc(100px / 2);
-    top: calc(122px / 2);
+    left: 77px;
+    top: 80px;
 }
+
+.display-none {
+    display: none;
+}
+
 
 
