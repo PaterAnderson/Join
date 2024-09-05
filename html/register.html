@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="UTF-8">
@@ -12,12 +12,17 @@
     <link rel="stylesheet" href="../style/register.css">
 
     <script src="../script/register.js"></script>
-
 </head>
 
 <body onload="registerStart()" class="for-center">
 
+    <div class="overlay display-none" id="overlay"></div>
+
+
     <div class="main-div display-none for-center" id="main_div">
+
+
+        <div class="success for-center" id="success">You Signed Up successfully</div>
 
 
         <img class="capa2" src="../assets/img/Capa.png" alt="">
@@ -42,34 +47,34 @@
                 <form autocomplete="on" id="register_form" onsubmit="registerSubmit(); return false;">
 
 
-                    <div class="input-outside3">
+                    <div class="input-outside3" id="input_border1">
 
-                        <input class="input" id="user" maxlength="30" type="name" required placeholder="Name"
-                            autocomplete="on" />
+                        <input onfocus="inputForUserOnFocus()" class="input" id="user" maxlength="30" type="name"
+                            required placeholder="Name" autocomplete="on" />
                         <img src="../assets/fonts/person.png" alt="">
 
                     </div>
 
-                    <div class="input-outside">
+                    <div class="input-outside" id="input_border2">
 
-                        <input class="input" id="email" maxlength="30" type="email" required placeholder="Email"
-                            autocomplete="on" />
+                        <input onfocus="inputForEmailOnFocus()" class="input" id="email" maxlength="30" type="email"
+                            required placeholder="Email" autocomplete="on" />
                         <img src="../assets/fonts/mail.png" alt="">
 
                     </div>
 
-                    <div class="input-outside2">
+                    <div class="input-outside2" id="input_border3">
 
-                        <input onfocus="inputForPasswordOnFocus()" class="input" id="password" maxlength="30" type="password" required
-                            placeholder="Password" autocomplete="off" />
+                        <input onfocus="inputForPasswordOnFocus()" class="input" id="password" maxlength="30"
+                            type="password" required placeholder="Password" autocomplete="off" />
                         <img src="../assets/fonts/lock.png" alt="">
 
                     </div>
 
-                    <div class="input-outside2">
+                    <div class="input-outside2" id="input_border4">
 
-                        <input onfocus="inputForConfirmPasswordOnFocus()" class="input" id="confirm_password" maxlength="30" type="password" required
-                            placeholder="Confirm Password" autocomplete="off" />
+                        <input onfocus="inputForConfirmPasswordOnFocus()" class="input" id="confirm_password"
+                            maxlength="30" type="password" required placeholder="Confirm Password" autocomplete="off" />
                         <img src="../assets/fonts/lock.png" alt="">
 
                     </div>
@@ -79,8 +84,8 @@
 
 
                 <div class="remember-me">
-                    <div class="remember-me-inner"><input id="rememberMe" class="log-in-checkbox" type="checkbox"
-                            style="margin-right: 12px;" onchange="toggleAutocomplete()">
+                    <div class="remember-me-inner">
+                        <input id="rememberMe" class="log-in-checkbox" type="checkbox" style="margin-right: 12px;" onchange="toggleActivateButton()">
 
                         <div style="margin-bottom: 1px;">
                             I accept the
@@ -90,18 +95,14 @@
                 </div>
 
 
-                <div class="password-notice display-none" id="password_notice">Your passwords don't match. Please try again.</div>
+                <div class="password-notice display-none" id="password_notice"></div>
 
 
             </div>
 
-
-            <button form="register_form" class="register-sign-up-button">Sign up</button>
-
+            <button disabled id="register_sign_up_button" form="register_form" class="register-sign-up-button">Sign up</button>
 
         </div>
-
-
 
 
         <div class="policy-notice-div">
@@ -110,7 +111,6 @@
             <span>Legal notice</span>
 
         </div>
-
 
 
     </div>

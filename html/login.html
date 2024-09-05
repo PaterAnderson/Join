@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="UTF-8">
@@ -11,12 +11,10 @@
     <link rel="stylesheet" href="../style/login_responsive.css">
 
     <script src="../script/login.js"></script>
-
 </head>
 
 <body onload="loginStart()">
     <div class="main-div display-none" id="main_div">
-
 
 
         <img class="capa2" src="../assets/img/Capa.png" alt="">
@@ -43,14 +41,14 @@
 
                     <div>
 
-                        <div class="input-outside">
-                            <input class="input" id="email" maxlength="30" type="email" required placeholder="Email"
+                        <div class="input-outside" id="input_outside1">
+                            <input onfocus="inputIsOnFocus()" class="input" id="email" maxlength="30" type="email" required placeholder="Email"
                                 autocomplete="on" />
                             <img src="../assets/fonts/mail.png" alt="">
                         </div>
 
-                        <div class="input-outside2">
-                            <input class="input" id="password" maxlength="30" type="password" required placeholder="Password"
+                        <div class="input-outside2" id="input_outside2">
+                            <input onfocus="inputIsOnFocus(), deleteContent(this)" class="input" id="password" maxlength="30" type="password" required placeholder="Password"
                                 autocomplete="on" />
                             <img src="../assets/fonts/lock.png" alt="">
                         </div>
@@ -69,6 +67,8 @@
 
                 </form>
 
+                <div class="password-notice-login display-none" id="password_notice">Check your email and password. Please try again.</div>
+
             </div>
 
 
@@ -76,7 +76,7 @@
 
                 <button class="log-in-button" form="login_form">Log in</button>
 
-                <button class="guest-log-in-button">Guest Log in</button>
+                <button onclick="guestLoginStart()" class="guest-log-in-button">Guest Log in</button>
 
             </div>
         </div>
@@ -88,7 +88,6 @@
             <span>Legal notice</span>
 
         </div>
-
 
 
     </div>

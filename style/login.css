@@ -166,6 +166,7 @@ input:-webkit-autofill:active{
 .guest-log-in-button:hover {
     border: 1px solid #29ABE2;
     color: #29ABE2;
+    box-shadow: 0 6px 2px -2px rgba(0 0 0 / 0.2);
 }
 
 .log-in-checkbox {
@@ -202,6 +203,7 @@ input:-webkit-autofill:active{
 .sign-up-button:hover,
 .log-in-button:hover {
     background-color: #29ABE2;
+    box-shadow: 0 6px 2px -2px rgba(0 0 0 / 0.2);
 }
 
 .policy-notice-div {
@@ -224,4 +226,14 @@ input:-webkit-autofill:active{
 .policy-notice-div span:hover {
     font-weight: bold;
     color: #29ABE2;
+}
+
+.password-notice-login {
+    position: absolute;
+    left: 114px;
+    bottom: 172px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #FF8190;
+    font-family: "Poppins", sans-serif;
 }
