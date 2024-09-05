@@ -1,0 +1,96 @@
+aside {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #2A3647;
+    width: 232px;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+.aside-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 32px 0px 32px 0px;
+}
+
+.aside-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 20px;
+    width: 232px;
+}
+
+.menu-table {
+    color: #CDCDCD;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px 15px;
+}
+
+.menu-table td {
+    padding: 8px 0px 8px 0px;
+    cursor: pointer;
+
+}
+
+.menu-table td:first-child {
+    text-align: right;
+    padding-right: 16px;
+}
+
+
+.menu-table tr:hover {
+    background-color: #2A3D59;
+    color: white;
+}
+
+
+.menu-table tr:hover .menu-icon {
+    filter: brightness(0) invert(1);
+}
+
+.legal-div {
+    display: flex;
+    flex-direction: column;
+    color: #CDCDCD;
+    width: 100%;
+    justify-content: center;
+    cursor: pointer;
+    gap: 12px;
+}
+
+.legal-hover {
+    width: 100%;
+    text-align: center;
+    padding: 8px 0px 8px 0px;
+}
+
+.legal-hover:hover {
+    font-weight: 700;
+    color: #29ABE2;
+}
+
+.top-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 56px;
+    width: 100%;
+}
