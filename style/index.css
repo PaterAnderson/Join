@@ -2,6 +2,7 @@
 body {
     background-color: #f5f6f7ff;
     margin: 0;
+<<<<<<< HEAD
     height: 100vh;
 }
 
@@ -10,6 +11,8 @@ body {
     height: 836px;
     overflow: hidden;
     position: relative;
+=======
+>>>>>>> 2f9957436fe2b9dd22ba19f8be3657b9dcb5198d
 }
 
 .capa {
@@ -32,6 +35,9 @@ body {
 .display-none {
     display: none;
 }
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 2f9957436fe2b9dd22ba19f8be3657b9dcb5198d

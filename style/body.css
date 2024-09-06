@@ -1,0 +1,36 @@
+body {
+    display: flex;
+    background-color: #f5f6f7;
+   justify-content: center;
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+}
+
+main {
+    max-width: 1440px;
+    outline: 2px solid black;
+    outline-offset: -2px;
+    width: calc(100% - 232px);
+    padding-left: 252px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+main::-webkit-scrollbar {
+    width: 4px; /* Macht die Scrollbar extrem dünn */
+}
+
+
+.title{
+    margin-top: 222px;
+}
