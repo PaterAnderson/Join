@@ -5,6 +5,15 @@ body {
     margin: 0;
 }
 
+.capa {
+    width: 274px;
+    height: 334px;
+    position: absolute;
+    left: calc((100% / 2) - (274px / 2));
+    top: calc((100% / 2) - (334px / 2));
+    transition: all 1s;
+}
+
 .capa2 {
     position: absolute;
     width: 100px;

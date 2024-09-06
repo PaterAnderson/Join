@@ -3,6 +3,34 @@
     src: url('../assets/fonts/Poppins/poppins_regular.ttf') format('truetype');
 }
 
+.overlay {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+    position: absolute;
+    z-index: 1;
+}
+
+.success {
+    width: 312px;
+    height: 74px;
+    background-color: #2A3647;
+    color: #FFFFFF;
+    border-radius: 20px;
+    font-weight: 400;
+    font-size: 20px;
+    position: absolute;
+    z-index: 2;
+    left: calc((100% / 2) - 156px);
+    bottom: -80px;
+    transition: all 0.4s;
+}
+
+.success2 {
+    bottom: calc((100% / 2) - 37px);
+}
+
 .register-sign-up-div {
     width: 598px;
     height: 630px;
@@ -37,6 +65,10 @@
     border-radius: 10px;
     margin-bottom: 24px;
     justify-content: space-between;
+}
+
+.input-outside3:has(.input:focus) {
+    border: 1px solid #29ABE2;
 }
 
 .input-outside2,
@@ -90,6 +122,11 @@
     border: none;
 }
 
+.register-sign-up-button:hover {
+    box-shadow: 0 6px 2px -2px rgba(0 0 0 / 0.2);
+    background-color: #29ABE2;
+}
+
 .arrow-left {
     position: absolute;
     width: 32px;
@@ -102,7 +139,7 @@
 
 .arrow-left:hover {
     scale: 1.1;
-    background-color: #f5f6f7ff;
+    background-color: rgba(0 0 0 / 0.08);
 }
 
 .password-notice {
