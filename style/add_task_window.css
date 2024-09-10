@@ -1,7 +1,8 @@
-.fenster {
+.window {
     width: 1208px;
     height: 928px;
     position: relative;
+    background-color: #f5f6f7ff;
 
     border: 1px solid;
 }
@@ -20,8 +21,6 @@
     top: 110px;
     font-weight: 700;
     font-size: 61px;
-
-    border: 1px solid;
 }
 
 .title-description {
@@ -33,8 +32,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    border: 1px solid;
 }
 
 .field-required {
@@ -45,6 +42,8 @@
     top: 830px;
     font-weight: 400;
     font-size: 16px;
+    color: black;
+    display: flex;
 }
 
 .due-prio {
@@ -56,8 +55,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    border: 1px solid;
 }
 
 .separator {
@@ -100,6 +97,11 @@
     color: #FFFFFF;
     font-weight: 700;
     font-size: 21px;
+    border: none;
+}
+
+.create-task svg {
+    margin-left: 9px;
 }
 
 .clear:hover {
@@ -116,27 +118,369 @@
 .title {
     width: 440px;
     height: 96px;
+    position: relative;
+}
 
-    border: 1px solid;
+.input-title::placeholder {
+    color: #D1D1D1;
+}
+
+.required {
+    position: absolute;
+    left: 0px;
+    bottom: -2px;
 }
 
 .description {
     width: 440px;
     height: 168px;
-
-    border: 1px solid;
 }
 
 .assigned {
     width: 440px;
     height: 80px;
+}
 
-    border: 1px solid;
+.input-due-date {
+    margin-left: 16px;
+    width: 119px;
+    height: 24px;
+    color: black;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.due-date-icon {
+    width: 18px;
+    height: 20px;
+    position: absolute;
+    right: 16px;
+    top: 14px;
 }
 
 .prio {
     width: 440px;
     height: 88px;
+}
 
-    border: 1px solid;
+.prio-buttons {
+    width: 440px;
+    height: 56px;
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.prio-button1 {
+    cursor: pointer;
+    width: 136px;
+    height: 56px;
+    border-radius: 10px;
+}
+
+.prio-button1:is(.white-bg):hover {
+    box-shadow: 0 4px 5px 1px rgba(0, 0, 0, 0.25);
+}
+
+.prio-button2:is(.white-bg):hover {
+    box-shadow: 0 4px 5px 1px rgba(0, 0, 0, 0.25);
+}
+
+.prio-button3:is(.white-bg):hover {
+    box-shadow: 0 4px 5px 1px rgba(0, 0, 0, 0.25);
+}
+
+.white-bg {
+    background: #FFFFFF;
+    color: black;
+}
+
+.low-bg {
+    background: #7AE229;
+    color: #FFFFFF;
+}
+
+.medium-bg {
+    background: #FFA800;
+    color: #FFFFFF;
+}
+
+.urgent-bg {
+    background: #FF3D00;
+    color: #FFFFFF;
+}
+
+.prio-button2 {
+    cursor: pointer;
+    width: 136px;
+    height: 56px;
+    border-radius: 10px;
+}
+
+.prio-button3 {
+    cursor: pointer;
+    width: 136px;
+    height: 56px;
+    border-radius: 10px;
+}
+
+.font1 {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.font2 {
+    font-weight: 400;
+    font-size: 12px;
+    color: #FF8190;
+}
+
+.input-outside3 {
+    display: flex;
+    align-items: center;
+    width: 440px;
+    height: 47px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    margin-bottom: 24px;
+    justify-content: space-between;
+    margin-top: 8px;
+    background-color: #FFFFFF;
+    position: relative;
+}
+
+.input-outside3:has(input:focus) {
+    border: 1px solid #29ABE2;
+}
+
+.input-add-task {
+    width: inherit;
+    height: 24px;
+    border: none;
+    margin: 0px 45px 0px 16px;
+    font-size: 20px;
+    font-weight: 400;
+    background-color: #FFFFFF;
+    outline: none;
+    color: black;
+    cursor: pointer;
+}
+
+.input-assigned-to::placeholder {
+    color: black;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #D1D1D1;
+}
+
+.text-area-div {
+    width: 440px;
+    height: 120px;
+    border: 1px solid #D1D1D1;
+    margin-top: 8px;
+    position: relative;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
+
+.text-area-div:has(textarea:focus) {
+    border: 1px solid #29ABE2;
+}
+
+.text-area-div img {
+    width: 19px;
+    height: 19px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.text-area {
+    width: 404px;
+    height: 88px;
+    font-weight: 400;
+    font-size: 21px;
+    outline: none;
+    border: none;
+    box-shadow: 0 0 0 1px transparent;
+    resize: none;
+    scrollbar-width: thin;
+    background-color: #FFFFFF;
+    scrollbar-color: #A8A8A8 #f5f6f7ff;
+}
+
+.assigned-input {
+    width: 440px;
+    height: 48px;
+    background-color: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+}
+
+.assigned-input-hover:hover {
+    border: 1px solid #A8A8A8;
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.list-of-contacts-outside {
+    width: 441px;
+    height: 240px;
+    transform: translateY(-45px);
+    overflow: hidden;
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-radius: 10px;
+}
+
+.list-of-contacts {
+    width: 441px;
+    height: 202px;
+    transform: translateY(-204px);
+    border-radius: 0 0 10px 10px;
+    background-color: #FFFFFF;
+    transition: transform 0.2s ease-in-out;
+    overflow-y: auto;
+}
+
+
+.list-of-contacts::-webkit-scrollbar-track {
+
+
+    margin-top: 20px;
+
+}
+
+
+
+
+.list-of-contacts2 {
+    transform: translateY(0px);
+
+
+    box-shadow: 0px 0px 14px 3px rgba(0 0 0 / 0.1);
+}
+
+.div-contact {
+    min-width: 420px;
+    height: max-content;
+    margin-bottom: 16px;
+    margin-top: 17px;
+}
+
+.initials-and-name-div {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 3px;
+}
+
+.initials-and-name-div:hover {
+    background-color: #edededff;
+}
+
+.initials-and-name-div:is(.checked):hover {
+    background-color: #091931;
+}
+
+.initials-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: white;
+    font-weight: 400;
+    font-size: 12px;
+    border: 2px solid white;
+    margin-right: 16px;
+}
+
+.contact-checkbox {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+}
+
+.checked {
+    background: #2A3647;
+    color: white
+}
+
+.circles-contacts-div {
+    width: auto;
+    height: 42px;
+    position: absolute;
+    left: 96px;
+    bottom: 267px;
+    display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.assigned-input:has(input:focus) {
+    border: 1px solid #29ABE2;
+}
+
+.arrow-div {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    position: absolute;
+    right: 13px;
+    top: 12px;
+    border-radius: 50%;
+}
+
+.arrow-div:hover {
+    background-color: rgba(0 0 0 / 0.08);
+}
+
+.assigned-input img {
+    width: 7px;
+    height: 5px;
+}
+
+.category-z {
+    z-index: 3;
+}
+
+.category-z:hover {
+    border: 1px solid #A8A8A8;
 }
