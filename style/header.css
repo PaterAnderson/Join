@@ -26,11 +26,27 @@ header {
     gap: 16px;
 }
 
+.header-profile svg{
+    cursor: pointer;
+}
+
 .user-icon{
     width: 56px;
     height: 56px;
-    border: 3px black solid;
+    border: 3px #2A3647 solid;
     border-radius: 200px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: #29ABE2;
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+}
+
+.user-icon:hover{
+    background-color: #0C2E621F;
 }
 
 .header-content{
@@ -42,3 +58,53 @@ header {
     max-width: 1440px;
     padding: 20px 40px 20px 256px;
 }
+
+.user-icon-menu {
+    width: 150px;
+    height: 204px;
+    position: absolute;
+    background-color: #2A3647;
+    margin-top: 302px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
+    transform: translateX(-20%);
+    align-items: center;
+}
+
+.user-icon-menu-nav:hover{
+    background-color: #2A3D59;
+}
+
+.user-icon-menu-text {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+    color: #CDCDCD;
+}
+
+.user-icon-menu-nav{
+   padding: 8px 16px 8px 16px;
+   cursor: pointer;
+}
+
+.user-icon-menu-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.d-none{
+    display: none;
+}
+
+.icon-color-after-click{
+    background-color: #0C2E621F;
+}
+

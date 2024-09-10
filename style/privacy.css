@@ -15,3 +15,27 @@
 .privacy-text li{
     padding: 6px 0px 6px 0px;
 }
+
+.help-list li{
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 32.4px;
+    text-align: left;
+    color: rgba(0, 0, 0, 1);
+    padding-left: 22px;
+}
+
+.help-list a{
+    color: #29ABE2;
+}
+
+.list-heading{
+    font-weight: bold;
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 32.4px;
+    text-align: left;
+}

@@ -9,20 +9,246 @@
     <link rel="stylesheet" href="../style/aside.css">
     <link rel="stylesheet" href="../style/header.css">
     <script src="../script/menu.js"></script>
+    <script src="../script/header.js"></script>
+    <script src="../script/board.js"></script>
     <title>Join</title>
 </head>
+<style>
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .search-bar {
+        display: flex;
+        gap: 32px;
+    }
+
+    .add-task-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 4px;
+        height: 48px;
+        font-family: "Inter", sans-serif;
+        font-size: 21px;
+        font-weight: 700;
+        line-height: 25.2px;
+        text-align: left;
+        color: white;
+        border-radius: 10px;
+        background-color: #2A3647;
+        border: none;
+        padding: 8px 16px 8px 16px;
+        cursor: pointer;
+    }
+
+    .add-task-button:hover {
+        background-color: #29ABE2;
+        box-shadow: 0px 4px 4px 0px #00000040;
+        border: none;
+    }
+
+    .search-input {
+        width: 180px;
+        height: 24px;
+        border: none;
+        font-family: "Inter", sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 24px;
+        text-align: left;
+        padding-left: 22px;
+    }
+
+    .search-input:focus {
+        outline: none;
+    }
+
+    .search-field:has(.search-input:focus) {
+        border: 1px solid #29ABE2;
+    }
+
+    .search-field {
+        width: 312px;
+        border-radius: 10px;
+        border: 1px solid #A8A8A8;
+        display: flex;
+        align-items: center;
+        background-color: white;
+        justify-content: space-between;
+    }
+
+    .search-icon {
+        cursor: pointer;
+    }
+
+    .search-background {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 24px;
+        width: 24px;
+        margin-right: 18px;
+        margin-left: 18px;
+    }
+
+    .search-background:hover {
+        background-color: #D1D1D1;
+        border-radius: 200px;
+    }
+
+    @media (max-width: 1000px) {
+        .title {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 22px;
+        }
+
+        .kanban-subtitle {
+            max-width: 55px;
+
+        }
+    }
+
+    .kanban-board {
+        display: flex;
+        flex-direction: column;
+        width: 246px;
+    }
+
+    .kanban-wrapper {
+        display: flex;
+        flex-direction: row;
+        padding-top: 48px;
+        gap: 24px;
+    }
+
+    .kanban-title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .kanban-subtitle {
+        font-family: "Inter", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 24px;
+        text-align: left;
+        color: #42526E;
+        display: flex;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .add-task-board {
+        stroke: #2A3647;
+        cursor: pointer;
+    }
+
+    .add-task-board:hover {
+        stroke: #29ABE2;
+    }
+
+    .kanban-card-board {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding-top: 24px;
+    }
+
+    .no-task-in-kanban {
+        width: 100%;
+        height: 48px;
+        background-color: #E7E7E7;
+        border-radius: 10px;
+        border: 1px dashed #A8A8A8;
+        box-shadow: 0px 0px 4px 0px #00000029;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19.2px;
+        text-align: left;
+        color: #A8A8A8;
+    }
+
+    .overlay-board {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.30);
+        z-index: 1000;
+    }
+
+    .overlay-add-task {
+        width: 95%;
+        height: 95%;
+        border-radius: 30px;
+        box-shadow: 0px 0px 4px 0px #0000001A;
+        background-color: white;
+        max-width: 1116px;
+        max-height: 870px;
+        margin-top: 88px;
+        position: fixed;
+        transition: right 1s ease-in-out;
+        top: 50%;
+        right: -100%;
+        transform: translateY(-50%);
+    }
+
+    .overlay-add-task-transition {
+        right: 50%;
+        transform: translate(50%, -60%);
+    }
+
+    .display-none-board {
+        display: none;
+    }
+</style>
 
 <body onload="init()">
+    <div id="overlay-board" class="overlay-board">
+        <div id="overlay-add-task" class="overlay-add-task"></div>
+    </div>
     <header>
         <div class="header-content">
             <div class="header-title ui-p">Kanban Project Management Tool</div>
             <div class="header-profile">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M9.95 16C10.3 16 10.5958 15.8792 10.8375 15.6375C11.0792 15.3958 11.2 15.1 11.2 14.75C11.2 14.4 11.0792 14.1042 10.8375 13.8625C10.5958 13.6208 10.3 13.5 9.95 13.5C9.6 13.5 9.30417 13.6208 9.0625 13.8625C8.82083 14.1042 8.7 14.4 8.7 14.75C8.7 15.1 8.82083 15.3958 9.0625 15.6375C9.30417 15.8792 9.6 16 9.95 16ZM10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10C20 11.3833 19.7375 12.6833 19.2125 13.9C18.6875 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6875 13.9 19.2125C12.6833 19.7375 11.3833 20 10 20ZM10 18C12.2333 18 14.125 17.225 15.675 15.675C17.225 14.125 18 12.2333 18 10C18 7.76667 17.225 5.875 15.675 4.325C14.125 2.775 12.2333 2 10 2C7.76667 2 5.875 2.775 4.325 4.325C2.775 5.875 2 7.76667 2 10C2 12.2333 2.775 14.125 4.325 15.675C5.875 17.225 7.76667 18 10 18ZM10.1 5.7C10.5167 5.7 10.8792 5.83333 11.1875 6.1C11.4958 6.36667 11.65 6.7 11.65 7.1C11.65 7.46667 11.5375 7.79167 11.3125 8.075C11.0875 8.35833 10.8333 8.625 10.55 8.875C10.1667 9.20833 9.82917 9.575 9.5375 9.975C9.24583 10.375 9.1 10.825 9.1 11.325C9.1 11.5583 9.1875 11.7542 9.3625 11.9125C9.5375 12.0708 9.74167 12.15 9.975 12.15C10.225 12.15 10.4375 12.0667 10.6125 11.9C10.7875 11.7333 10.9 11.525 10.95 11.275C11.0167 10.925 11.1667 10.6125 11.4 10.3375C11.6333 10.0625 11.8833 9.8 12.15 9.55C12.5333 9.18333 12.8625 8.78333 13.1375 8.35C13.4125 7.91667 13.55 7.43333 13.55 6.9C13.55 6.05 13.2042 5.35417 12.5125 4.8125C11.8208 4.27083 11.0167 4 10.1 4C9.46667 4 8.8625 4.13333 8.2875 4.4C7.7125 4.66667 7.275 5.075 6.975 5.625C6.85833 5.825 6.82083 6.0375 6.8625 6.2625C6.90417 6.4875 7.01667 6.65833 7.2 6.775C7.43333 6.90833 7.675 6.95 7.925 6.9C8.175 6.85 8.38333 6.70833 8.55 6.475C8.73333 6.225 8.9625 6.03333 9.2375 5.9C9.5125 5.76667 9.8 5.7 10.1 5.7Z"
-                        fill="#A8A8A8" />
-                </svg>
-                <div class="user-icon"></div>
+                <a href="help.html" target="_blank"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9.95 16C10.3 16 10.5958 15.8792 10.8375 15.6375C11.0792 15.3958 11.2 15.1 11.2 14.75C11.2 14.4 11.0792 14.1042 10.8375 13.8625C10.5958 13.6208 10.3 13.5 9.95 13.5C9.6 13.5 9.30417 13.6208 9.0625 13.8625C8.82083 14.1042 8.7 14.4 8.7 14.75C8.7 15.1 8.82083 15.3958 9.0625 15.6375C9.30417 15.8792 9.6 16 9.95 16ZM10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10C20 11.3833 19.7375 12.6833 19.2125 13.9C18.6875 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6875 13.9 19.2125C12.6833 19.7375 11.3833 20 10 20ZM10 18C12.2333 18 14.125 17.225 15.675 15.675C17.225 14.125 18 12.2333 18 10C18 7.76667 17.225 5.875 15.675 4.325C14.125 2.775 12.2333 2 10 2C7.76667 2 5.875 2.775 4.325 4.325C2.775 5.875 2 7.76667 2 10C2 12.2333 2.775 14.125 4.325 15.675C5.875 17.225 7.76667 18 10 18ZM10.1 5.7C10.5167 5.7 10.8792 5.83333 11.1875 6.1C11.4958 6.36667 11.65 6.7 11.65 7.1C11.65 7.46667 11.5375 7.79167 11.3125 8.075C11.0875 8.35833 10.8333 8.625 10.55 8.875C10.1667 9.20833 9.82917 9.575 9.5375 9.975C9.24583 10.375 9.1 10.825 9.1 11.325C9.1 11.5583 9.1875 11.7542 9.3625 11.9125C9.5375 12.0708 9.74167 12.15 9.975 12.15C10.225 12.15 10.4375 12.0667 10.6125 11.9C10.7875 11.7333 10.9 11.525 10.95 11.275C11.0167 10.925 11.1667 10.6125 11.4 10.3375C11.6333 10.0625 11.8833 9.8 12.15 9.55C12.5333 9.18333 12.8625 8.78333 13.1375 8.35C13.4125 7.91667 13.55 7.43333 13.55 6.9C13.55 6.05 13.2042 5.35417 12.5125 4.8125C11.8208 4.27083 11.0167 4 10.1 4C9.46667 4 8.8625 4.13333 8.2875 4.4C7.7125 4.66667 7.275 5.075 6.975 5.625C6.85833 5.825 6.82083 6.0375 6.8625 6.2625C6.90417 6.4875 7.01667 6.65833 7.2 6.775C7.43333 6.90833 7.675 6.95 7.925 6.9C8.175 6.85 8.38333 6.70833 8.55 6.475C8.73333 6.225 8.9625 6.03333 9.2375 5.9C9.5125 5.76667 9.8 5.7 10.1 5.7Z"
+                            fill="#A8A8A8" />
+                    </svg></a>
+                <div id="user-icon" class="user-icon" onclick="openUserMenu()"></div>
+                <div id="user-nav" class="user-icon-menu user-icon-menu-text d-none">
+                    <div class="user-icon-menu-wrapper">
+                        <a href="help.html" target="_blank">
+                            <div class="user-icon-menu-nav">Help</div>
+                        </a>
+                        <a href="legal_notice.html" target="_blank">
+                            <div class="user-icon-menu-nav">Legal Notice</div>
+                        </a>
+                        <a href="privacy_policy.html" target="_blank">
+                            <div class="user-icon-menu-nav">Privacy Policy</div>
+                        </a>
+                        <a href="login.html">
+                            <div class="user-icon-menu-nav">Log out</div>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -93,12 +319,107 @@
                 </div>
             </div>
             <div class="legal-div text-body">
-                <a href="privacy_policy.html" target="_blank"><div class="legal-hover">Privacy Policy</div></a>
-                 <a href="legal_notice.html" target="_blank"><div  class="legal-hover">
-                     Legal notice</div></a>
-             </div>
+                <a href="privacy_policy.html" target="_blank">
+                    <div class="legal-hover">Privacy Policy</div>
+                </a>
+                <a href="legal_notice.html" target="_blank">
+                    <div class="legal-hover">
+                        Legal notice</div>
+                </a>
+            </div>
         </div>
     </aside>
-    <main></main>
+    <main>
+        <div class="title">
+            <div class="heading-1">Board</div>
+            <div class="search-bar">
+                <div class="search-field">
+                    <input type="text" max="20" class="search-input" placeholder="Find Task">
+                    <svg width="2" height="32" viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 0.5V31.5" stroke="#D1D1D1" />
+                    </svg>
+                    <div class="search-background">
+                        <svg class="search-icon" width="18px" height="18px" viewBox="0 0 18 18" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.71181 13.2137C4.89463 13.2137 3.35669 12.5843 2.098 11.3256C0.839307 10.0669 0.209961 8.52899 0.209961 6.71181C0.209961 4.89463 0.839307 3.35669 2.098 2.098C3.35669 0.839307 4.89463 0.209961 6.71181 0.209961C8.52899 0.209961 10.0669 0.839307 11.3256 2.098C12.5843 3.35669 13.2137 4.89463 13.2137 6.71181C13.2137 7.44535 13.097 8.13721 12.8636 8.7874C12.6302 9.43758 12.3134 10.0127 11.9133 10.5129L17.5149 16.1145C17.6983 16.2979 17.79 16.5313 17.79 16.8147C17.79 17.0981 17.6983 17.3315 17.5149 17.5149C17.3315 17.6983 17.0981 17.79 16.8147 17.79C16.5313 17.79 16.2979 17.6983 16.1145 17.5149L10.5129 11.9133C10.0127 12.3134 9.43758 12.6302 8.7874 12.8636C8.13721 13.097 7.44535 13.2137 6.71181 13.2137ZM6.71181 11.2131C7.96217 11.2131 9.02497 10.7755 9.90022 9.90022C10.7755 9.02497 11.2131 7.96217 11.2131 6.71181C11.2131 5.46145 10.7755 4.39865 9.90022 3.5234C9.02497 2.64815 7.96217 2.21053 6.71181 2.21053C5.46145 2.21053 4.39865 2.64815 3.5234 3.5234C2.64815 4.39865 2.21053 5.46145 2.21053 6.71181C2.21053 7.96217 2.64815 9.02497 3.5234 9.90022C4.39865 10.7755 5.46145 11.2131 6.71181 11.2131Z"
+                                fill="#2A3647" />
+                        </svg>
+                    </div>
+                </div>
+
+                <button onclick="addTaskBoardOverlayToggle()" class="add-task-button">Add task <svg width="20"
+                        height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8.66602 11.3327H0.666016V8.66602H8.66602V0.666016H11.3327V8.66602H19.3327V11.3327H11.3327V19.3327H8.66602V11.3327Z"
+                            fill="white" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="kanban-wrapper">
+            <div class="kanban-board">
+                <div class="kanban-title">
+                    <div class="kanban-subtitle">To do</div>
+                    <div><svg class="add-task-board" width="24" height="25" viewBox="0 0 24 25" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1.5" width="22px" height="22px" rx="7" stroke-width="2" />
+                            <path d="M12 8.5V16.5" stroke-width="2" stroke-linecap="round" />
+                            <path d="M16 12.5754L8 12.5754" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="kanban-card-board">
+                    <div class="no-task-in-kanban">No tasks To do</div>
+                </div>
+            </div>
+            <div class="kanban-board">
+                <div class="kanban-title">
+                    <div class="kanban-subtitle">In progress</div>
+                    <div><svg class="add-task-board" width="24" height="25" viewBox="0 0 24 25" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1.5" width="22px" height="22px" rx="7" stroke-width="2" />
+                            <path d="M12 8.5V16.5" stroke-width="2" stroke-linecap="round" />
+                            <path d="M16 12.5754L8 12.5754" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="kanban-card-board">
+                    <div class="no-task-in-kanban">No tasks To do</div>
+                </div>
+            </div>
+            <div class="kanban-board">
+                <div class="kanban-title">
+                    <div class="kanban-subtitle">Await feedback</div>
+                    <div><svg class="add-task-board" width="24" height="25" viewBox="0 0 24 25" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1.5" width="22px" height="22px" rx="7" stroke-width="2" />
+                            <path d="M12 8.5V16.5" stroke-width="2" stroke-linecap="round" />
+                            <path d="M16 12.5754L8 12.5754" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="kanban-card-board">
+                    <div class="no-task-in-kanban">No tasks To do</div>
+                </div>
+            </div>
+            <div class="kanban-board">
+                <div class="kanban-title" style="padding-top: 5px;">
+                    <div class="kanban-subtitle">Done</div>
+                    <div>
+                    </div>
+                </div>
+                <div class="kanban-card-board">
+                    <div class="no-task-in-kanban">No tasks To do</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        function addTaskBoardOverlayToggle() {
+            document.getElementById('overlay-add-task').classList.toggle('overlay-add-task-transition')
+        }
+    </script>
 </body>
+
 </html>

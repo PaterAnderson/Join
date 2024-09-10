@@ -1,5 +1,5 @@
 function init(){
-    
+    userIconName()
 }
 
 function goToLink(url) {
