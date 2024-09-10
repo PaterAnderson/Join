@@ -62,8 +62,6 @@ const fetchAllContactNames = async () => {
 
 
 
-
-
 function openContactsList() {
 
     document.getElementById('contacts_list').placeholder = "";
@@ -682,19 +680,128 @@ function insertCurrentDate() {
     document.getElementById('year').value = year;
 }
 
-function DDMMYYYY(value, event) {
-    let newValue = value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
 
-    const dayOrMonth = (index) => index % 2 === 1 && index < 4;
 
-    // on delete key.  
-    if (!event.data) {
-        return value;
+function handleKeyDown2(event) {
+    const inputElement = event.target;
+    const cursorPos = inputElement.selectionStart;
+    let value = inputElement.value.replace(/[^0-9]/g, ''); // Get only numbers
+
+    // Function to format the value (DD/MM/YYYY)
+    const formatValue = (val) => {
+        if (val.length > 2) val = val.slice(0, 2) + '/' + val.slice(2);
+        if (val.length > 5) val = val.slice(0, 5) + '/' + val.slice(5);
+        return val;
+    };
+
+    if (event.key === 'ArrowLeft') {
+        // Case 1: Left arrow pressed when cursor is in the year field
+        if (cursorPos > 5 && cursorPos <= 10) {
+            value = value.slice(0, 4); // Remove the year portion and preceding '/'
+            inputElement.value = formatValue(value);
+            setTimeout(() => inputElement.setSelectionRange(5, 5), 0); // Move cursor to end of month input
+            event.preventDefault();
+        }
+
+        // Case 2: Left arrow pressed when cursor is in the month field
+        else if (cursorPos > 2 && cursorPos <= 5) {
+            value = value.slice(0, 2); // Remove the month portion and preceding '/'
+            inputElement.value = formatValue(value);
+            setTimeout(() => inputElement.setSelectionRange(2, 2), 0); // Move cursor to end of day input
+            event.preventDefault();
+        }
+
+        // Case 3: Left arrow pressed when cursor is in the day field
+        else if (cursorPos <= 2) {
+            value = ""; // Clear the entire input
+            inputElement.value = formatValue(value);
+            setTimeout(() => inputElement.setSelectionRange(0, 0), 0); // Move cursor to start
+            event.preventDefault();
+        }
     }
-
-    return newValue.split('').map((v, i) => dayOrMonth(i) ? v + '/' : v).join('');;
 }
 
+function handleInput2(event) {
+    const inputElement = event.target;
+    let value = inputElement.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+
+    // Format the value (DD/MM/YYYY)
+    const formatValue = (val) => {
+        if (val.length > 2) val = val.slice(0, 2) + '/' + val.slice(2);
+        if (val.length > 5) val = val.slice(0, 5) + '/' + val.slice(5);
+        return val;
+    };
+
+    inputElement.value = formatValue(value);
+}
+
+
+
+
+function handleKeyDown(event) {
+    const inputElement = event.target;
+    const cursorPos = inputElement.selectionStart;
+    let value = inputElement.value.replace(/[^0-9]/g, ''); // Get only numbers
+
+    // Function to format the value (DD/MM/YYYY)
+    const formatValue = (val) => {
+        if (val.length > 2) val = val.slice(0, 2) + '/' + val.slice(2);
+        if (val.length > 5) val = val.slice(0, 5) + '/' + val.slice(5);
+        return val;
+    };
+
+    if (event.key === 'ArrowLeft') {
+        // Case 1: Left arrow pressed when cursor is in the year field
+        if (cursorPos > 5 && cursorPos <= 10) {
+            value = value.slice(0, 4); // Remove the year portion and preceding '/'
+            inputElement.value = formatValue(value);
+            setTimeout(() => inputElement.setSelectionRange(5, 5), 0); // Move cursor to end of month input
+            event.preventDefault();
+        }
+
+        // Case 2: Left arrow pressed when cursor is in the month field
+        else if (cursorPos > 2 && cursorPos <= 5) {
+            value = value.slice(0, 2); // Remove the month portion and preceding '/'
+            inputElement.value = formatValue(value);
+            setTimeout(() => inputElement.setSelectionRange(2, 2), 0); // Move cursor to end of day input
+            event.preventDefault();
+        }
+
+        // Case 3: Left arrow pressed when cursor is in the day field
+        else if (cursorPos <= 2) {
+            value = ""; // Clear the entire input
+            inputElement.value = formatValue(value);
+            setTimeout(() => inputElement.setSelectionRange(0, 0), 0); // Move cursor to start
+            event.preventDefault();
+        }
+    }
+}
+
+// This function moves the cursor to the end of the input after any input changes
+function handleInput(event) {
+    const inputElement = event.target;
+    let value = inputElement.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+
+    // Format the value (DD/MM/YYYY)
+    const formatValue = (val) => {
+        if (val.length > 2) val = val.slice(0, 2) + '/' + val.slice(2);
+        if (val.length > 5) val = val.slice(0, 5) + '/' + val.slice(5);
+        return val;
+    };
+
+    inputElement.value = formatValue(value);
+
+    // Move cursor to the end of input after formatting
+    setTimeout(() => inputElement.setSelectionRange(inputElement.value.length, inputElement.value.length), 0);
+}
+
+// This function ensures the cursor always moves to the end of the input when clicking inside the field
+function moveCursorToEnd(event) {
+    const inputElement = event.target;
+
+    // Set cursor position to the end of the input
+    setTimeout(() => inputElement.setSelectionRange(inputElement.value.length, inputElement.value.length), 0);
+}
 
 
 

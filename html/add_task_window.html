@@ -54,10 +54,12 @@
 
                 <div class="assigned font1"><span style="color: #2A3647;">Assigned to</span>
 
-                    <div class="assigned-input assigned-input-hover" onclick="openContactsList(), focusInput('contacts_list'), stopProp(event)">
+                    <div class="assigned-input assigned-input-hover"
+                        onclick="openContactsList(), focusInput('contacts_list'), stopProp(event)">
 
-                        <input oninput="searchContacts()" onfocus="openContactsList()" class="input-add-task input-assigned-to" id="contacts_list"
-                            maxlength="30" type="name" placeholder="Select contacts to assign" autocomplete="off" />
+                        <input oninput="searchContacts()" onfocus="openContactsList()"
+                            class="input-add-task input-assigned-to" id="contacts_list" maxlength="30" type="name"
+                            placeholder="Select contacts to assign" autocomplete="off" />
 
                         <div class="arrow-div for-center" onclick="toggleShowContacts(), stopProp(event)">
                             <img id="assign_arrow" src="../assets/icons/arrow_drop_down.png" alt="">
@@ -94,8 +96,14 @@
                     <div onclick="focusInput('input_due_date'); stopProp(event)" class="input-outside3 font1"
                         id="input_border1" style="cursor: pointer;">
 
-                        <input id="input_due_date" class="input-due-date font1" type="tel" maxlength="10"
-                            placeholder="dd/mm/yyyy" oninput="this.value = DDMMYYYY(this.value, event)" />
+                        <!--   <input id="input_due_date" class="input-due-date font1" type="tel" maxlength="10"
+                            placeholder="dd/mm/yyyy" oninput="this.value = DDMMYYYY(this.value, event)" autocomplete="off" />    -->
+
+
+                        <input type="tel" class="input-due-date font1" id="input_due_date" onkeydown="handleKeyDown(event)"
+                            oninput="handleInput(event)" autocomplete"off" placeholder="dd/mm/yyyy" maxlength="10" onclick="moveCursorToEnd(event)">
+
+
 
 
                         <img class="due-date-icon" src="../assets/icons/due_date_icon.png" alt="">
