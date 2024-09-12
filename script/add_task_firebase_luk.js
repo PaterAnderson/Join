@@ -1,4 +1,4 @@
-const BASE_URL = "https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/";
+const BASE_URL = "https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/guest";
 
 const kontakte = [
     { name: "Anna Müller", email: "anna.mueller@example.com", telefonnummer: "123456789" },
@@ -11,13 +11,15 @@ const kontakte = [
     { name: "Tom Schäfer", email: "tom.schaefer@example.com", telefonnummer: "951753654" },
     { name: "Emma Bauer", email: "emma.bauer@example.com", telefonnummer: "357951456" },
     { name: "Jan Richter", email: "jan.richter@example.com", telefonnummer: "159357852" },
-    { name: "Lukasz Szymczak", email: "lukas@example.com", telefonnummer: "159357852" }
+    { name: "Lukasz Szymczak", email: "lukas@example.com", telefonnummer: "159357852" },
+    { name: "Max Schmied", email: "max@example.com", telefonnummer: "153457852" },
+    { name: "Max Schmied", email: "max2@example.com", telefonnummer: "153457852" }
 ];
 
 const farben = [
     "#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", 
     "#1FD7C1", "#FFC701", "#0038FF", "#C3FF2B", "#FF4646",
-    "#FF745E"
+    "#FF745E", "#FFA35E"
 ];
 
 // Funktion, um einen Kontakt in Firebase zu erstellen
@@ -32,7 +34,7 @@ const erstelleKontakt = async (kontakt, farbe) => {
     };
 
     try {
-        const response = await fetch(`${BASE_URL}/kontakte/${kontaktPfad}.json`, {
+        const response = await fetch(`${BASE_URL}/contacts/${kontaktPfad}.json`, {
             method: "PUT",  // Verwendung von PUT, um einen bestimmten Pfad zu erstellen/aktualisieren
             headers: {
                 "Content-Type": "application/json"
@@ -65,19 +67,11 @@ const erstelleKontakteMitFarben = () => {
 
 
 
-
-
-
-
-
-
-
-
 const deleteKontakt = async (name) => {
     const kontaktPfad = encodeURIComponent(name); // Kodiert den Namen für die URL
 
     try {
-        const response = await fetch(`${BASE_URL}/kontakte/${kontaktPfad}.json`, {
+        const response = await fetch(`${BASE_URL}/contacts/${kontaktPfad}.json`, {
             method: "DELETE" // Verwendet die DELETE-Methode, um den Kontakt zu löschen
         });
 
@@ -99,4 +93,46 @@ const deleteKontakt = async (name) => {
 
 
 
+
+
+
+
+
+
+
+
+
+// Funktion, um ein task in Firebase zu erstellen
+const createTaskInFirebase = async (title, description, dueDate) => {
+    const taskPfad = encodeURIComponent(title); // Verwende den gesamten Namen als Pfad und kodiert ihn für URLs
+
+    const taskData = {
+        title: title,
+        description: description,
+        assigned: selectedContacts,
+        date: dueDate,
+        prio: prio,
+        category: selectedCategory,
+        subtasks: subtaskCollection
+    };
+
+    try {
+        const response = await fetch(`${BASE_URL}/tasks/${taskPfad}.json`, {
+            method: "PUT",  // Verwendung von PUT, um einen bestimmten Pfad zu erstellen/aktualisieren
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(taskData)
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(`Task erstellt:`, data);
+        } else {
+            console.error("Fehler beim Erstellen des Tasks:", response.status);
+        }
+    } catch (error) {
+        console.error("Fehler:", error);
+    }
+};
 

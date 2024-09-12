@@ -3,43 +3,64 @@ let toggle1 = false;
 let toggle2 = false;
 let prio = 'medium';
 let selectedCategory = "";
-let numberOfSubtasks = 0;
-let subtask1Text = "";
-let subtask2Text = "";
+
+let maxSelectedSubtasks = 10;
+
+let subtaskCollection = [];
 let selectedContacts = [];
 let allContactNames = [];
+
 let maxSelectedContacts = 5;
+
 let currentNumberOfSelectedContacts = 0;
+let numberOfContactsDropdownMenu = 3;
 
 
+/**
+ * 
+ * function is called at start
+ * 
+ */
 function onloadstart() {
 
     renderContacts()
-
     fetchAllContactNames();
 }
 
+
+/**
+ * 
+ * function is called when clicking on body   
+ * 
+ */
 function bodyOnClick() {
 
     closeContactsList();
     closeCategory();
-
-    onBlurSubtasks();
-
-    closeEditSubtask1();
-    closeEditSubtask2();
+    noEditArea();
 }
 
+
+/**
+ * 
+ * function is called when you click on create task
+ * 
+ */
 function createTaskClick() {
 
-
-    console.log('create task click');
-
+    checkInputsInInputs1();
 }
 
+
+/**
+ * 
+ * fetch all contact names
+ * 
+ */
 const fetchAllContactNames = async () => {
+
     try {
-        const response = await fetch(`${BASE_URL}/kontakte.json`);
+        const response = await fetch(`${BASE_URL}/contacts.json`);
 
         if (!response.ok) {
             console.error("Fehler beim Laden der Kontakte:", response.status);
@@ -60,8 +81,11 @@ const fetchAllContactNames = async () => {
 };
 
 
-
-
+/**
+ * 
+ * function is called when opening the contact list
+ * 
+ */
 function openContactsList() {
 
     document.getElementById('contacts_list').placeholder = "";
@@ -71,8 +95,16 @@ function openContactsList() {
     toggle1 = true;
 
     setTimeout(() => document.getElementById('list_of_contacts_outside').style = "overflow: visible;", 200);
+
+    numberOfContactsDisplayedInDropdownMenu(numberOfContactsDropdownMenu);
 }
 
+
+/**
+ * 
+ * function is called when closing the contact list
+ * 
+ */
 function closeContactsList() {
 
     document.getElementById('contacts_list').placeholder = "Select contacts to assign";
@@ -82,726 +114,129 @@ function closeContactsList() {
     toggle1 = false;
 
     document.getElementById('list_of_contacts_outside').style = "";
+
+    numberOfContactsDisplayedInDropdownMenu(3);
 }
 
+
+/**
+ * 
+ * function is called to close and open alternately
+ * 
+ */
 function toggleShowContacts() {
 
     if (toggle1) { closeContactsList() } else { openContactsList(); focusInput('contacts_list') }
 }
 
 
+/**
+ * function is called to change the size of dropdownmenu
+ * 
+ * @param {number} number 
+ */
+function numberOfContactsDisplayedInDropdownMenu(number) {
 
+    if (number == 1 || number == 0) {
 
+        document.getElementById('list_of_contacts').style = "display: flex; flex-direction: column; justify-content: end; height: 102px; transform: translateY(-104px)";
 
+    } else if (number == 2) {
 
-const renderContacts = async () => {
-
-    try {
-        const response = await fetch(`${BASE_URL}/kontakte.json`);
-
-        if (!response.ok) {
-            console.error("Fehler beim Laden der Kontakte:", response.status);
-            return;
-        }
-
-        const kontakte = await response.json();
-        const container = document.getElementById("contactsContainer"); // Der Container, in dem die Kontakte gerendert werden
-
-        // Bereite das HTML für alle Kontakte vor
-        let htmlContent = "";
-        let index = 1;
-
-        // Kontakte durchlaufen und das HTML zusammenstellen
-        Object.values(kontakte).forEach(kontakt => {
-            // Initialen berechnen (erster Buchstabe des Vornamens und Nachnamens)
-            const initialen = `${kontakt.name.charAt(0)}${kontakt.name.split(' ')[1].charAt(0)}`;
-
-            let addClass = "";
-            let addSrc = "unchecked";
-
-            // Überprüfen, ob der aktuelle Kontakt in allContactNames vorhanden ist und checked auf true steht
-            const matchingContact = allContactNames.find(c => c.name === kontakt.name);
-
-            if (matchingContact && matchingContact.checked) {
-
-                addClass = "checked";
-                addSrc = "checked";
-            }
-
-            // HTML für jeden Kontakt
-            htmlContent += `
-                <div class="initials-and-name-div ${addClass}" onclick="addContactToTask(${index}, '${kontakt.name}', '${kontakt.farbe}'), stopProp(event)" id="initials_and_name_div${index}">
-                    <div style="background-color: ${kontakt.farbe}" class="initials-circle for-center">
-                        ${initialen}
-                    </div>
-                    <div>${kontakt.name}</div>
-                    <img src="../assets/icons/${addSrc}_button_contacts_list.png" class="contact-checkbox" id="contact_checkbox${index}">
-                </div>
-            `;
-
-            index++;
-        });
-
-        // Setze den HTML-Inhalt des Containers
-        container.innerHTML = htmlContent;
-    } catch (error) {
-        console.error("Fehler beim Abrufen der Kontakte:", error);
-    }
-};
-
-
-
-const searchContacts = async () => {
-    const query = document.getElementById("contacts_list").value.trim().toLowerCase();
-
-    if (query.length === 0) {
-        // Wenn die Suchanfrage leer ist, rendere alle Kontakte
-        renderContacts();
-        return;
-    }
-
-    try {
-        const response = await fetch(`${BASE_URL}/kontakte.json`);
-
-        if (!response.ok) {
-            console.error("Fehler beim Laden der Kontakte:", response.status);
-            return;
-        }
-
-        const kontakte = await response.json();
-        const container = document.getElementById("contactsContainer");
-
-        // Filtere Kontakte nach Suchbegriff
-        const filteredContacts = Object.values(kontakte).filter(kontakt =>
-            kontakt.name.toLowerCase().includes(query)
-        );
-
-        // Bereite das HTML für die gefilterten Kontakte vor
-        let htmlContent = "";
-        let index = 1;
-
-        filteredContacts.forEach(kontakt => {
-            const initialen = `${kontakt.name.charAt(0)}${kontakt.name.split(' ')[1].charAt(0)}`;
-
-            let addClass = "";
-            let addSrc = "unchecked";
-
-            // Überprüfen, ob der aktuelle Kontakt in allContactNames vorhanden ist und checked auf true steht
-            const matchingContact = allContactNames.find(c => c.name === kontakt.name);
-
-            if (matchingContact && matchingContact.checked) {
-
-                addClass = "checked";
-                addSrc = "checked";
-            }
-
-            htmlContent += `
-                <div class="initials-and-name-div ${addClass}" onclick="addContactToTask(${index}, '${kontakt.name}', '${kontakt.farbe}'), stopProp(event)" id="initials_and_name_div${index}">
-                    <div style="background-color: ${kontakt.farbe}" class="initials-circle for-center">
-                        ${initialen}
-                    </div>
-                    <div>${kontakt.name}</div>
-                    <img src="../assets/icons/${addSrc}_button_contacts_list.png" class="contact-checkbox" id="contact_checkbox${index}">
-                </div>
-            `;
-
-            index++;
-        });
-
-        container.innerHTML = htmlContent;
-    } catch (error) {
-        console.error("Fehler beim Abrufen der Kontakte:", error);
-    }
-};
-
-
-
-
-
-const updateCheckedStatus = () => {
-    // Durchlaufe die Liste aller Kontakte in allContactNames
-    allContactNames.forEach(contact => {
-        // Überprüfe, ob der aktuelle Kontakt in selectedContacts vorhanden ist
-        const isSelected = selectedContacts.some(selected => selected.contact === contact.name);
-
-        if (isSelected) {
-            // Wenn ja, setze checked auf true
-            contact.checked = true;
-        } else {
-            // Andernfalls setze checked auf false
-            contact.checked = false;
-        }
-    });
-};
-
-
-
-
-function addContactToTask(index, selectedContact, color) {
-
-    const checked = document.getElementById(`contact_checkbox${index}`);
-    const nameDiv = document.getElementById(`initials_and_name_div${index}`);
-
-    if (checked.src.includes("unchecked")) {
-
-        if (currentNumberOfSelectedContacts < maxSelectedContacts) {
-
-
-            checked.src = "../assets/icons/checked_button_contacts_list.png";
-            nameDiv.classList.add("checked");
-
-            selectedContacts.push({ contact: selectedContact, color: color });
-            showContactsAsCircles();
-
-            currentNumberOfSelectedContacts++;
-        }
-
-    } else deleteContactFromTask(selectedContact, checked, nameDiv);
-
-    updateCheckedStatus();
-}
-
-function deleteContactFromTask(selectedContact, checked, nameDiv) {
-
-    checked.src = "../assets/icons/unchecked_button_contacts_list.png";
-    nameDiv.classList.remove("checked");
-
-    selectedContacts = selectedContacts.filter(contact => contact.contact !== selectedContact);
-
-    showContactsAsCircles();
-
-    currentNumberOfSelectedContacts-- ;
-}
-
-function showContactsAsCircles() {
-
-    const circlesRef = document.getElementById('circles_contacts_div');
-    let htmlCirclesContent = "";
-
-    selectedContacts.forEach(contactObj => {
-
-        const initialen = `${contactObj.contact.charAt(0)}${contactObj.contact.split(' ')[1].charAt(0)}`;
-
-        htmlCirclesContent += `
-    
-        <div style="background-color: ${contactObj.color}; margin-right: 8px" class="initials-circle for-center">${initialen}</div>
-    `;
-    });
-
-    circlesRef.innerHTML = htmlCirclesContent;
-}
-
-
-
-
-
-
-function stopProp(event) {
-
-    event.stopPropagation();
-}
-
-function prioButton1() {
-
-    if (prio == 'urgent') { resetPrioButtons() } else {
-
-        document.getElementById('prio_button1').classList.add('urgent-bg');
-        document.getElementById('prio_button1').classList.remove('white-bg');
-
-        document.getElementById('prio_button2').classList.remove('medium-bg');
-        document.getElementById('prio_button2').classList.add('white-bg');
-
-        document.getElementById('prio_button3').classList.remove('low-bg');
-        document.getElementById('prio_button3').classList.add('white-bg');
-
-        document.getElementById('img_prio_button1').src = "../assets/icons/urgent2.png";
-        document.getElementById('img_prio_button2').src = "../assets/icons/medium.png";
-        document.getElementById('img_prio_button3').src = "../assets/icons/low.png";
-        prio = 'urgent';
-    }
-}
-
-function prioButton2() {
-
-    if (prio == 'medium') { resetPrioButtons() } else {
-
-        document.getElementById('prio_button1').classList.remove('urgent-bg');
-        document.getElementById('prio_button1').classList.add('white-bg');
-
-        document.getElementById('prio_button2').classList.add('medium-bg');
-        document.getElementById('prio_button2').classList.remove('white-bg');
-
-        document.getElementById('prio_button3').classList.remove('low-bg');
-        document.getElementById('prio_button3').classList.add('white-bg');
-
-        document.getElementById('img_prio_button1').src = "../assets/icons/urgent.png";
-        document.getElementById('img_prio_button2').src = "../assets/icons/medium2.png";
-        document.getElementById('img_prio_button3').src = "../assets/icons/low.png";
-        prio = 'medium';
-    }
-}
-
-function prioButton3() {
-
-    if (prio == 'low') { resetPrioButtons() } else {
-
-        document.getElementById('prio_button1').classList.remove('urgent-bg');
-        document.getElementById('prio_button1').classList.add('white-bg');
-
-        document.getElementById('prio_button2').classList.remove('medium-bg');
-        document.getElementById('prio_button2').classList.add('white-bg');
-
-        document.getElementById('prio_button3').classList.add('low-bg');
-        document.getElementById('prio_button3').classList.remove('white-bg');
-
-        document.getElementById('img_prio_button1').src = "../assets/icons/urgent.png";
-        document.getElementById('img_prio_button2').src = "../assets/icons/medium.png";
-        document.getElementById('img_prio_button3').src = "../assets/icons/low2.png";
-        prio = 'low';
-    }
-}
-
-function resetPrioButtons() {
-
-    prio = '';
-    document.getElementById('prio_button1').classList.remove('urgent-bg');
-    document.getElementById('prio_button1').classList.add('white-bg');
-
-    document.getElementById('prio_button2').classList.remove('medium-bg');
-    document.getElementById('prio_button2').classList.add('white-bg');
-
-    document.getElementById('prio_button3').classList.remove('low-bg');
-    document.getElementById('prio_button3').classList.add('white-bg');
-
-    document.getElementById('img_prio_button1').src = "../assets/icons/urgent.png";
-    document.getElementById('img_prio_button2').src = "../assets/icons/medium.png";
-    document.getElementById('img_prio_button3').src = "../assets/icons/low.png";
-}
-
-function openCategory() {
-
-    toggle2 = true;
-    document.getElementById('list_of_category').classList.add('list-of-category2');
-    setTimeout(() => document.getElementById('list_of_category_outside').style = "overflow: visible;", 200);
-
-    document.getElementById('list_of_category_outside').classList.add('z2');
-    document.getElementById('list_of_category_outside').classList.remove('z1');
-
-    document.getElementById('assign_arrow_category').src = "../assets/icons/arrow_drop_up.png";
-}
-
-function closeCategory() {
-
-    toggle2 = false;
-    document.getElementById('list_of_category').classList.remove('list-of-category2');
-    document.getElementById('list_of_category_outside').style = "overflow: hidden;";
-
-    setTimeout(changeZindexForListofCategory, 200);
-
-    document.getElementById('assign_arrow_category').src = "../assets/icons/arrow_drop_down.png";
-}
-
-function changeZindexForListofCategory() {
-
-    document.getElementById('list_of_category_outside').classList.remove('z2');
-    document.getElementById('list_of_category_outside').classList.add('z1');
-}
-
-function toggleShowCategory() {
-
-    if (toggle2) { closeCategory() } else openCategory();
-}
-
-function categoryTechnicalTask() {
-
-    document.getElementById('selected category').innerText = "Technical Task";
-    selectedCategory = "Technical Task";
-
-    closeCategory();
-}
-
-function categoryUserStory() {
-
-    document.getElementById('selected category').innerText = "User Story";
-    selectedCategory = "User Story";
-
-    closeCategory();
-}
-
-function onFocusSubtasks() {
-
-    document.getElementById('subtask_add_div').style = "display: none";
-    document.getElementById('close_check').style = "";
-}
-
-function onBlurSubtasks() {
-
-    if (document.getElementById('subtask_input').value == "") {
-
-        document.getElementById('subtask_add_div').style = "";
-        document.getElementById('close_check').style = "display: none";
-    }
-}
-
-function closeSubtasks() {
-
-    document.getElementById('subtask_input').value = "";
-
-    document.getElementById('subtask_add_div').style = "";
-    document.getElementById('close_check').style = "display: none";
-}
-
-function focusInput(id) {
-    if (document.getElementById(id) != null) document.getElementById(id).focus(); // Setzt den Fokus auf das Eingabefeld
-}
-
-function addSubtask() {
-
-    const subtask = document.getElementById('subtask_input');
-    const subtask1 = document.getElementById('subtask1');
-    const subtask2 = document.getElementById('subtask2');
-
-    if (subtask.value.trim() != "") {
-
-        if (numberOfSubtasks == 0) {
-            createSubtask1(subtask, subtask1);
-        } else {
-            if (numberOfSubtasks == 1) createSubtask2(subtask, subtask2);
-        }
-
-        subtask.value = "";
-        if (numberOfSubtasks == 2) { closeSubtasks(); subtask.placeholder = "2 subtasks already exist!" }
-    }
-}
-
-function createSubtask1(subtask, subtask1) {
-
-    document.getElementById('subtask1_text').innerHTML = '<li></li>' + subtask.value;
-    numberOfSubtasks = 1;
-    subtask1Text = subtask.value;
-    subtask1.style = "";
-}
-
-function createSubtask2(subtask, subtask2) {
-
-    document.getElementById('subtask2_text').innerHTML = '<li></li>' + subtask.value;
-    numberOfSubtasks = 2;
-    subtask2Text = subtask.value;
-    subtask2.style = "";
-}
-
-// Funktion, die bei Enter aufgerufen wird
-function enterPressed(event) {
-
-    if (event.key === "Enter") {
-
-        event.preventDefault(); // Verhindert das Absenden des Formulars
-        addSubtask();
-    }
-}
-
-
-
-
-function deleteSubtask1() {
-
-    if (numberOfSubtasks == 1) {
-
-        numberOfSubtasks = 0;
-        subtask1Text = "";
-        subtask1.style = "display: none";
+        document.getElementById('list_of_contacts').style = "display: flex; flex-direction: column; justify-content: end; height: 160px; transform: translateY(-45px)";
 
     } else {
 
-        numberOfSubtasks = 1;
-        subtask1Text = subtask2Text;
-        subtask2Text = "";
-        document.getElementById('subtask1_text').innerHTML = '<li></li>' + subtask1Text;
-        subtask2.style = "display: none";
-
-
-        document.getElementById('edit_delete2').style = '';
-        document.getElementById('delete_check2').style = 'display: none';
+        document.getElementById('list_of_contacts').style = "";
     }
-
-    document.getElementById('subtask_input').placeholder = "Add  new subtask";
-}
-
-
-
-
-function deleteSubtask2() {
-
-    numberOfSubtasks = 1;
-    subtask2Text = "";
-    subtask2.style = "display: none";
-
-    document.getElementById('subtask_input').placeholder = "Add  new subtask";
-}
-
-function editSubtask1() {
-
-    const subtask1 = document.getElementById('subtask1');
-
-
-    document.getElementById('subtask1_text').innerHTML = '<input onkeydown="enterPressedEditSubtask1(event)" id="input_on_edit" class="input-on-edit font3" maxlength="21" spellcheck="false" autocomplete="off">';
-
-    document.getElementById('input_on_edit').value = subtask1Text;
-
-    focusInput('input_on_edit');
-
-
-    document.getElementById('edit_delete').style = 'display: none';
-    document.getElementById('delete_check').style = '';
-    subtask1.style = "background: white; border-bottom: 1px solid #005DFF; border-radius: 0;";
-}
-
-function editInput1ChangeSubtaskText1() {
-
-    if (document.getElementById('input_on_edit') != null) {
-
-        const newText = document.getElementById('input_on_edit').value;
-        if (newText.trim() != "") subtask1Text = newText;
-    }
-}
-
-function closeEditSubtask1() {
-
-    const subtask1 = document.getElementById('subtask1');
-
-    if (numberOfSubtasks != 0) {
-
-        editInput1ChangeSubtaskText1();
-
-        setTimeout(() => {
-            document.getElementById('subtask1_text').innerHTML = '<li></li>' + subtask1Text;
-
-            document.getElementById('edit_delete').style = '';
-            document.getElementById('delete_check').style = 'display: none';
-            subtask1.style = "";
-        }, 100);
-    }
-}
-
-function deleteSubtask1onEdit() {
-
-    closeEditSubtask1();
-    setTimeout(deleteSubtask1, 100);
-}
-
-function enterPressedEditSubtask1(event) {
-
-    if (event.key === "Enter") {
-
-        event.preventDefault(); // Verhindert das Absenden des Formulars
-        closeEditSubtask1();
-    }
-}
-
-function editSubtask2() {
-
-    const subtask2 = document.getElementById('subtask2');
-
-
-    document.getElementById('subtask2_text').innerHTML = '<input onkeydown="enterPressedEditSubtask2(event)" id="input_on_edit2" class="input-on-edit font3" maxlength="21" spellcheck="false" autocomplete="off">';
-
-    document.getElementById('input_on_edit2').value = subtask2Text;
-
-    focusInput('input_on_edit2');
-
-
-    document.getElementById('edit_delete2').style = 'display: none';
-    document.getElementById('delete_check2').style = '';
-    subtask2.style = "background: white; border-bottom: 1px solid #005DFF; border-radius: 0;";
-}
-
-function editInput2ChangeSubtaskText2() {
-
-    if (document.getElementById('input_on_edit2') != null) {
-
-        const newText = document.getElementById('input_on_edit2').value;
-        if (newText.trim() != "") subtask2Text = newText;
-    }
-}
-
-function closeEditSubtask2() {
-
-    const subtask2 = document.getElementById('subtask2');
-
-    if ((numberOfSubtasks != 0) && (numberOfSubtasks != 1)) {
-
-        editInput2ChangeSubtaskText2();
-
-        setTimeout(() => {
-            document.getElementById('subtask2_text').innerHTML = '<li></li>' + subtask2Text;
-
-            document.getElementById('edit_delete2').style = '';
-            document.getElementById('delete_check2').style = 'display: none';
-            subtask2.style = "";
-        }, 100);
-    }
-}
-
-function deleteSubtask2onEdit() {
-
-    closeEditSubtask2();
-    setTimeout(deleteSubtask2, 100);
-}
-
-function enterPressedEditSubtask2(event) {
-
-    if (event.key === "Enter") {
-
-        event.preventDefault(); // Verhindert das Absenden des Formulars
-        closeEditSubtask2();
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-function insertCurrentDate() {
-
-    const today = new Date();
-
-    tag = today.getDate(); // Tag des Monats (1-31)
-    month = today.getMonth() + 1; // Monat (0-11), also +1, um den aktuellen Monat zu bekommen
-    year = today.getFullYear(); // Jahr (vierstellig)
-
-    document.getElementById('day').value = tag;
-    document.getElementById('month').value = month;
-    document.getElementById('year').value = year;
-}
-
-
-
-function handleKeyDown2(event) {
-    const inputElement = event.target;
-    const cursorPos = inputElement.selectionStart;
-    let value = inputElement.value.replace(/[^0-9]/g, ''); // Get only numbers
-
-    // Function to format the value (DD/MM/YYYY)
-    const formatValue = (val) => {
-        if (val.length > 2) val = val.slice(0, 2) + '/' + val.slice(2);
-        if (val.length > 5) val = val.slice(0, 5) + '/' + val.slice(5);
-        return val;
-    };
-
-    if (event.key === 'ArrowLeft') {
-        // Case 1: Left arrow pressed when cursor is in the year field
-        if (cursorPos > 5 && cursorPos <= 10) {
-            value = value.slice(0, 4); // Remove the year portion and preceding '/'
-            inputElement.value = formatValue(value);
-            setTimeout(() => inputElement.setSelectionRange(5, 5), 0); // Move cursor to end of month input
-            event.preventDefault();
+};
+
+
+/**
+ * 
+ * Funktion, um die Kontaktdaten vom Server abzurufen
+ * 
+ */
+const fetchContacts = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/contacts.json`);
+
+        if (!response.ok) {
+            console.error("Fehler beim Laden der Kontakte:", response.status);
+            return null;
         }
 
-        // Case 2: Left arrow pressed when cursor is in the month field
-        else if (cursorPos > 2 && cursorPos <= 5) {
-            value = value.slice(0, 2); // Remove the month portion and preceding '/'
-            inputElement.value = formatValue(value);
-            setTimeout(() => inputElement.setSelectionRange(2, 2), 0); // Move cursor to end of day input
-            event.preventDefault();
-        }
-
-        // Case 3: Left arrow pressed when cursor is in the day field
-        else if (cursorPos <= 2) {
-            value = ""; // Clear the entire input
-            inputElement.value = formatValue(value);
-            setTimeout(() => inputElement.setSelectionRange(0, 0), 0); // Move cursor to start
-            event.preventDefault();
-        }
+        return await response.json();
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Kontakte:", error);
+        return null;
     }
-}
-
-function handleInput2(event) {
-    const inputElement = event.target;
-    let value = inputElement.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
-
-    // Format the value (DD/MM/YYYY)
-    const formatValue = (val) => {
-        if (val.length > 2) val = val.slice(0, 2) + '/' + val.slice(2);
-        if (val.length > 5) val = val.slice(0, 5) + '/' + val.slice(5);
-        return val;
-    };
-
-    inputElement.value = formatValue(value);
-}
+};
 
 
+/**
+ * Funktion, um die Initialen zu berechnen
+ * 
+ * @param {string} name
+ */
+const calculateInitials = (name) => {
+    const [firstName, lastName] = name.split(' ');
+    return `${firstName.charAt(0)}${lastName.charAt(0)}`;
+};
 
+/**
+ * Funktion, um den Status eines Kontakts zu prüfen
+ * 
+ * @param {string} name
+ */
+const checkContactStatus = (kontakt) => {
+    const matchingContact = allContactNames.find(c => c.name === kontakt.name);
+    return matchingContact && matchingContact.checked ? "checked" : "";
+};
 
-function handleKeyDown(event) {
-    const inputElement = event.target;
-    const cursorPos = inputElement.selectionStart;
-    let value = inputElement.value.replace(/[^0-9]/g, ''); // Get only numbers
+/**
+ * 
+ * Funktion, um das HTML für einen einzelnen Kontakt zu erstellen
+ * 
+ */
+const renderSingleContact = (kontakt, index, initialen, statusClass, statusSrc) => {
+    return renderContactsTemplate(statusClass, index, kontakt, initialen, statusSrc);
+};
 
-    // Function to format the value (DD/MM/YYYY)
-    const formatValue = (val) => {
-        if (val.length > 2) val = val.slice(0, 2) + '/' + val.slice(2);
-        if (val.length > 5) val = val.slice(0, 5) + '/' + val.slice(5);
-        return val;
-    };
+/**
+ * Funktion, um das HTML für alle Kontakte vorzubereiten
+ * 
+ * @param {string}
+ */
+const prepareHTMLForContacts = (kontakte) => {
+    let htmlContent = "";
+    let index = 1;
 
-    if (event.key === 'ArrowLeft') {
-        // Case 1: Left arrow pressed when cursor is in the year field
-        if (cursorPos > 5 && cursorPos <= 10) {
-            value = value.slice(0, 4); // Remove the year portion and preceding '/'
-            inputElement.value = formatValue(value);
-            setTimeout(() => inputElement.setSelectionRange(5, 5), 0); // Move cursor to end of month input
-            event.preventDefault();
-        }
+    Object.values(kontakte).forEach(kontakt => {
+        const initialen = calculateInitials(kontakt.name);
+        const statusClass = checkContactStatus(kontakt);
+        const statusSrc = statusClass === "checked" ? "checked" : "unchecked";
 
-        // Case 2: Left arrow pressed when cursor is in the month field
-        else if (cursorPos > 2 && cursorPos <= 5) {
-            value = value.slice(0, 2); // Remove the month portion and preceding '/'
-            inputElement.value = formatValue(value);
-            setTimeout(() => inputElement.setSelectionRange(2, 2), 0); // Move cursor to end of day input
-            event.preventDefault();
-        }
+        htmlContent += renderSingleContact(kontakt, index, initialen, statusClass, statusSrc);
+        index++;
+    });
 
-        // Case 3: Left arrow pressed when cursor is in the day field
-        else if (cursorPos <= 2) {
-            value = ""; // Clear the entire input
-            inputElement.value = formatValue(value);
-            setTimeout(() => inputElement.setSelectionRange(0, 0), 0); // Move cursor to start
-            event.preventDefault();
-        }
-    }
-}
+    numberOfContactsDropdownMenu = index - 1;
+    return htmlContent;
+};
 
-// This function moves the cursor to the end of the input after any input changes
-function handleInput(event) {
-    const inputElement = event.target;
-    let value = inputElement.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+/**
+ * 
+ * Hauptfunktion zum Rendern der Kontakte
+ * 
+ */
+const renderContacts = async () => {
+    const kontakte = await fetchContacts();
+    if (!kontakte) return;
 
-    // Format the value (DD/MM/YYYY)
-    const formatValue = (val) => {
-        if (val.length > 2) val = val.slice(0, 2) + '/' + val.slice(2);
-        if (val.length > 5) val = val.slice(0, 5) + '/' + val.slice(5);
-        return val;
-    };
+    const container = document.getElementById("contactsContainer");
+    const htmlContent = prepareHTMLForContacts(kontakte);
 
-    inputElement.value = formatValue(value);
-
-    // Move cursor to the end of input after formatting
-    setTimeout(() => inputElement.setSelectionRange(inputElement.value.length, inputElement.value.length), 0);
-}
-
-// This function ensures the cursor always moves to the end of the input when clicking inside the field
-function moveCursorToEnd(event) {
-    const inputElement = event.target;
-
-    // Set cursor position to the end of the input
-    setTimeout(() => inputElement.setSelectionRange(inputElement.value.length, inputElement.value.length), 0);
-}
-
-
+    container.innerHTML = htmlContent;
+};
 
