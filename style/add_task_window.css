@@ -3,6 +3,7 @@
     height: 928px;
     position: relative;
     background-color: #f5f6f7ff;
+    overflow: hidden;
 
     border: 1px solid;
 }
@@ -235,3 +236,36 @@
     font-size: 12px;
     color: #FF8190;
 }
+
+.task-added-to-board {
+    width: 326px;
+    height: 74px;
+    border-radius: 20px;
+    background: #2A3647;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: -78px;
+    left: calc((100% / 2) - 326px / 2);
+    transition: bottom 0.2s ease-in-out;
+    z-index: 7;
+}
+
+.task-added-to-board2 {
+    bottom: calc((100% / 2) - 74px / 2);
+    left: calc((100% / 2) - 326px / 2); 
+}
+
+.task-added-to-board img {
+    width: 30px;
+    height: 30px;
+    margin-right: 30px;
+}
+
+.task-added-to-board span {
+    margin-left: 30px;
+}
+
+
