@@ -63,7 +63,10 @@ function checkInputsInInputs3() {
     if (selectedCategory != "") {
 
         showHideError('category_error', false);
+        createTaskAnimation();
         createTaskInFirebase(title, description, dueDate);
+
+        setTimeout(() => { alert('task created!'); document.getElementById('task_added_to_board').classList.remove('task-added-to-board2'); }, 2000);
 
     } else categoryEnterError();
 }
@@ -130,54 +133,6 @@ function categoryEnterError() {
 }
 
 
-
-
-
-
-
-/**
- * 
- * function checks whether a task with a specific title exists in Firebase
- * 
- */
-const checkNameOfTheTaskInFirebase2 = async (title) => {
-    const taskPfad = encodeURIComponent(title); // Kodiert den Titel für die URL
-
-    try {
-        const response = await fetch(`${BASE_URL}/tasks/${taskPfad}.json`, {
-            method: "GET",  // Abfrage eines vorhandenen Tasks
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-
-            // Überprüfen, ob Daten vorhanden sind
-            if (data) {
-                console.log(`Task mit dem Titel "${title}" existiert.`);
-                return true;
-            } else {
-                console.log(`Task mit dem Titel "${title}" existiert nicht.`);
-                return false;
-            }
-        } else {
-            console.error("Fehler beim Abrufen des Tasks:", response.status);
-            return false;
-        }
-    } catch (error) {
-        console.error("Fehler:", error);
-        return false;
-    }
-};
-
-
-
-
-
-
-
 /**
  * show or hide error messages
  * 
@@ -187,10 +142,6 @@ function showHideError(id, show) {
 
     if (show) { document.getElementById(id).style = ""; } else document.getElementById(id).style = "display: none";
 }
-
-
-
-
 
 
 // Hauptfunktion, die alle Teilfunktionen aufruft
@@ -226,13 +177,12 @@ const fetchTaskFromFirebase = async (taskPfad) => {
 
 // Funktion zur Überprüfung, ob die Antwort erfolgreich ist
 const checkFirebaseResponse = async (response, title) => {
+
     if (response.ok) {
         const data = await response.json();
         if (data) {
-            console.log(`Task mit dem Titel "${title}" existiert.`);
             return true;
         } else {
-            console.log(`Task mit dem Titel "${title}" existiert nicht.`);
             return false;
         }
     } else {
@@ -241,4 +191,7 @@ const checkFirebaseResponse = async (response, title) => {
     }
 };
 
+function createTaskAnimation() {
 
+    document.getElementById('task_added_to_board').classList.add('task-added-to-board2');
+}
