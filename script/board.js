@@ -5,7 +5,8 @@ const priorityMap = {
 };
 
 function initBoard() {
-    getTasks()
+    getTasksFromFirebase()
+    onloadstart()
 }
 
 
@@ -25,7 +26,7 @@ async function processData(url) {
 }
 
 
-async function getTasks() {
+async function getTasksFromFirebase() {
     document.getElementById('to-do')
     try {
         let counter = 0
@@ -48,6 +49,7 @@ function renderTask(task, i) {
     console.log(task)
     let subtask = returnSubtask(task)
     id.innerHTML += returnTaskCard(task, i, returnPrio(task), subtask.total, subtask.done, subtask.percentage);
+    if(task)
     renderAssignedContacts(task, i)
 }
 
@@ -96,13 +98,34 @@ function returnPrio(task) {
     return prioSVG
 }
 
+async function getOpenTaskOverlay(taskName){
+    let overlay = document.getElementById('overlay-board-task')
+    try {
+        let data = await processData(`${BASE_URL}/tasks.json`)
+        console.log(data)
+        renderOverlay(data, taskName, overlay)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function renderOverlay(data, taskName, overlay){
+    Object.values(data).forEach(entry => {
+        if(entry.title === taskName){
+            data = entry
+            console.log(data)
+        }
+    })
+    
+}
+
 function returnAssignedContacts(color, name) {
     return `<div class="card-board-contact-icon" style="background-color:${color};">${name}</div>`
 }
 
 
 function returnTaskCard(task, i, prioSVG, open, done, progress) {
-    return `        <div class="card-board">
+    return `        <div class="card-board" onclick="getOpenTaskOverlay('${task.title}')">
                         <div class="card-category">${task.category}</div>
                         <div class="card-board-text-wrap">
                             <div class="card-board-title">${task.title}</div>
@@ -127,7 +150,3 @@ function returnTaskCard(task, i, prioSVG, open, done, progress) {
                     </div>`
 }
 
-function addTaskBoardOverlayToggle() {
-    document.getElementById('overlay-board-background').classList.toggle('display-opacity-board')
-    document.getElementById('overlay-add-task').classList.toggle('overlay-add-task-transition')
-}

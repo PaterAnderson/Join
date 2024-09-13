@@ -271,7 +271,6 @@
     height: 47px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
-    margin-bottom: 24px;
     justify-content: space-between;
     margin-top: 8px;
     background-color: #FFFFFF;
@@ -541,7 +540,6 @@ textarea::placeholder {
 .required-date {
     position: absolute;
     left: 327px;
-    bottom: -2px;
     width: 116px;
 }
 

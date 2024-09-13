@@ -9,17 +9,18 @@
     <link rel="stylesheet" href="../style/aside.css">
     <link rel="stylesheet" href="../style/header.css">
     <link rel="stylesheet" href="../style/add_task_overlay_board.css">
+
     <script src="../script/menu.js"></script>
     <script src="../script/header.js"></script>
     <script src="../script/board.js"></script>
-    
-    <script src="../script/add_task_window.js"></script>
-    <script src="../script/add_task_window2.js"></script>
-    <script src="../script/add_task_window3.js"></script>
-    <script src="../script/add_task_window4.js"></script>
-    <script src="../script/add_task_window_templates.js"></script>
 
-    <script src="../script/add_task_firebase_luk.js"></script>
+    <script src="../script/add_task_window/add_task_window.js"></script>
+    <script src="../script/add_task_window/add_task_window2.js"></script>
+    <script src="../script/add_task_window/add_task_window3.js"></script>
+    <script src="../script/add_task_window/add_task_window4.js"></script>
+    <script src="../script/add_task_window/add_task_window_templates.js"></script>
+
+    <script src="../script/add_task_window/add_task_firebase_luk.js"></script>
     <title>Join</title>
 </head>
 <style>
@@ -360,10 +361,11 @@
 </style>
 
 <body onload="initBoard()">
+    <div id="overlay-board-task" class="overlay-board"></div>
     <div id="overlay-board" class="overlay-board">
         <div id="overlay-add-task" class="overlay-add-task">
 
-                <div>
+                <div onclick="bodyOnClick()">
 
                     <div class="add-task for-center">Add task</div>
 
@@ -812,6 +814,10 @@
         </div>
     </main>
     <script>
+        function addTaskBoardOverlayToggle() {
+    document.getElementById('overlay-board-background').classList.toggle('display-opacity-board')
+    document.getElementById('overlay-add-task').classList.toggle('overlay-add-task-transition')
+}
     </script>
 </body>
 

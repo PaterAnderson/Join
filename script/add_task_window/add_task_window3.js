@@ -154,8 +154,7 @@ function scrollSubtasksToEnd() {
     setTimeout(() => {
         
         const element = document.getElementById(`id_subtask${subtaskCollection.length}`);
-        element.scrollIntoView({ behavior: 'smooth' });
-
+        element.parentNode.scrollTop = element.parentNode.scrollHeight;
     }, 200);
 }
 
