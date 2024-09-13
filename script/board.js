@@ -1,5 +1,3 @@
-const BASE_URL = "https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/guest"
-
 const priorityMap = {
     "urgent": "../assets/icons/urgent.svg",
     "medium": "../assets/icons/medium.svg",
@@ -127,4 +125,9 @@ function returnTaskCard(task, i, prioSVG, open, done, progress) {
                             </div>
                         </div>
                     </div>`
+}
+
+function addTaskBoardOverlayToggle() {
+    document.getElementById('overlay-board-background').classList.toggle('display-opacity-board')
+    document.getElementById('overlay-add-task').classList.toggle('overlay-add-task-transition')
 }
