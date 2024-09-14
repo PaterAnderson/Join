@@ -17,7 +17,7 @@ const kontakte = [
 ];
 
 const farben = [
-    "#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8", 
+    "#FF7A00", "#FF5EB3", "#6E52FF", "#9327FF", "#00BEE8",
     "#1FD7C1", "#FFC701", "#0038FF", "#C3FF2B", "#FF4646",
     "#FF745E", "#FFA35E"
 ];
@@ -106,6 +106,10 @@ const deleteKontakt = async (name) => {
 const createTaskInFirebase = async (title, description, dueDate) => {
     const taskPfad = encodeURIComponent(title); // Verwende den gesamten Namen als Pfad und kodiert ihn für URLs
 
+
+    console.log(subtaskCollection);
+
+
     const taskData = {
         title: title,
         description: description,
@@ -113,7 +117,7 @@ const createTaskInFirebase = async (title, description, dueDate) => {
         date: dueDate,
         prio: prio,
         category: selectedCategory,
-        subtasks: subtaskCollection
+        subtasks: subtaskCollection.map(item => item.task)
     };
 
     try {
@@ -135,4 +139,38 @@ const createTaskInFirebase = async (title, description, dueDate) => {
         console.error("Fehler:", error);
     }
 };
+
+const getAllDueDatesFromFirebase = async () => {
+
+    let dueDates = [];
+
+    try {
+        const response = await fetch(`${BASE_URL}/tasks.json`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            // Überprüfung, ob Daten existieren
+            if (data) {
+                // Iteriere über alle Tasks und sammle die dueDate-Werte
+                for (const taskId in data) {
+                    if (data[taskId].date) {  // Prüfen, ob das Task-Objekt ein `date`-Feld hat
+                        dueDates.push(data[taskId].date);
+                    }
+                }
+            }
+        } else { console.error("Fehler beim Abrufen der Tasks:", response.status); }
+
+    } catch (error) { console.error("Fehler:", error); }
+
+    return dueDates;  // Rückgabe der gesammelten Fälligkeitsdaten
+};
+
+
+
+
+
 

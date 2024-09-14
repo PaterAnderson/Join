@@ -158,10 +158,8 @@ function toRegister() {
  */
 function guestLoginStart() {
 
-    sessionStorage.setItem('user', 'guest');
-
-
-    alert('guest login!');
+    sessionStorage.setItem('user', 'Guest');
+    window.location.href = '../html/summary.html';
 }
 
 
