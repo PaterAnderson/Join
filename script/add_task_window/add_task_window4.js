@@ -270,6 +270,14 @@ function clearSubtaskMenu() {
  */
 function clearTitleDescriptionDueDate() {
 
+    showHideError('title_error', false);
+    document.getElementById('title_input').placeholder = "Enter a title";
+
+    showHideError('date_error', false);
+    document.getElementById('input_due_date').placeholder = "dd/mm/yyyy";
+
+    showHideError('category_error', false);
+
     document.getElementById('title_input').value = "";
     document.getElementById('text_area').value = "";
     document.getElementById('input_due_date').value = "";
