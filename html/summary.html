@@ -141,36 +141,38 @@
 
             <div class="summary">
                 <div class="summ-12">
-                    <div class="summ12">
+                    <div class="summ12 to-do62-1" onclick="summaryOnclick()">
                         <img src="../assets/icons/summary icons/pen_summary.png" class="pen">
-                        <div class="frame-62"><span class="font6">0</span><span class="font11">To-do</span></div>
+                        <img src="../assets/icons/summary icons/pen_summary_hover.png" class="pen-hover">
+                        <div class="frame-62"><span class="font6 to-do62-2">0</span><span class="font11 to-do62-2">To-do</span></div>
                     </div>
-                    <div class="summ12">
+                    <div class="summ12 done12-1" onclick="summaryOnclick()">
                         <img src="../assets/icons/summary icons/check_summary.png" class="pen">
-                        <div class="frame-60"><span class="font6">0</span><span class="font11">Done</span></div>
+                        <img src="../assets/icons/summary icons/check_summary_hover.png" class="check-hover">
+                        <div class="frame-60"><span class="font6 done12-2">0</span><span class="font11 done12-2">Done</span></div>
                     </div>
                 </div>
 
-                <div class="summ3">
+                <div class="summ3" onclick="summaryOnclick()">
                     <div class="frame-67">
-                        <img src="../assets/icons/summary icons/urgent_summary.png" class="urgent">
+                        <img src="../assets/icons/summary icons/urgent_summary.png" class="urgent scale">
 
                         <div class="frame-63">
-                            <div class="frame63-1 font6 for-center" id="urgent_number">1</div>
-                            <div class="frame63-2 font5 for-center">Urgent</div>
+                            <div class="frame63-1 font6 for-center scale" id="urgent_number">1</div>
+                            <div class="frame63-2 font5 for-center scale">Urgent</div>
                         </div>
                     </div>
-                    <div class="sep-3"></div>
+                    <div class="sep-3 scale"></div>
                     <div class="frame-68">
-                        <span class="font7" id="upcoming"></span>
-                        <span class="font5">Upcoming Deadline</span>
+                        <span class="font7 scale upcoming68" id="upcoming"></span>
+                        <span class="font5 scale deadline68">Upcoming Deadline</span>
                     </div>
                 </div>
 
                 <div class="summ-12">
-                    <div class="summ456"><span class="font6">0</span><span class="font8">Tasks in Board</span></div>
-                    <div class="summ456"><span class="font6">0</span><span class="font9">Tasks In Progress</span></div>
-                    <div class="summ456"><span class="font6">0</span><span class="font10">Awaiting Feedback</span></div>
+                    <div onclick="summaryOnclick()" class="summ456 board456-1"><span class="font6 board456-2">0</span><span class="font8 board456-2">Tasks in Board</span></div>
+                    <div onclick="summaryOnclick()" class="summ456 progress-1"><span class="font6 progress-2">0</span><span class="font9 progress-2">Tasks In Progress</span></div>
+                    <div onclick="summaryOnclick()" class="summ456 feedback-1"><span class="font6 feedback-2">0</span><span class="font10 feedback-2">Awaiting Feedback</span></div>
                 </div>
             </div>
 

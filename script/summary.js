@@ -2,7 +2,6 @@
 let dateArray = [];
 
 
-
 if (!sessionStorage.getItem('user')) {
 
     window.location.href = '../index.html';
@@ -152,4 +151,8 @@ function showDateInSummaryUrgent(firstDate, pastLength) {
     }
 }
 
+function summaryOnclick() {
+
+    window.location.href = '../html/board.html';
+}
 

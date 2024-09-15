@@ -138,6 +138,8 @@ body {
     align-items: center;
     justify-content: center;
     gap: 18px;
+    cursor: pointer;
+    transition: transform 25ms ease-in-out;
 }
 
 .summ3 {
@@ -149,6 +151,28 @@ body {
     align-items: center;
     gap: 51px;
     justify-content: center;
+    cursor: pointer;
+    transition: transform 25ms ease-in-out;
+}
+
+.summ3:hover {
+    transform: scale(1.042);
+    background: #2A3647;
+
+    .scale {
+        transform: scale(0.96);
+    }
+
+    .frame63-1,
+    .frame63-2,
+    .upcoming68,
+    .deadline68 {
+        color: white;
+    }
+
+    .sep-3 {
+        background: white;
+    }
 }
 
 .summ456 {
@@ -160,6 +184,68 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: transform 25ms ease-in-out;
+    cursor: pointer;
+}
+
+.board456-1:hover {
+    transform: scale(1.1);
+    background: #2A3647;
+
+    .board456-2 {
+        color: white;
+        transform: scale(0.909);
+    }
+}
+
+.progress-1:hover {
+    transform: scale(1.1);
+    background: #2A3647;
+
+    .progress-2 {
+        color: white;
+        transform: scale(0.909);
+    }
+}
+
+.feedback-1:hover {
+    transform: scale(1.1);
+    background: #2A3647;
+
+    .feedback-2 {
+        color: white;
+        transform: scale(0.909);
+    }
+}
+
+.to-do62-1:hover {
+    transform: scale(1.1);
+    background: #2A3647;
+
+    .to-do62-2 {
+        color: white;
+        transform: scale(0.909);
+    }
+
+    .pen-hover {
+        display: block;
+        transform: scale(0.909);
+    }
+}
+
+.done12-1:hover {
+    transform: scale(1.1);
+    background: #2A3647;
+
+    .done12-2 {
+        color: white;
+        transform: scale(0.909);
+    }
+
+    .check-hover {
+        display: block;
+        transform: scale(0.909);
+    }
 }
 
 .summ-12 {
@@ -170,6 +256,20 @@ body {
 .pen {
     width: 69px;
     height: 69px;
+}
+
+.pen-hover {
+    width: 69px;
+    height: 69px;
+    margin-left: -87px;
+    display: none;
+}
+
+.check-hover {
+    width: 69px;
+    height: 69px;
+    margin-left: -87px;
+    display: none;
 }
 
 .urgent {
@@ -235,4 +335,3 @@ body {
     flex-direction: column;
     text-align: center;
 }
-
