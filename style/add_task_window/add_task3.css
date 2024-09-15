@@ -1,0 +1,293 @@
+.font3 {
+    font-weight: 400;
+    font-size: 16px;
+    color: black;
+}
+
+.input-new-subtask::placeholder {
+    color: #D1D1D1;
+}
+
+.category-div {
+    position: relative;
+}
+
+.list-of-category-outside {
+    width: 441px;
+    height: 150px;
+    transform: translateY(-48px);
+    position: absolute;
+}
+
+.list-of-category {
+    width: 441px;
+    height: 150px;
+    transform: translateY(-50px);
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transform: translateY(-102px);
+}
+
+.z1 {
+    z-index: 1;
+}
+
+.z2 {
+    z-index: 2;
+}
+
+.list-of-category2 {
+    box-shadow: 0px 0px 14px 3px rgba(0 0 0 / 0.1);
+    transform: translateY(-2px);
+}
+
+.category-task-div {
+    cursor: pointer;
+    width: 440px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+}
+
+.category-task-div:hover {
+    background: rgba(0 0 0 / 0.08);
+    border-radius: 10px;
+}
+
+.required-date {
+    position: absolute;
+    left: 327px;
+    bottom: -2px;
+    width: 116px;
+}
+
+.required-category {
+    position: absolute;
+    bottom: -19px;
+    right: -2px;
+}
+
+.tasks-add-div {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    position: absolute;
+    right: 13px;
+    top: 12px;
+    border-radius: 50%;
+}
+
+.tasks-add-div:hover {
+    background: rgba(0 0 0 / 0.08);
+}
+
+.tasks-add-div img {
+    width: 14px;
+    height: 14px;
+}
+
+.close-check {
+    display: flex;
+    width: 56px;
+    height: 24px;
+    position: absolute;
+    justify-content: space-between;
+    align-items: center;
+    right: 18px;
+    bottom: 12px;
+}
+
+.div24 {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.div24:hover {
+    background: rgba(0 0 0 / 0.08);
+}
+
+.close-check img:nth-of-type(1) {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.close-check div:nth-of-type(3) img {
+    width: 15px;
+    height: 11px;
+}
+
+.assigned-subtasks {
+    width: 440px;
+    height: 80px;
+}
+
+.assigned-input-subtasks {
+    width: 440px;
+    height: 48px;
+    background-color: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.assigned-input-subtasks:has(input:focus) {
+    border: 1px solid #29ABE2;
+}
+
+.new-div-for-subtasks {
+    width: 440px;
+    height: 76px;
+    position: absolute;
+    left: 0px;
+    bottom: -88px;
+    overflow-y: scroll;
+    border: 1px solid #e4e4e4;
+    scrollbar-color: #A8A8A8 #f5f6f7ff;
+    border-radius: 10px;
+    scroll-behavior: smooth;
+}
+
+.subtask-text-div2 {
+    width: auto;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    border-radius: 10px;
+
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.subtask-text-div2-edit {
+    width: auto;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+
+    background: white;
+    border-bottom: 1px solid #005DFF;
+    border-radius: 0;
+
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.subtask-text-div2 li {
+    margin-left: 28px;
+    margin-right: -6px;
+}
+
+.subtask-text-div2:hover {
+    background-color: #edededff;
+
+    .edit-subtask-icon {
+        display: block;
+    }
+
+    .delete-subtask-icon {
+        display: block;
+    }
+
+    .subtask-separator {
+        display: block;
+    }
+}
+
+.m-g-8px2 {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.subtask-separator {
+    width: 1px;
+    height: 24px;
+    background: #A8A8A8;
+    display: none;
+}
+
+.subtask-separator2 {
+    width: 1px;
+    height: 24px;
+    background: #A8A8A8;
+}
+
+.edit-delete {
+    position: absolute;
+    right: 11px;
+    top: 4px;
+    width: 56px;
+    height: 24px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.edit-subtask-icon {
+    width: 18px;
+    height: 18px;
+    display: none;
+}
+
+.edit-subtask-icon:hover,
+.delete-subtask-icon:hover {
+    scale: 1.1;
+}
+
+.delete-subtask-icon {
+    width: 16px;
+    height: 18px;
+    display: none;
+}
+
+.div-for-subtask-text {
+    display: flex;
+}
+
+.delete-check {
+    position: absolute;
+    right: 11px;
+    top: 4px;
+    width: 56px;
+    height: 24px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.check-subtask-icon {
+    width: 15px;
+    height: 11px;
+}
+
+.delete-subtask-icon2 {
+    width: 16px;
+    height: 18px;
+}
+
+.check-subtask-icon:hover,
+.delete-subtask-icon2:hover {
+    scale: 1.1;
+}
+
+.input-on-edit {
+    margin-left: 16px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}

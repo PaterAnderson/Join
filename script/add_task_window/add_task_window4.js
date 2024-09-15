@@ -66,7 +66,7 @@ function checkInputsInInputs3() {
         createTaskAnimation();
         createTaskInFirebase(title, description, dueDate);
 
-        setTimeout(() => { alert('task created!'); document.getElementById('task_added_to_board').classList.remove('task-added-to-board2'); }, 2000);
+        setTimeout(() => { document.getElementById('task_added_to_board').classList.remove('task-added-to-board2') }, 2000);
 
     } else categoryEnterError();
 }
@@ -144,7 +144,11 @@ function showHideError(id, show) {
 }
 
 
-// Hauptfunktion, die alle Teilfunktionen aufruft
+/**
+ * 
+ * Hauptfunktion, die alle Teilfunktionen aufruft
+ * 
+ */
 const checkNameOfTheTaskInFirebase = async (title) => {
     const taskPfad = encodeTaskTitle(title);  // Encodieren des Titels
     try {
@@ -157,13 +161,21 @@ const checkNameOfTheTaskInFirebase = async (title) => {
 };
 
 
-// Funktion zum Encodieren des Titels für die URL
+/**
+ * 
+ * Funktion zum Encodieren des Titels für die URL
+ * 
+ */
 const encodeTaskTitle = (title) => {
     return encodeURIComponent(title);
 };
 
 
-// Funktion zum Senden einer GET-Anfrage an Firebase
+/**
+ * 
+ * Funktion zum Senden einer GET-Anfrage an Firebase
+ * 
+ */
 const fetchTaskFromFirebase = async (taskPfad) => {
     const response = await fetch(`${BASE_URL}/tasks/${taskPfad}.json`, {
         method: "GET",
@@ -175,7 +187,11 @@ const fetchTaskFromFirebase = async (taskPfad) => {
 };
 
 
-// Funktion zur Überprüfung, ob die Antwort erfolgreich ist
+/**
+ * 
+ * Funktion zur Überprüfung, ob die Antwort erfolgreich ist
+ * 
+ */
 const checkFirebaseResponse = async (response, title) => {
 
     if (response.ok) {
@@ -191,7 +207,71 @@ const checkFirebaseResponse = async (response, title) => {
     }
 };
 
+
+/**
+ * 
+ * animation add task created
+ * 
+ */
 function createTaskAnimation() {
 
     document.getElementById('task_added_to_board').classList.add('task-added-to-board2');
 }
+
+
+/**
+ * 
+ * clear add task form
+ * 
+ */
+function clearAddTaskForm() {
+
+    setTimeout(clearContactDropDownMenu, 200);
+    setTimeout(clearSubtaskMenu, 200);
+    setTimeout(clearTitleDescriptionDueDate, 200);
+}
+
+
+/**
+ * 
+ * clear contact drop down menu
+ * 
+ */
+function clearContactDropDownMenu() {
+
+    document.getElementById('contacts_list').value = "";
+    selectedContacts = [];
+    allContactNames = [];
+    currentNumberOfSelectedContacts = 0;
+    numberOfContactsDropdownMenu = 3;
+    renderContacts();
+    fetchAllContactNames();
+    showContactsAsCircles();
+}
+
+
+/**
+ * 
+ * clear subtask menu
+ * 
+ */
+function clearSubtaskMenu() {
+
+    subtaskCollection = [];
+    document.getElementById('render_subtasks').innerHTML = "";
+    document.getElementById('subtask_input').value = "";
+}
+
+
+/**
+ * 
+ * clear title, description, due date 
+ * 
+ */
+function clearTitleDescriptionDueDate() {
+
+    document.getElementById('title_input').value = "";
+    document.getElementById('text_area').value = "";
+    document.getElementById('input_due_date').value = "";
+}
+

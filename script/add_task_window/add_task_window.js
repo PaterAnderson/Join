@@ -5,15 +5,15 @@ let prio = 'medium';
 let selectedCategory = "";
 
 let maxSelectedSubtasks = 10;
-
 let subtaskCollection = [];
+
 let selectedContacts = [];
 let allContactNames = [];
-
 let maxSelectedContacts = 5;
-
 let currentNumberOfSelectedContacts = 0;
 let numberOfContactsDropdownMenu = 3;
+
+if (!sessionStorage.getItem('user')) window.location.href = '../index.html';
 
 
 /**
@@ -23,7 +23,7 @@ let numberOfContactsDropdownMenu = 3;
  */
 function onloadstart() {
 
-    renderContacts()
+    renderContacts();
     fetchAllContactNames();
 }
 
