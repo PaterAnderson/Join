@@ -78,21 +78,25 @@ function checkInputsInInputs3() {
  * @param {string} date 
  */
 function validateDate(date) {
-    // Prüfen, ob das Format korrekt ist (dd/mm/yyyy)
-    if (date.length !== 10 || date[2] !== '/' || date[5] !== '/') {
+    // Überprüfen, ob das Datum das Format dd/mm/yyyy hat
+    const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+    if (!regex.test(date)) {
         return false;
     }
 
-    // Tag, Monat und Jahr extrahieren
-    let day = parseInt(date.substring(0, 2), 10);
-    let month = parseInt(date.substring(3, 5), 10);
+    // Datum in Tag, Monat und Jahr aufteilen
+    const [day, month, year] = date.split('/').map(Number);
 
-    // Überprüfen, ob Tag und Monat im gültigen Bereich sind
-    if (isNaN(day) || isNaN(month) || day < 1 || day > 31 || month < 1 || month > 12) {
-        return false;
+    // Überprüfen, ob das Jahr ein Schaltjahr ist
+    function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
     }
 
-    return true;
+    // Anzahl der Tage pro Monat
+    const daysInMonth = [31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    // Prüfen, ob der Monat zwischen 1 und 12 liegt und der Tag innerhalb des gültigen Bereichs für den Monat liegt
+    return month >= 1 && month <= 12 && day >= 1 && day <= daysInMonth[month - 1];
 }
 
 

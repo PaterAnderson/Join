@@ -200,7 +200,7 @@
                         style="cursor: pointer;">
     
     
-                        <input onkeydown="enterPressedCreateTask(event)" onfocus="closeContactsList(), showHideError('date_error', false);" type="tel" class="input-due-date font1" id="input_due_date" onkeydown="handleKeyDown(event)"
+                        <input onkeydown="enterPressedCreateTask(event), handleKeyDown(event)" onfocus="closeContactsList(), showHideError('date_error', false);" type="tel" class="input-due-date font1" id="input_due_date"
                             oninput="handleInput(event)" autocomplete="off" placeholder="dd/mm/yyyy" maxlength="10"
                             onclick="moveCursorToEnd(event)">
     

@@ -363,11 +363,13 @@ function handleLeftArrowDay(inputElement) {
  * 
  */
 function handleKeyDown(event) {
+
     const inputElement = event.target;
     const cursorPos = inputElement.selectionStart;
     let value = inputElement.value.replace(/[^0-9]/g, ''); // Get only numbers
 
     if (event.key === 'ArrowLeft') {
+
         if (cursorPos > 5 && cursorPos <= 10) {
             handleLeftArrowYear(inputElement, value);
         } else if (cursorPos > 2 && cursorPos <= 5) {
@@ -378,6 +380,8 @@ function handleKeyDown(event) {
         event.preventDefault();
     }
 }
+
+
 
 
 
