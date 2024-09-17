@@ -24,6 +24,11 @@
     <script src="../script/add_task_window/add_task_window_templates.js"></script>
 
     <script src="../script/add_task_window/add_task_firebase_luk.js"></script>
+
+    <link rel="stylesheet" href="../style/pikaday_calendar.css">
+    <script src="../script/pikaday_calendar.js"></script>
+    <link rel="stylesheet" href="../style/calendar.css">
+    <script src="../script/calendar.js"></script>
 </head>
 
 <body onload="init(), onloadstart()" onclick="bodyOnClick()">
@@ -31,19 +36,28 @@
         <div class="header-content">
             <div class="header-title ui-p">Kanban Project Management Tool</div>
             <div class="header-profile">
-                <a href="help.html" target="_blank"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M9.95 16C10.3 16 10.5958 15.8792 10.8375 15.6375C11.0792 15.3958 11.2 15.1 11.2 14.75C11.2 14.4 11.0792 14.1042 10.8375 13.8625C10.5958 13.6208 10.3 13.5 9.95 13.5C9.6 13.5 9.30417 13.6208 9.0625 13.8625C8.82083 14.1042 8.7 14.4 8.7 14.75C8.7 15.1 8.82083 15.3958 9.0625 15.6375C9.30417 15.8792 9.6 16 9.95 16ZM10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10C20 11.3833 19.7375 12.6833 19.2125 13.9C18.6875 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6875 13.9 19.2125C12.6833 19.7375 11.3833 20 10 20ZM10 18C12.2333 18 14.125 17.225 15.675 15.675C17.225 14.125 18 12.2333 18 10C18 7.76667 17.225 5.875 15.675 4.325C14.125 2.775 12.2333 2 10 2C7.76667 2 5.875 2.775 4.325 4.325C2.775 5.875 2 7.76667 2 10C2 12.2333 2.775 14.125 4.325 15.675C5.875 17.225 7.76667 18 10 18ZM10.1 5.7C10.5167 5.7 10.8792 5.83333 11.1875 6.1C11.4958 6.36667 11.65 6.7 11.65 7.1C11.65 7.46667 11.5375 7.79167 11.3125 8.075C11.0875 8.35833 10.8333 8.625 10.55 8.875C10.1667 9.20833 9.82917 9.575 9.5375 9.975C9.24583 10.375 9.1 10.825 9.1 11.325C9.1 11.5583 9.1875 11.7542 9.3625 11.9125C9.5375 12.0708 9.74167 12.15 9.975 12.15C10.225 12.15 10.4375 12.0667 10.6125 11.9C10.7875 11.7333 10.9 11.525 10.95 11.275C11.0167 10.925 11.1667 10.6125 11.4 10.3375C11.6333 10.0625 11.8833 9.8 12.15 9.55C12.5333 9.18333 12.8625 8.78333 13.1375 8.35C13.4125 7.91667 13.55 7.43333 13.55 6.9C13.55 6.05 13.2042 5.35417 12.5125 4.8125C11.8208 4.27083 11.0167 4 10.1 4C9.46667 4 8.8625 4.13333 8.2875 4.4C7.7125 4.66667 7.275 5.075 6.975 5.625C6.85833 5.825 6.82083 6.0375 6.8625 6.2625C6.90417 6.4875 7.01667 6.65833 7.2 6.775C7.43333 6.90833 7.675 6.95 7.925 6.9C8.175 6.85 8.38333 6.70833 8.55 6.475C8.73333 6.225 8.9625 6.03333 9.2375 5.9C9.5125 5.76667 9.8 5.7 10.1 5.7Z"
-                        fill="#A8A8A8" />
-                </svg></a>
+                <a href="help.html" target="_blank"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9.95 16C10.3 16 10.5958 15.8792 10.8375 15.6375C11.0792 15.3958 11.2 15.1 11.2 14.75C11.2 14.4 11.0792 14.1042 10.8375 13.8625C10.5958 13.6208 10.3 13.5 9.95 13.5C9.6 13.5 9.30417 13.6208 9.0625 13.8625C8.82083 14.1042 8.7 14.4 8.7 14.75C8.7 15.1 8.82083 15.3958 9.0625 15.6375C9.30417 15.8792 9.6 16 9.95 16ZM10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10C20 11.3833 19.7375 12.6833 19.2125 13.9C18.6875 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6875 13.9 19.2125C12.6833 19.7375 11.3833 20 10 20ZM10 18C12.2333 18 14.125 17.225 15.675 15.675C17.225 14.125 18 12.2333 18 10C18 7.76667 17.225 5.875 15.675 4.325C14.125 2.775 12.2333 2 10 2C7.76667 2 5.875 2.775 4.325 4.325C2.775 5.875 2 7.76667 2 10C2 12.2333 2.775 14.125 4.325 15.675C5.875 17.225 7.76667 18 10 18ZM10.1 5.7C10.5167 5.7 10.8792 5.83333 11.1875 6.1C11.4958 6.36667 11.65 6.7 11.65 7.1C11.65 7.46667 11.5375 7.79167 11.3125 8.075C11.0875 8.35833 10.8333 8.625 10.55 8.875C10.1667 9.20833 9.82917 9.575 9.5375 9.975C9.24583 10.375 9.1 10.825 9.1 11.325C9.1 11.5583 9.1875 11.7542 9.3625 11.9125C9.5375 12.0708 9.74167 12.15 9.975 12.15C10.225 12.15 10.4375 12.0667 10.6125 11.9C10.7875 11.7333 10.9 11.525 10.95 11.275C11.0167 10.925 11.1667 10.6125 11.4 10.3375C11.6333 10.0625 11.8833 9.8 12.15 9.55C12.5333 9.18333 12.8625 8.78333 13.1375 8.35C13.4125 7.91667 13.55 7.43333 13.55 6.9C13.55 6.05 13.2042 5.35417 12.5125 4.8125C11.8208 4.27083 11.0167 4 10.1 4C9.46667 4 8.8625 4.13333 8.2875 4.4C7.7125 4.66667 7.275 5.075 6.975 5.625C6.85833 5.825 6.82083 6.0375 6.8625 6.2625C6.90417 6.4875 7.01667 6.65833 7.2 6.775C7.43333 6.90833 7.675 6.95 7.925 6.9C8.175 6.85 8.38333 6.70833 8.55 6.475C8.73333 6.225 8.9625 6.03333 9.2375 5.9C9.5125 5.76667 9.8 5.7 10.1 5.7Z"
+                            fill="#A8A8A8" />
+                    </svg></a>
                 <div id="user-icon" class="user-icon" onclick="openUserMenu()"></div>
                 <div id="user-nav" class="user-icon-menu user-icon-menu-text d-none">
-                <div class="user-icon-menu-wrapper">
-                    <a href="help.html" target="_blank"><div class="user-icon-menu-nav">Help</div></a>
-                    <a href="legal_notice.html" target="_blank"><div class="user-icon-menu-nav">Legal Notice</div></a>
-                    <a href="privacy_policy.html" target="_blank"><div class="user-icon-menu-nav">Privacy Policy</div></a>
-                    <a href="login.html"><div class="user-icon-menu-nav">Log out</div></a>
-                </div>
+                    <div class="user-icon-menu-wrapper">
+                        <a href="help.html" target="_blank">
+                            <div class="user-icon-menu-nav">Help</div>
+                        </a>
+                        <a href="legal_notice.html" target="_blank">
+                            <div class="user-icon-menu-nav">Legal Notice</div>
+                        </a>
+                        <a href="privacy_policy.html" target="_blank">
+                            <div class="user-icon-menu-nav">Privacy Policy</div>
+                        </a>
+                        <a href="login.html">
+                            <div class="user-icon-menu-nav">Log out</div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,10 +129,14 @@
                 </div>
             </div>
             <div class="legal-div text-body">
-                <a href="privacy_policy.html" target="_blank"><div class="legal-hover">Privacy Policy</div></a>
-                 <a href="legal_notice.html" target="_blank"><div class="legal-hover">
-                     Legal notice</div></a>
-             </div>
+                <a href="privacy_policy.html" target="_blank">
+                    <div class="legal-hover">Privacy Policy</div>
+                </a>
+                <a href="legal_notice.html" target="_blank">
+                    <div class="legal-hover">
+                        Legal notice</div>
+                </a>
+            </div>
         </div>
     </aside>
     <main>
@@ -126,96 +144,104 @@
 
         <div class="window">
 
+            <div onclick="stopProp(event)" id="calendar-container" class="calendar-container"></div>
+
 
             <div class="add-task for-center">Add task</div>
-    
-    
+
+
             <div class="title-description">
-                <div class="title-add-task font1"><span style="color: #2A3647;">Title</span><span style="color: #FF8190;">*</span>
-    
+                <div class="title-add-task font1"><span style="color: #2A3647;">Title</span><span
+                        style="color: #FF8190;">*</span>
+
                     <div class="input-outside3" id="input_border1"
                         onclick="focusInput('title_input'), showHideError('title_error', false)">
-    
+
                         <input onkeydown="enterPressedCreateTask(event)" oninput="showHideError('title_error', false)"
                             onfocus="showHideError('title_error', false)" class="input-add-task input-title"
-                            id="title_input" maxlength="30" type="name" placeholder="Enter a title" autocomplete="off" />
-    
+                            id="title_input" maxlength="30" type="name" placeholder="Enter a title"
+                            autocomplete="off" />
+
                     </div>
-    
+
                     <div id="title_error" style="display: none;" class="required font2">This field is required</div>
                 </div>
-    
+
                 <div class="description font1"><span style="color: #2A3647;">Description</span>
-    
+
                     <div class="text-area-div for-center" onclick="focusInput('text_area')" style="cursor: pointer;">
-    
+
                         <textarea id="text_area" class="text-area" maxlength="300"
                             placeholder="Enter a Description"></textarea>
-    
+
                         <img src="../assets/icons/recurso.png" alt="">
                     </div>
-    
+
                 </div>
-    
+
                 <div class="assigned font1"><span style="color: #2A3647;">Assigned to</span>
-    
+
                     <div class="assigned-input assigned-input-hover"
                         onclick="openContactsList(), focusInput('contacts_list'), stopProp(event)">
-    
+
                         <input oninput="searchContacts()" onfocus="openContactsList()"
                             class="input-add-task input-assigned-to" id="contacts_list" maxlength="30" type="name"
                             placeholder="Select contacts to assign" autocomplete="off" />
-    
+
                         <div class="arrow-div for-center" onclick="toggleShowContacts(), stopProp(event)">
                             <img id="assign_arrow" src="../assets/icons/arrow_drop_down.png" alt="">
                         </div>
                     </div>
-    
-    
+
+
                     <div class="list-of-contacts-outside" id="list_of_contacts_outside">
                         <div class="list-of-contacts" id="list_of_contacts" onclick="stopProp(event)">
-    
+
                             <div id="contactsContainer" class="div-contact"></div>
-    
+
                         </div>
                     </div>
-    
+
                 </div>
-    
-    
+
+
             </div>
-    
-    
+
+
             <div class="circles-contacts-div" id="circles_contacts_div"></div>
-    
+
             <div class="separator"></div>
-    
-    
-            <div class="due-prio">
+
+
+            <div class="due-prio" id="due_prio">
                 <div class="title-add-task font1">
                     <span style="color: #2A3647;">Due date</span>
                     <span style="color: #FF8190;">*</span>
-    
+
                     <div onclick="focusInput('input_due_date')" class="input-outside3 font1" id="input_border1"
                         style="cursor: pointer;">
-    
-    
-                        <input onkeydown="enterPressedCreateTask(event), handleKeyDown(event)" onfocus="closeContactsList(), showHideError('date_error', false);" type="tel" class="input-due-date font1" id="input_due_date"
-                            oninput="handleInput(event)" autocomplete="off" placeholder="dd/mm/yyyy" maxlength="10"
-                            onclick="moveCursorToEnd(event)">
-    
-    
-                        <img class="due-date-icon" src="../assets/icons/due_date_icon.png" alt="">
-    
+
+
+                        <input onkeydown="enterPressedCreateTask(event), handleKeyDown(event)"
+                            onfocus="closeContactsList(), showHideError('date_error', false);" type="tel"
+                            class="input-due-date font1" id="input_due_date" oninput="handleInput(event)"
+                            autocomplete="off" placeholder="dd/mm/yyyy" maxlength="10" onclick="moveCursorToEnd(event)">
+
+
+                        <div class="due-date-icon-hover" onclick="calendarOnClick(), stopProp(event)"></div>
+                        <img class="due-date-icon"
+                            src="../assets/icons/due_date_icon.png" alt="">
+
+
                     </div>
-    
+
                     <div class="required-date font2" id="date_error" style="display: none;">This field is required</div>
                 </div>
-    
+
                 <div class="prio font1"><span style="color: #2A3647;">Prio</span>
-    
+
                     <div class="prio-buttons">
-    
+
                         <div id="prio_button1" onclick="prioButton1()" class="prio-button1 for-center white-bg">
                             <div class="font1 for-center"><span style="margin-right: 8px;">Urgent</span><img
                                     id="img_prio_button1" src="../assets/icons/urgent.png"
@@ -228,56 +254,59 @@
                         </div>
                         <div id="prio_button3" onclick="prioButton3()" class="prio-button3 for-center white-bg">
                             <div class="font1 for-center"><span style="margin-right: 8px;">Low</span><img
-                                    id="img_prio_button3" src="../assets/icons/low.png" style="width: 20px; height: 15px;">
+                                    id="img_prio_button3" src="../assets/icons/low.png"
+                                    style="width: 20px; height: 15px;">
                             </div>
                         </div>
-    
+
                     </div>
-    
+
                 </div>
-    
+
                 <div class="assigned font1 category-div"><span style="color: #2A3647;">Category</span><span
                         style="color: #FF8190;">*</span>
-    
-    
+
+
                     <div onclick="toggleShowCategory(), stopProp(event)" style="cursor: pointer;"
                         class="assigned-input category-z" style="color: black;">
-    
+
                         <span id="selected category" style="margin-left: 16px;">Select task category</span>
-    
+
                         <div class="arrow-div for-center"><img id="assign_arrow_category"
                                 src="../assets/icons/arrow_drop_down.png" alt=""></div>
-    
+
                     </div>
-    
+
                     <div class="list-of-category-outside z1" id="list_of_category_outside" style="overflow: hidden;">
                         <div class="list-of-category" id="list_of_category" onclick="stopProp(event)">
-    
+
                             <div onclick="categoryTechnicalTask()" class="category-task-div"><span
                                     style="margin-left: 16px;">Technical Task</span></div>
                             <div onclick="categoryUserStory()" class="category-task-div"><span
                                     style="margin-left: 16px;">User Story</span></div>
-    
+
                         </div>
                     </div>
-    
-    
-                    <div class="required-category font2" id="category_error" style="display: none;">This field is required</div>
+
+
+                    <div class="required-category font2" id="category_error" style="display: none;">This field is
+                        required</div>
                 </div>
-    
-    
+
+
                 <div class="assigned-subtasks font1"><span style="color: #2A3647;">Subtasks</span>
-    
-    
+
+
                     <div class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
-    
-                        <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask" id="subtask_input"
-                            maxlength="21" type="name" placeholder="Add  new subtask" autocomplete="off" />
-    
-    
-                        <div onclick="addSubtask(), stopProp(event)" id="subtask_add_div" class="tasks-add-div for-center"><img
-                                src="../assets/icons/add_subtasks.png" alt=""></div>
-    
+
+                        <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask"
+                            id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask"
+                            autocomplete="off" />
+
+
+                        <div onclick="addSubtask(), stopProp(event)" id="subtask_add_div"
+                            class="tasks-add-div for-center"><img src="../assets/icons/add_subtasks.png" alt=""></div>
+
                         <div class="close-check" id="close_check" style="display: none;">
                             <div class="div24 for-center" onclick="closeSubtasks(), stopProp(event)">
                                 <img src="../assets/icons/close_subtasks.png">
@@ -287,20 +316,20 @@
                                 <img src="../assets/icons/check_subtasks.png">
                             </div>
                         </div>
-    
+
                     </div>
-    
-    
+
+
                     <div class="new-div-for-subtasks" id="render_subtasks"></div>
-    
-    
+
+
                 </div>
-    
+
             </div>
-    
-    
+
+
             <div class="buttons">
-    
+
                 <div class="clear for-center" onclick="clearAddTaskForm()">Clear x</div>
                 <button class="create-task for-center" onclick="createTaskClick()">Create Task
                     <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -309,18 +338,19 @@
                             fill="white" />
                     </svg>
                 </button>
-    
+
             </div>
-    
+
             <div class="field-required">
                 <div style="color: #FF8190; transform: translateY(-3px);">*</div>This field is required
             </div>
-    
-    
-            <div class="task-added-to-board" id="task_added_to_board"><span class="font1">Task added to board</span><img src="../assets/icons/vector_task_added_to_board.png"></div>
-    
+
+
+            <div class="task-added-to-board" id="task_added_to_board"><span class="font1">Task added to board</span><img
+                    src="../assets/icons/vector_task_added_to_board.png"></div>
+
         </div>
-    
+
 
     </main>
 </body>

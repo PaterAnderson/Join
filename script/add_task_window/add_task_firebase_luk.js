@@ -96,19 +96,10 @@ const deleteKontakt = async (name) => {
 
 
 
-
-
-
-
-
-
 // Funktion, um ein task in Firebase zu erstellen
 const createTaskInFirebase = async (title, description, dueDate) => {
+
     const taskPfad = encodeURIComponent(title); // Verwende den gesamten Namen als Pfad und kodiert ihn für URLs
-
-
-    console.log(subtaskCollection);
-
 
     const taskData = {
         title: title,

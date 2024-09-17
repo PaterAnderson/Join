@@ -1,0 +1,70 @@
+.due-date-icon-hover:hover {
+    cursor: pointer;
+    background: rgba(0 0 0 / 0.08);
+    scale: 1.1;
+}
+
+.due-date-icon-hover {
+    width: 29px;
+    height: 29px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border-radius: 50%;
+    z-index: 4;
+}
+
+.calendar-container {
+    position: absolute;
+    display: inline-block;
+    left: 724px;
+    top: 328px;
+    scale: 1.7;
+    z-index: 4;
+    transition: transform 0.15s ease-in-out;
+    transform: translateX(346px);
+}
+
+.calendar-container2 {
+    transform: translateX(0);
+}
+
+.due-prio {
+    transition: opacity 0.25s ease-in-out;
+}
+
+#datepicker {
+    display: none;
+    /* Hides the default input field */
+}
+
+.pika-single {
+    width: 256px;
+    height: 224px;
+    border-radius: 10px;
+}
+
+.pika-single {
+    color: #333;
+    background: #fff;
+    border: 1px solid #D1D1D1;
+    font-family: "Inter", sans-serif;
+    box-shadow: 0px 0px 14px 3px rgba(0 0 0 / 0.1);
+}
+
+.pika-button {
+    font-family: "Inter", sans-serif;
+}
+
+.pika-button:hover {
+    background-color: #33aaff;
+    box-shadow: inset 0 1px 3px #178fe5;
+}
+
+.pika-table abbr {
+    text-decoration: none;
+}
+
+.pika-table abbr {
+    cursor: default;
+}

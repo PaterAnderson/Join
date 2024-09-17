@@ -115,7 +115,7 @@ function addSubtask() {
         if (subtaskCollection.length == maxSelectedSubtasks) subtask.placeholder = `${maxSelectedSubtasks} already exist!`;
 
         renderAllSubtasks();
-        scrollSubtasksToEnd();        
+        scrollSubtasksToEnd();
     }
 
     subtask.value = "";
@@ -152,7 +152,7 @@ function renderAllSubtasks() {
 function scrollSubtasksToEnd() {
 
     setTimeout(() => {
-        
+
         const element = document.getElementById(`id_subtask${subtaskCollection.length}`);
         element.parentNode.scrollTop = element.parentNode.scrollHeight;
     }, 200);
@@ -368,6 +368,7 @@ function handleKeyDown(event) {
     const cursorPos = inputElement.selectionStart;
     let value = inputElement.value.replace(/[^0-9]/g, ''); // Get only numbers
 
+    if (event.key === 'ArrowUp') event.preventDefault();
     if (event.key === 'ArrowLeft') {
 
         if (cursorPos > 5 && cursorPos <= 10) {

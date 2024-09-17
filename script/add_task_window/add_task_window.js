@@ -38,6 +38,7 @@ function bodyOnClick() {
     closeContactsList();
     closeCategory();
     noEditArea();
+    closeCalendar();
 }
 
 
