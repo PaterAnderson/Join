@@ -411,8 +411,8 @@
                 j = 1 + year + opts.yearRange;
             }
 
-            i = i + 6;
-            j = j - 3;
+            i = i + 8;
+            j = j - 1;
             
             for (arr = []; i < j && i <= opts.maxYear; i++) {
                 if (i >= opts.minYear) {

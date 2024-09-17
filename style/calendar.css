@@ -68,3 +68,15 @@
 .pika-table abbr {
     cursor: default;
 }
+
+.pika-select {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;     
+    border-radius: 4px;         
+    font-size: 18px;
+    color: #2A3647;                
+    appearance: none;          
+    font-family: "Inter", sans-serif;
+    padding-left: 10px;
+}
+
