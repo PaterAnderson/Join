@@ -187,7 +187,7 @@ function editTaskOverlay(data, taskName) {
 
 function returnEditOverlay(data) {
     return `
-    <div onclick="stopProp(event)" id="calendar-container" style="left: 150px; transform: translateX(100vw);" class="calendar-container"></div>
+    <div onclick="stopProp(event)" id="calendar-container" style="left: 150px; transform: translateX(100vw); transition: transform 0.35s ease-in-out;" class="calendar-container"></div>
 <div id="due_prio" class="container-edit-overlay" onclick="removeZindex(), bodyOnClick()">
     <div class="title-add-task-overlay font1"><span style="color: #2A3647;">Title</span><span
             style="color: #FF8190;">*</span>
@@ -406,8 +406,9 @@ function returnTaskCard(task, i, prioSVG) {
 
 
 function returnAddTaskOverlay() {
-    return `        <div id="overlay-add-task" class="overlay-add-task">
-
+    return `        
+    <div id="overlay-add-task" class="overlay-add-task">
+ <div onclick="stopProp(event)," id="calendar-container" style="transform: translateX(100vw); transition: transform 0.35s ease-in-out;" class="calendar-container"></div>
             <div onclick="bodyOnClick()">
 
                 <div class="add-task for-center">Add task</div>
@@ -477,23 +478,15 @@ function returnAddTaskOverlay() {
                 <div class="separator"></div>
 
 
-                <div class="due-prio">
+                <div class="due-prio" id="due_prio">
                     <div class=" font1">
                         <span style="color: #2A3647;">Due date</span>
                         <span style="color: #FF8190;">*</span>
-
-                        <div onclick="focusInput('input_due_date')" class="input-outside3 font1" id="input_border1"
-                            style="cursor: pointer;">
-
-
-                            <input onkeydown="enterPressedCreateTask(event)"
-                                onfocus="closeContactsList(), showHideError('date_error', false);" type="tel"
-                                class="input-due-date font1" id="input_due_date" onkeydown="handleKeyDown(event)"
-                                oninput="handleInput(event)" autocomplete="off" placeholder="dd/mm/yyyy" maxlength="10"
-                                onclick="moveCursorToEnd(event)">
-
-                            <img class="due-date-icon" src="../assets/icons/due_date_icon.png" alt="">
-                        </div>
+                    <div onclick="focusInput('input_due_date')" class="input-outside3 font1" id="input_border1" style="cursor: pointer;">
+                        <input  onkeydown="enterPressedCreateTask(event), handleKeyDown(event)" onfocus="closeContactsList(), showHideError('date_error', false);" type="tel" class="input-due-date font1" id="input_due_date" oninput="handleInput(event)" autocomplete="off" placeholder="dd/mm/yyyy" maxlength="10" onclick="moveCursorToEnd(event)">
+                        <div class="due-date-icon-hover" onclick="calendarOnClick(), stopProp(event)"></div>
+                        <img class="due-date-icon" src="../assets/icons/due_date_icon.png" alt="">
+                    </div>
                         <div class="required-date font2" id="date_error" style="display: none;">This field is
                             required</div>
                     </div>
