@@ -6,7 +6,6 @@ const priorityMap = {
 
 function initBoard() {
     getTasksFromFirebase()
-    onloadstart()
 }
 
 
@@ -165,8 +164,7 @@ function renderOverlay(data, taskName, overlay) {
 }
 
 
-async function getEditTaskOvleray(taskName){
-    onloadstart()
+async function getEditTaskOvleray(taskName) {
     try {
         let data = await processData(`${BASE_URL}/tasks.json`)
         editTaskOverlay(data, taskName)
@@ -175,20 +173,22 @@ async function getEditTaskOvleray(taskName){
     }
 }
 
-function editTaskOverlay(data, taskName){
+function editTaskOverlay(data, taskName) {
     Object.values(data).forEach(entry => {
-        if(entry.title === taskName){
+        if (entry.title === taskName) {
             data = entry
             document.getElementById('card-board-task-overlay').innerHTML = returnEditOverlay(data)
             document.getElementById('text_area').value = data.description
         }
     })
+    onloadstart()
 }
 
 
-function returnEditOverlay(data){
+function returnEditOverlay(data) {
     return `
-<div class="container-edit-overlay" onclick="removeZindex(), bodyOnClick()">
+    <div onclick="stopProp(event)" id="calendar-container" style="left: 150px; transform: translateX(100vw);" class="calendar-container"></div>
+<div id="due_prio" class="container-edit-overlay" onclick="removeZindex(), bodyOnClick()">
     <div class="title-add-task-overlay font1"><span style="color: #2A3647;">Title</span><span
             style="color: #FF8190;">*</span>
         <div class="input-outside3" id="input_border1"
@@ -206,31 +206,27 @@ function returnEditOverlay(data){
             <img src="../assets/icons/recurso.png" alt="">
         </div>
     </div>
-    <div class=" font1">
+<div class="title-add-task font1">
         <span style="color: #2A3647;">Due date</span>
-        <span style="color: #FF8190;">*</span>
-        <div onclick="focusInput('input_due_date'), setPositionMarker('input_due_date') " class="input-outside3 font1" id="input_border1"
-            style="cursor: pointer;">
-            <input value="${data.date}" onkeydown="enterPressedCreateTask(event)"
-                onfocus="closeContactsList(), showHideError('date_error', false);" type="tel"
-                class="input-due-date font1" id="input_due_date" oninput="handleInput(event)" autocomplete="off"
-                placeholder="dd/mm/yyyy" maxlength="10" onclick="moveCursorToEnd(event)">
-            <img class="due-date-icon" src="../assets/icons/due_date_icon.png" alt="">
-        </div>
-        <div class="required-date font2" id="date_error" style="display: none;">This field is
-            required</div>
-    </div>
+                <span style="color: #FF8190;">*</span>
+                    <div onclick="focusInput('input_due_date')" class="input-outside3 font1" id="input_border1" style="cursor: pointer;">
+                        <input value="${data.date}" onkeydown="enterPressedCreateTask(event), handleKeyDown(event)" onfocus="closeContactsList(), showHideError('date_error', false);" type="tel" class="input-due-date font1" id="input_due_date" oninput="handleInput(event)" autocomplete="off" placeholder="dd/mm/yyyy" maxlength="10" onclick="moveCursorToEnd(event)">
+                        <div class="due-date-icon-hover" onclick="calendarOnClick(), stopProp(event)"></div>
+                        <img class="due-date-icon" src="../assets/icons/due_date_icon.png" alt="">
+                    </div>
+                    <div class="required-date font2" id="date_error" style="display: none;">This field is required</div>
+                </div>
     <div class="prio font1"><span style="color: #2A3647;">Prio</span>
         <div class="prio-buttons">
-            <div id="prio_button1" onclick="prioButton1()" class="prio-button1 for-center white-bg">
+            <div id="prio_button1" onclick="prioButton1()" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button1 for-center white-bg">
                 <div class="font1 for-center"><span style="margin-right: 8px;">Urgent</span><img id="img_prio_button1"
                         src="../assets/icons/urgent.png" style="width: 20px; height: 15px;"></div>
             </div>
-            <div id="prio_button2" onclick="prioButton2()" class="prio-button2 for-center medium-bg">
+            <div id="prio_button2" onclick="prioButton2()" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button2 for-center medium-bg">
                 <div class="font1 for-center"><span style="margin-right: 8px;">Medium</span><img id="img_prio_button2"
                         src="../assets/icons/medium2.png" style="width: 20px; height: 8px;"></div>
             </div>
-            <div id="prio_button3" onclick="prioButton3()" class="prio-button3 for-center white-bg">
+            <div id="prio_button3" onclick="prioButton3()" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button3 for-center white-bg">
                 <div class="font1 for-center"><span style="margin-right: 8px;">Low</span><img id="img_prio_button3"
                         src="../assets/icons/low.png" style="width: 20px; height: 15px;">
                 </div>
@@ -239,14 +235,15 @@ function returnEditOverlay(data){
     </div>
     <div class="assigned font1"><span style="color: #2A3647;">Assigned to</span>
         <div class="assigned-input assigned-input-hover"
-            onclick="openContactsList(), focusInput('contacts_list'), stopProp(event)">
-            <input oninput="searchContacts()" onfocus="openContactsList()" onclick="changeZindex()" class="input-add-task input-assigned-to"
+            onclick="openContactsList(), focusInput('contacts_list'), stopProp(event), changeZindex()">
+            <input oninput="searchContacts()" onfocus="openContactsList()" class="input-add-task input-assigned-to"
                 id="contacts_list" maxlength="30" type="name" placeholder="Select contacts to assign"
                 autocomplete="off">
 
             <div class="arrow-div for-center" onclick="toggleShowContacts(), changeZindex(), stopProp(event)">
                 <img id="assign_arrow" src="../assets/icons/arrow_drop_down.png" alt="">
             </div>
+            <div class="circles-contacts-div" id="circles_contacts_div" style="height: 0; left: 0; bottom: -8px; margin-top: 4px;"></div>
         </div>
         <div class="list-of-contacts-outside postion-relativ z-index-0" id="list_of_contacts_outside">
             <div class="list-of-contacts" id="list_of_contacts" onclick="stopProp(event)">
@@ -257,7 +254,7 @@ function returnEditOverlay(data){
         </div>
     </div>
     </div>
-    <div class="assigned-subtasks font1"><span style="color: #2A3647;">Subtasks</span>
+    <div style="margin-top: 42px;" class="assigned-subtasks font1"><span style="color: #2A3647;">Subtasks</span>
         <div class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
             <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask" id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask" autocomplete="off">
             <div id="subtask_add_div" class="tasks-add-div for-center"><img src="../assets/icons/add_subtasks.png" alt=""></div>
@@ -284,17 +281,17 @@ function returnEditOverlay(data){
     `
 }
 
-function setPositionMarker(id){
+function setPositionMarker(id) {
     let input = document.getElementById(id);
     let valueLength = input.value.length;
     input.setSelectionRange(valueLength, valueLength)
 }
 
-function changeZindex(){
+function changeZindex() {
     document.getElementById('list_of_contacts_outside').classList.toggle('z-index-3')
 }
 
-function removeZindex(){
+function removeZindex() {
     document.getElementById('list_of_contacts_outside').classList.remove('z-index-3')
 }
 
@@ -336,7 +333,7 @@ function returnTaskOverlay(data) {
                 <img onclick="closeCardOverlay()" src="/assets/icons/close-card-overlay.svg" class="card-overlay-close">
             </div>
             <div class="card-overlay-title">${data.title}</div>
-            <div class="card-overlay-descritption">${data.description}.</div>
+            <div class="card-overlay-descritption">${data.description}</div>
             <div class="card-overlay-wrapper">
                 <div class="card-overlay-subtitle">Due date: </div>
                 <div class="card-overlay-date">${data.date}</div>
@@ -373,6 +370,9 @@ function returnTaskOverlay(data) {
 function closeCardOverlay() {
     document.getElementById('card-board-overlay-background').classList.add('display-opacity-board')
     document.getElementById('card-board-task-overlay').classList.remove('overlay-add-task-transition')
+    setTimeout(() => {
+        document.getElementById('card-board-task-overlay').innerHTML = ''
+    }, 250)
 }
 
 
@@ -403,3 +403,182 @@ function returnTaskCard(task, i, prioSVG) {
             `
 }
 
+
+
+function returnAddTaskOverlay() {
+    return `        <div id="overlay-add-task" class="overlay-add-task">
+
+            <div onclick="bodyOnClick()">
+
+                <div class="add-task for-center">Add task</div>
+
+
+                <div class="title-description-overlay">
+                    <div class="title-add-task-overlay font1"><span style="color: #2A3647;">Title</span><span
+                            style="color: #FF8190;">*</span>
+
+                        <div class="input-outside3" id="input_border1"
+                            onclick="focusInput('title_input'), showHideError('title_error', false)">
+
+                            <input onkeydown="enterPressedCreateTask(event)"
+                                oninput="showHideError('title_error', false)"
+                                onfocus="showHideError('title_error', false)" class="input-add-task input-title"
+                                id="title_input" maxlength="30" type="name" placeholder="Enter a title"
+                                autocomplete="off" />
+
+                        </div>
+
+                        <div id="title_error" style="display: none;" class="required font2">This field is required
+                        </div>
+                    </div>
+
+                    <div class="description font1"><span style="color: #2A3647;">Description</span>
+
+                        <div class="text-area-div for-center" onclick="focusInput('text_area')"
+                            style="cursor: pointer;">
+
+                            <textarea id="text_area" class="text-area" maxlength="300"
+                                placeholder="Enter a Description"></textarea>
+
+                            <img src="../assets/icons/recurso.png" alt="">
+                        </div>
+
+                    </div>
+
+                    <div class="assigned font1"><span style="color: #2A3647;">Assigned to</span>
+
+                        <div class="assigned-input assigned-input-hover"
+                            onclick="openContactsList(), focusInput('contacts_list'), stopProp(event)">
+
+                            <input oninput="searchContacts()" onfocus="openContactsList()"
+                                class="input-add-task input-assigned-to" id="contacts_list" maxlength="30" type="name"
+                                placeholder="Select contacts to assign" autocomplete="off" />
+
+                            <div class="arrow-div for-center" onclick="toggleShowContacts(), stopProp(event)">
+                                <img id="assign_arrow" src="../assets/icons/arrow_drop_down.png" alt="">
+                            </div>
+                        </div>
+                        <div class="circles-contacts-div" id="circles_contacts_div" style="height: 0; left: 0; bottom: 0; margin-top: 4px;"></div>
+
+
+                        <div class="list-of-contacts-outside" id="list_of_contacts_outside">
+                            <div class="list-of-contacts" id="list_of_contacts" onclick="stopProp(event)">
+                                <div id="contactsContainer" class="div-contact"></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="separator"></div>
+
+
+                <div class="due-prio">
+                    <div class=" font1">
+                        <span style="color: #2A3647;">Due date</span>
+                        <span style="color: #FF8190;">*</span>
+
+                        <div onclick="focusInput('input_due_date')" class="input-outside3 font1" id="input_border1"
+                            style="cursor: pointer;">
+
+
+                            <input onkeydown="enterPressedCreateTask(event)"
+                                onfocus="closeContactsList(), showHideError('date_error', false);" type="tel"
+                                class="input-due-date font1" id="input_due_date" onkeydown="handleKeyDown(event)"
+                                oninput="handleInput(event)" autocomplete="off" placeholder="dd/mm/yyyy" maxlength="10"
+                                onclick="moveCursorToEnd(event)">
+
+                            <img class="due-date-icon" src="../assets/icons/due_date_icon.png" alt="">
+                        </div>
+                        <div class="required-date font2" id="date_error" style="display: none;">This field is
+                            required</div>
+                    </div>
+                    <div class="prio font1"><span style="color: #2A3647;">Prio</span>
+                        <div class="prio-buttons">
+                            <div id="prio_button1" onclick="prioButton1()" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button1 for-center white-bg">
+                                <div class="font1 for-center"><span style="margin-right: 8px;">Urgent</span><img
+                                        id="img_prio_button1" src="../assets/icons/urgent.png"
+                                        style="width: 20px; height: 15px;"></div>
+                            </div>
+                            <div id="prio_button2" onclick="prioButton2()" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button2 for-center medium-bg">
+                                <div class="font1 for-center"><span style="margin-right: 8px;">Medium</span><img
+                                        id="img_prio_button2" src="../assets/icons/medium2.png"
+                                        style="width: 20px; height: 8px;"></div>
+                            </div>
+                            <div id="prio_button3" onclick="prioButton3()" style="box-shadow: 0px 0px 4px 0px #0000001A;"  class="prio-button3 for-center white-bg">
+                                <div class="font1 for-center"><span style="margin-right: 8px;">Low</span><img
+                                        id="img_prio_button3" src="../assets/icons/low.png"
+                                        style="width: 20px; height: 15px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="assigned font1 category-div"><span style="color: #2A3647;">Category</span><span
+                            style="color: #FF8190;">*</span>
+
+
+                        <div onclick="toggleShowCategory(), stopProp(event)" style="cursor: pointer;"
+                            class="assigned-input category-z" style="color: black;">
+
+                            <span id="selected category" style="margin-left: 16px;">Select task category</span>
+
+                            <div class="arrow-div for-center"><img id="assign_arrow_category"
+                                    src="../assets/icons/arrow_drop_down.png" alt=""></div>
+
+                        </div>
+                        <div class="list-of-category-outside z1" id="list_of_category_outside"
+                            style="overflow: hidden;">
+                            <div class="list-of-category" id="list_of_category" onclick="stopProp(event)">
+
+                                <div onclick="categoryTechnicalTask()" class="category-task-div"><span
+                                        style="margin-left: 16px;">Technical Task</span></div>
+                                <div onclick="categoryUserStory()" class="category-task-div"><span
+                                        style="margin-left: 16px;">User Story</span></div>
+                            </div>
+                        </div>
+                        <div class="required-category font2" id="category_error" style="display: none;">This field
+                            is required</div>
+                    </div>
+                    <div class="assigned-subtasks font1"><span style="color: #2A3647;">Subtasks</span>
+                        <div class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
+                            <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask"
+                                id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask"
+                                autocomplete="off" />
+                            <div id="subtask_add_div" class="tasks-add-div for-center"><img
+                                    src="../assets/icons/add_subtasks.png" alt=""></div>
+
+                            <div class="close-check" id="close_check" style="display: none;">
+                                <div class="div24 for-center" onclick="closeSubtasks(), stopProp(event)">
+                                    <img src="../assets/icons/close_subtasks.png">
+                                </div>
+                                <div class="subtask-separator"></div>
+                                <div class="div24 for-center" onclick="addSubtask(), stopProp(event)">
+                                    <img src="../assets/icons/check_subtasks.png">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="new-div-for-subtasks" id="render_subtasks"></div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="clear for-center">Clear x</div>
+                    <button class="create-task for-center" onclick="createTaskClick()">Create Task
+                        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M5.79923 9.15L14.2742 0.675C14.4742 0.475 14.7117 0.375 14.9867 0.375C15.2617 0.375 15.4992 0.475 15.6992 0.675C15.8992 0.875 15.9992 1.1125 15.9992 1.3875C15.9992 1.6625 15.8992 1.9 15.6992 2.1L6.49923 11.3C6.29923 11.5 6.0659 11.6 5.79923 11.6C5.53256 11.6 5.29923 11.5 5.09923 11.3L0.79923 7C0.59923 6.8 0.503397 6.5625 0.51173 6.2875C0.520064 6.0125 0.62423 5.775 0.82423 5.575C1.02423 5.375 1.26173 5.275 1.53673 5.275C1.81173 5.275 2.04923 5.375 2.24923 5.575L5.79923 9.15Z"
+                                fill="white" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="field-required">
+                    <div style="color: #FF8190; transform: translateY(-3px);">*</div>This field is required
+                </div>
+                <div class="task-added-to-board" id="task_added_to_board"><span class="font1">Task added to
+                        board</span><img src="../assets/icons/vector_task_added_to_board.png"></div>
+            </div>
+        </div>`
+}

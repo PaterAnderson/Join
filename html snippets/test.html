@@ -34,3 +34,93 @@
     </div>
 
 </div>
+
+
+<div>
+    <div class="title-add-task-overlay font1"><span style="color: #2A3647;">Title</span><span
+            style="color: #FF8190;">*</span>
+        <div class="input-outside3" id="input_border1"
+            onclick="focusInput('title_input'), showHideError('title_error', false)">
+            <input onkeydown="enterPressedCreateTask(event)" oninput="showHideError('title_error', false)"
+                onfocus="showHideError('title_error', false)" class="input-add-task input-title" id="title_input"
+                maxlength="30" type="name" placeholder="Enter a title" autocomplete="off">
+        </div>
+        <div id="title_error" style="display: none;" class="required font2">This field is required
+        </div>
+    </div>
+    <div class="description font1"><span style="color: #2A3647;">Description</span>
+        <div class="text-area-div for-center" onclick="focusInput('text_area')" style="cursor: pointer;">
+            <textarea id="text_area" class="text-area" maxlength="300" placeholder="Enter a Description"></textarea>
+            <img src="../assets/icons/recurso.png" alt="">
+        </div>
+    </div>
+    <div class=" font1">
+        <span style="color: #2A3647;">Due date</span>
+        <span style="color: #FF8190;">*</span>
+        <div onclick="focusInput('input_due_date')" class="input-outside3 font1" id="input_border1"
+            style="cursor: pointer;">
+            <input onkeydown="enterPressedCreateTask(event)"
+                onfocus="closeContactsList(), showHideError('date_error', false);" type="tel"
+                class="input-due-date font1" id="input_due_date" oninput="handleInput(event)" autocomplete="off"
+                placeholder="dd/mm/yyyy" maxlength="10" onclick="moveCursorToEnd(event)">
+            <img class="due-date-icon" src="../assets/icons/due_date_icon.png" alt="">
+        </div>
+        <div class="required-date font2" id="date_error" style="display: none;">This field is
+            required</div>
+    </div>
+    <div class="prio font1"><span style="color: #2A3647;">Prio</span>
+        <div class="prio-buttons">
+            <div id="prio_button1" onclick="prioButton1()" class="prio-button1 for-center white-bg">
+                <div class="font1 for-center"><span style="margin-right: 8px;">Urgent</span><img id="img_prio_button1"
+                        src="../assets/icons/urgent.png" style="width: 20px; height: 15px;"></div>
+            </div>
+            <div id="prio_button2" onclick="prioButton2()" class="prio-button2 for-center medium-bg">
+                <div class="font1 for-center"><span style="margin-right: 8px;">Medium</span><img id="img_prio_button2"
+                        src="../assets/icons/medium2.png" style="width: 20px; height: 8px;"></div>
+            </div>
+            <div id="prio_button3" onclick="prioButton3()" class="prio-button3 for-center white-bg">
+                <div class="font1 for-center"><span style="margin-right: 8px;">Low</span><img id="img_prio_button3"
+                        src="../assets/icons/low.png" style="width: 20px; height: 15px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="assigned font1"><span style="color: #2A3647;">Assigned to</span>
+        <div class="assigned-input assigned-input-hover"
+            onclick="openContactsList(), focusInput('contacts_list'), stopProp(event)">
+            <input oninput="searchContacts()" onfocus="openContactsList()" class="input-add-task input-assigned-to"
+                id="contacts_list" maxlength="30" type="name" placeholder="Select contacts to assign"
+                autocomplete="off">
+
+            <div class="arrow-div for-center" onclick="toggleShowContacts(), stopProp(event)">
+                <img id="assign_arrow" src="../assets/icons/arrow_drop_down.png" alt="">
+            </div>
+        </div>
+        <div class="list-of-contacts-outside" id="list_of_contacts_outside">
+            <div class="list-of-contacts" id="list_of_contacts" onclick="stopProp(event)">
+
+                <div id="contactsContainer" class="div-contact">
+
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+    <div class="assigned-subtasks font1"><span style="color: #2A3647;">Subtasks</span>
+        <div class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
+            <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask" id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask" autocomplete="off">
+            <div id="subtask_add_div" class="tasks-add-div for-center"><img src="../assets/icons/add_subtasks.png" alt=""></div>
+            <div class="close-check" id="close_check" style="display: none;">
+                <div class="div24 for-center" onclick="closeSubtasks(), stopProp(event)">
+                    <img src="../assets/icons/close_subtasks.png">
+                </div>
+                <div class="subtask-separator"></div>
+                <div class="div24 for-center" onclick="addSubtask(), stopProp(event)">
+                    <img src="../assets/icons/check_subtasks.png">
+                </div>
+            </div>
+        </div>
+        <div class="new-div-for-subtasks" id="render_subtasks"></div>
+    </div>
+</div>

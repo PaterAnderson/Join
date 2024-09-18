@@ -36,7 +36,7 @@ function onloadstart() {
 function bodyOnClick() {
 
     closeContactsList();
-    closeCategory();
+    // closeCategory();
     noEditArea();
     closeCalendar();
 }
