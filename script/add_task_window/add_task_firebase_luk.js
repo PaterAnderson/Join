@@ -108,7 +108,7 @@ const createTaskInFirebase = async (title, description, dueDate) => {
         date: dueDate,
         prio: prio,
         category: selectedCategory,
-        subtasks: subtaskCollection.map(item => item.task)
+        subtasks: subtaskCollection.map(item => ({...item, done: false, edit: undefined }))
     };
 
     try {

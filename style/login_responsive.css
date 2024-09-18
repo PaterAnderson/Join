@@ -1,20 +1,13 @@
-@media (min-height: 1024px) {
+@media (max-width: 1420px) {
 
-    @media (min-width: 1440px) {
+    .sign-up-div {
+        right: 77px;
+    }
 
-        .main-div {
-            width: 1440px;
-            height: 1024px;
-            position: relative;
-
-            border: 1px solid black;
-        }
-
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .capa-login {
+        width: 80px;
+        height: 102px;
+        left: 57px;
+        top: 60px;
     }
 }
-

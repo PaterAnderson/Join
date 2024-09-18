@@ -1,0 +1,80 @@
+@media (max-width: 1420px) {
+
+    .capa-div {
+        left: calc((100% / 2) - (174px / 2)) !important;
+        top: calc((100% / 2) - (234px / 2)) !important;
+    }
+
+    .capa-div2 {
+        left: 57px !important;
+        top: 60px !important;
+    }
+
+    .capa {
+        width: 174px;
+        height: 234px;
+        opacity: 1;
+    }
+
+    .capa-mobile {
+        width: 174px;
+        height: 234px;
+        transition: all 1s;
+        margin-left: -173px;
+        opacity: 0;
+    }
+
+    .capa2 {
+        width: 80px !important;
+        height: 102px !important;
+    }
+
+    .capa2-mobile {
+        width: 80px !important;
+        height: 102px !important;
+        margin-left: -79px !important;
+    }
+}
+
+@media (max-width: 600px) {
+
+    body {
+        background-color: #2A3647;
+    }
+
+    .capa-div {
+        left: calc((100% / 2) - (100px / 2)) !important;
+        top: calc((100% / 2) - (122px / 2)) !important;
+    }
+
+    .capa-div2 {
+        left: 38px !important;
+        top: 37px !important;
+    }
+
+    .capa {
+        width: 100px;
+        height: 122px;
+        opacity: 0;
+    }
+
+    .capa-mobile {
+        width: 100px;
+        height: 122px;
+        margin-left: -99px;
+        opacity: 1;
+    }
+
+    .capa3 {
+        width: 64px !important;
+        height: 78px !important;
+        opacity: 1;
+    }
+
+    .capa3-mobile {
+        width: 64px !important;
+        height: 78px !important;
+        margin-left: -63px !important;
+        opacity: 0;
+    }
+}

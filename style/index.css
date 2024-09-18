@@ -1,8 +1,20 @@
-
 body {
     background-color: #f5f6f7ff;
     margin: 0;
-    height: 100vh;
+}
+
+.animation-index {
+    animation: backgroundColorChange 1s;
+}
+
+@keyframes backgroundColorChange {
+    0% {
+        background-color: #2A3647;
+    }
+
+    100% {
+        background-color: #f5f6f7ff;
+    }
 }
 
 .main-div {
@@ -12,21 +24,43 @@ body {
     position: relative;
 }
 
-.capa {
-    width: 274px;
-    height: 334px;
+.capa-div {
     position: absolute;
     left: calc((100% / 2) - (274px / 2));
     top: calc((100% / 2) - (334px / 2));
     transition: all 1s;
+    display: flex;
+}
+
+.capa-div2 {
+    left: 77px !important;
+    top: 80px !important;
+}
+
+.capa {
+    width: 274px;
+    height: 334px;
+    transition: all 1s;
+    opacity: 1;
+}
+
+.capa-mobile {
+    width: 274px;
+    height: 334px;
+    transition: all 1s;
+    margin-left: -273px;
+    opacity: 0;
 }
 
 .capa2 {
-    position: absolute;
-    width: 100px;
-    height: 122px;
-    left: 77px;
-    top: 80px;
+    width: 100px !important;
+    height: 122px !important;
+}
+
+.capa2-mobile {
+    width: 100px !important;
+    height: 122px !important;
+    margin-left: -99px !important;
 }
 
 .display-none {
