@@ -22,9 +22,8 @@ if (!sessionStorage.getItem('user')) window.location.href = '../index.html';
  * 
  */
 function onloadstart() {
-
-    renderContacts();
     fetchAllContactNames();
+    renderContacts();
 }
 
 
@@ -75,6 +74,7 @@ const fetchAllContactNames = async () => {
             name: kontakt.name,
             checked: false
         }));
+
 
     } catch (error) {
         console.error("Fehler beim Abrufen der Kontaktnamen:", error);

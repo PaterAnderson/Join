@@ -5,7 +5,8 @@ const priorityMap = {
 };
 
 function initBoard() {
-    getTasksFromFirebase()
+    getTasksFromFirebase();
+    fetchAllContactNames();
 }
 
 
@@ -45,7 +46,6 @@ async function getTasksFromFirebase() {
 
 function renderTask(task, i) {
     let id = document.getElementById('to-do')
-    console.log(task)
     id.innerHTML += returnTaskCard(task, i, returnPrio(task));
     if ('subtasks' in task) {
         let subtask = returnSubtask(task)
@@ -179,9 +179,32 @@ function editTaskOverlay(data, taskName) {
             data = entry
             document.getElementById('card-board-task-overlay').innerHTML = returnEditOverlay(data)
             document.getElementById('text_area').value = data.description
+
+            if ('subtasks' in data) {
+                for (let i = 0; i < data.subtasks.length; i++) {
+                    let internTask = {
+                        task: data.subtasks[i].task,
+                        done: data.subtasks[i].done,
+                        edit: false
+                    }
+                    subtaskCollection.push(internTask)
+                }
+            }
+
+            if ('assigned' in data) {
+                for (let i = 0; i < data.assigned.length; i++) {
+                    selectedContacts.push({ contact: data.assigned[i].contact, color: data.assigned[i].color });
+                }
+            }
+            updateCheckedStatus();
+            renderContacts();
+            renderAllSubtasks();
+            document.getElementById('circles_contacts_div').innerHTML = '';
+            showContactsAsCircles();
         }
+
     })
-    onloadstart()
+    
 }
 
 
@@ -373,6 +396,8 @@ function closeCardOverlay() {
     setTimeout(() => {
         document.getElementById('card-board-task-overlay').innerHTML = ''
     }, 250)
+    subtaskCollection = [];
+    selectedContacts = [];
 }
 
 
