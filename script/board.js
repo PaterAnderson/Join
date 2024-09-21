@@ -27,7 +27,7 @@ async function processData(url) {
 
 
 async function getTasksFromFirebase() {
-    document.getElementById('to-do')
+    document.getElementById('to-do').innerHTML = ''
     try {
         let counter = 0
         array = await processData(`${BASE_URL}/tasks.json`)
@@ -50,20 +50,20 @@ function renderTask(task, i) {
     if ('subtasks' in task) {
         let subtask = returnSubtask(task)
         document.getElementById(`subtask${i}`).innerHTML = '';
-        document.getElementById(`subtask${i}`).innerHTML = renderSubtask(subtask.total, subtask.done, subtask.percentage)
+        document.getElementById(`subtask${i}`).innerHTML = renderSubtask(subtask.total, subtask.done, subtask.percentage, task.title)
     }
     if ('assigned' in task) {
         renderAssignedContacts(task, i)
     }
 }
 
-function renderSubtask(total, done, progress) {
+function renderSubtask(total, done, progress, task) {
     return `<div class="card-board-subtask-progress-wrap">
              <div class="card-board-subtask-progress-background">
-                <div class="card-board-subtask-progress" style="width: ${progress}%;"></div>
+                <div id="progress${task}" class="card-board-subtask-progress" style="width: ${progress}%;"></div>
                 </div>
                </div>
-            <div class="card-board-subtask-number">${done}/${total} Subtasks</div>`
+            <div id="total${task}" class="card-board-subtask-number">${done}/${total} Subtasks</div>`
 }
 
 function renderAssignedContacts(task, counter) {
@@ -130,6 +130,7 @@ function renderOverlay(data, taskName, overlay) {
     Object.values(data).forEach(entry => {
         if (entry.title === taskName) {
             data = entry
+            subtaskCollection = entry.subtasks
             overlay.innerHTML = returnTaskOverlay(data)
             if (data.prio) {
                 document.getElementById('prio-card-overlay').innerHTML = renderPrio(data, returnPrio(entry))
@@ -165,6 +166,7 @@ function renderOverlay(data, taskName, overlay) {
 
 
 async function getEditTaskOvleray(taskName) {
+    subtaskCollection = [];
     try {
         let data = await processData(`${BASE_URL}/tasks.json`)
         editTaskOverlay(data, taskName)
@@ -196,6 +198,7 @@ function editTaskOverlay(data, taskName) {
                     selectedContacts.push({ contact: data.assigned[i].contact, color: data.assigned[i].color });
                 }
             }
+
             updateCheckedStatus();
             renderContacts();
             renderAllSubtasks();
@@ -204,9 +207,118 @@ function editTaskOverlay(data, taskName) {
         }
 
     })
+
+}
+
+let taskSave = {};
+
+async function getEditToFirebase(taskName, callback) {
+    try {
+        data = await processData(`${BASE_URL}/tasks.json`)
+        taskSave = data;
+        callback(taskName)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function editDataInArray(taskName) {
+    let date = document.getElementById('input_due_date').value
+    let discription = document.getElementById('text_area').value
+    let title = document.getElementById('title_input').value
+    let oldTaskName = taskName
+    console.log(subtaskCollection)
+    if (taskName !== title) {
+        for (let key in taskSave) {
+            if (key.includes(taskName)) {
+                let newKey = key.replace(taskName, title);
+                taskSave[newKey] = taskSave[key];
+                delete taskSave[key];
+            }
+        }
+
+        taskName = title
+    }
+
+
+    Object.assign(taskSave[taskName], {
+        date: date,
+        description: discription,
+        title: title,
+        subtasks: subtaskCollection.map(item => ({ ...item, edit: undefined }))
+    })
+
+    changeValue(oldTaskName, taskName);
+    POSTfirebase();
     
 }
 
+function changeValue(oldTaskName, taskName){
+    let changeTitle = document.getElementById('task-title' + `${oldTaskName}`)
+    changeTitle.innerText = taskSave[taskName].title
+
+    let changeDescirptio = document.getElementById('task-description' + `${oldTaskName}`)
+    changeDescirptio.innerText = taskSave[taskName].description
+
+    let changeButtonForTaskOverlay = document.getElementById(`${oldTaskName}`)
+    changeButtonForTaskOverlay.onclick = function(){
+        getOpenTaskOverlay(taskName)
+    }
+
+
+}
+async function POSTfirebase() {
+    try {
+        await fetch('https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/guest/tasks.json', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(taskSave)
+        })
+
+    } catch (error) {
+        console.log(error)
+    } finally {
+        taskSave = {};
+    }
+}
+
+async function markSubtaskDone(i, taskName) {
+    let checkmark = document.getElementById(`checkmark${i}`)
+    let text = document.getElementById(`subtask-text${i}`)
+    if (subtaskCollection[i].done === true) {
+        subtaskCollection[i].done = !subtaskCollection[i].done
+        checkmark.src = "/assets/icons/check-mark-subtask-overlay-unchecked.svg"
+        text.style.textDecoration = ''
+    }else{
+        subtaskCollection[i].done = !subtaskCollection[i].done
+        checkmark.src = "/assets/icons/check-mark-subtask-ovleray-checked.svg"
+        text.style.textDecoration = 'line-through'
+    }
+
+    let callback = pushSubtaskDone
+    await getEditToFirebase(taskName, callback)
+  
+}
+
+function pushSubtaskDone(taskName){
+    Object.assign(taskSave[taskName], {
+        subtasks: subtaskCollection.map(item => ({ ...item, edit: undefined }))
+    })
+
+    let subtaskValue = returnSubtask(taskSave[taskName])
+    changeSubtaskValue(subtaskValue.done, subtaskValue.total, subtaskValue.percentage, taskName)
+    POSTfirebase();
+}
+
+function changeSubtaskValue(done, total, percentage, taskName){
+    let totalNumbers = document.getElementById('total' + `${taskName}`)
+    let progressSubtask = document.getElementById('progress' + `${taskName}`)
+
+    totalNumbers.innerText = `${done}/${total} Subtasks`
+    progressSubtask.style.width = `${percentage}%`
+}
 
 function returnEditOverlay(data) {
     return `
@@ -295,7 +407,7 @@ function returnEditOverlay(data) {
     </div>
 </div>
     <div style="display: flex; justify-content: flex-end; align-items: center;">
-    <button style="width: auto; padding: 0px 12px 0px 12px;" class="create-task for-center" onclick="createTaskClick()">Ok
+    <button style="width: auto; padding: 0px 12px 0px 12px;" class="create-task for-center" onclick="getEditToFirebase('${data.title}', editDataInArray)">Ok
                         <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.79923 9.15L14.2742 0.675C14.4742 0.475 14.7117 0.375 14.9867 0.375C15.2617 0.375 15.4992 0.475 15.6992 0.675C15.8992 0.875 15.9992 1.1125 15.9992 1.3875C15.9992 1.6625 15.8992 1.9 15.6992 2.1L6.49923 11.3C6.29923 11.5 6.0659 11.6 5.79923 11.6C5.53256 11.6 5.29923 11.5 5.09923 11.3L0.79923 7C0.59923 6.8 0.503397 6.5625 0.51173 6.2875C0.520064 6.0125 0.62423 5.775 0.82423 5.575C1.02423 5.375 1.26173 5.275 1.53673 5.275C1.81173 5.275 2.04923 5.375 2.24923 5.575L5.79923 9.15Z" fill="white"></path>
                         </svg>
@@ -320,13 +432,25 @@ function removeZindex() {
 
 function returnSubtaskCardOverlay(data, i) {
 
-    return `
+    if (data.subtasks[i].done) {
+
+        return `
         <div class="card-overlay-subtask">
-            <div class="check-mark-wrapper" onclick="markSubtaskDone(${data.title}, ${data.subtasks[i].task})">
-                <img src="/assets/icons/check-mark-subtask-overlay-unchecked.svg">
+            <div class="check-mark-wrapper" onclick="markSubtaskDone(${i},'${data.title}')">
+                <img id="checkmark${i}" src="/assets/icons/check-mark-subtask-ovleray-checked.svg">
             </div>
-                <div class="card-overlay-subtask-title">${data.subtasks[i].task}</div>
+                <div id="subtask-text${i}" style="text-decoration: line-through" class="card-overlay-subtask-title">${data.subtasks[i].task}</div>
             </div>`
+    } else {
+
+        return `
+        <div class="card-overlay-subtask">
+            <div class="check-mark-wrapper" onclick="markSubtaskDone(${i},'${data.title}')">
+                <img id="checkmark${i}" src="/assets/icons/check-mark-subtask-overlay-unchecked.svg">
+            </div>
+                <div id="subtask-text${i}" class="card-overlay-subtask-title">${data.subtasks[i].task}</div>
+            </div>`
+    }
 
 }
 
@@ -374,7 +498,7 @@ function returnTaskOverlay(data) {
                 </div>
                 </div>
                 <div class="card-overlay-edit-wrapper">
-                <div class="card-overlay-delete-edit-wrapper">
+                <div class="card-overlay-delete-edit-wrapper" onclick="deleteTask'('${data.title}')">
                 <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3 18C2.45 18 1.97917 17.8042 1.5875 17.4125C1.19583 17.0208 1 16.55 1 16V3C0.716667 3 0.479167 2.90417 0.2875 2.7125C0.0958333 2.52083 0 2.28333 0 2C0 1.71667 0.0958333 1.47917 0.2875 1.2875C0.479167 1.09583 0.716667 1 1 1H5C5 0.716667 5.09583 0.479167 5.2875 0.2875C5.47917 0.0958333 5.71667 0 6 0H10C10.2833 0 10.5208 0.0958333 10.7125 0.2875C10.9042 0.479167 11 0.716667 11 1H15C15.2833 1 15.5208 1.09583 15.7125 1.2875C15.9042 1.47917 16 1.71667 16 2C16 2.28333 15.9042 2.52083 15.7125 2.7125C15.5208 2.90417 15.2833 3 15 3V16C15 16.55 14.8042 17.0208 14.4125 17.4125C14.0208 17.8042 13.55 18 13 18H3ZM3 3V16H13V3H3ZM5 13C5 13.2833 5.09583 13.5208 5.2875 13.7125C5.47917 13.9042 5.71667 14 6 14C6.28333 14 6.52083 13.9042 6.7125 13.7125C6.90417 13.5208 7 13.2833 7 13V6C7 5.71667 6.90417 5.47917 6.7125 5.2875C6.52083 5.09583 6.28333 5 6 5C5.71667 5 5.47917 5.09583 5.2875 5.2875C5.09583 5.47917 5 5.71667 5 6V13ZM9 13C9 13.2833 9.09583 13.5208 9.2875 13.7125C9.47917 13.9042 9.71667 14 10 14C10.2833 14 10.5208 13.9042 10.7125 13.7125C10.9042 13.5208 11 13.2833 11 13V6C11 5.71667 10.9042 5.47917 10.7125 5.2875C10.5208 5.09583 10.2833 5 10 5C9.71667 5 9.47917 5.09583 9.2875 5.2875C9.09583 5.47917 9 5.71667 9 6V13Z" fill="#2A3647"/>
                 </svg>
@@ -408,11 +532,11 @@ function returnAssignedContacts(color, name) {
 
 
 function returnTaskCard(task, i, prioSVG) {
-    return `        <div class="card-board" onclick="getOpenTaskOverlay('${task.title}')">
+    return `        <div class="card-board" id="${task.title}" onclick="getOpenTaskOverlay('${task.title}')">
                         <div class="card-category">${task.category}</div>
                         <div class="card-board-text-wrap">
-                            <div class="card-board-title">${task.title}</div>
-                            <div class="card-board-description">${task.description}</div>
+                            <div id="task-title${task.title}" class="card-board-title">${task.title}</div>
+                            <div id="task-description${task.title}" class="card-board-description">${task.description}</div>
                         </div>
                         <div class="card-board-subtask" id="subtask${i}">
                         </div>

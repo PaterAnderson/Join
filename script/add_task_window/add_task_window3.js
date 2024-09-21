@@ -110,7 +110,7 @@ function addSubtask() {
 
     if (subtask.value.trim() != "") if (subtaskCollection.length < maxSelectedSubtasks) {
 
-        subtaskCollection.push({ task: subtask.value, edit: false });
+        subtaskCollection.push({ task: subtask.value, edit: false, done: false });
 
         if (subtaskCollection.length == maxSelectedSubtasks) subtask.placeholder = `${maxSelectedSubtasks} already exist!`;
 
