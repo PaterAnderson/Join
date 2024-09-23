@@ -1,5 +1,5 @@
 
-const BASE_URL = "https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/";
+const BASE_URL = "https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/users/";
 
 let noticeIndex;
 
@@ -63,22 +63,24 @@ function toggleActivateButton() {
  */
 function registerSubmit() {
 
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm_password').value;
-    const user = document.getElementById('user').value;
-    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value.trim();
+    const confirmPassword = document.getElementById('confirm_password').value.trim();
+    const user = document.getElementById('user').value.trim();
+    const email = document.getElementById('email').value.trim();
 
-    if (password == confirmPassword) {
+    if (password != "" && confirmPassword != "" && user != "" && email != "") {
 
-        checkEmailAndUserForRegister(user, email, password);
+        if (password == confirmPassword) {
 
-    } else {
+            checkEmailAndUserForRegister(user, email, password);
 
-        writeNotice("Your passwords don't match. Please try again.");
-        noticeIndex = 2;
+        } else {
 
-        document.getElementById('input_border3').style = "border: 1px solid #FF8190";
-        document.getElementById('input_border4').style = "border: 1px solid #FF8190";
+            writeNotice("Your passwords don't match. Please try again.");
+            noticeIndex = 2;
+            document.getElementById('input_border3').style = "border: 1px solid #FF8190";
+            document.getElementById('input_border4').style = "border: 1px solid #FF8190";
+        }
     }
 }
 
@@ -104,10 +106,10 @@ function writeNotice(notice) {
  */
 function addNewUser(user, email, password) {
 
-    putData(`/${user}`, { "email": email, "password": password });
+    putData(`${user}`, { email: email, password: password, user: user });
     animationSuccess();
 
-    setTimeout(() => window.location.href = '../html/login.html', 2000);
+    setTimeout(() => { closeAnimationSuccess(); window.location.href = '../html/login.html' }, 2500);
 }
 
 
@@ -120,6 +122,23 @@ function animationSuccess() {
 
     document.getElementById('overlay').classList.remove('display-none');
     document.getElementById('success').classList.add('success2');
+}
+
+
+/**
+ * 
+ *   close animation for sign up successfully
+ * 
+ */
+function closeAnimationSuccess() {
+
+    document.getElementById('overlay').classList.add('display-none');
+    document.getElementById('success').classList.remove('success2');
+
+    document.getElementById('password').value = "";
+    document.getElementById('confirm_password').value = "";
+    document.getElementById('user').value = "";
+    document.getElementById('email').value = "";
 }
 
 
@@ -231,8 +250,9 @@ async function checkEmailAndUserForRegister(user, email, password) {
         let isUserOrEmailExist = false;
 
         for (const key in responseToJson) {
-            if (responseToJson[key].user === user) isUserOrEmailExist = true;
-            if (responseToJson[key].email === email) isUserOrEmailExist = true;
+
+            if (responseToJson[key].user == user) isUserOrEmailExist = true;
+            if (responseToJson[key].email == email) isUserOrEmailExist = true;
         }
 
         writeMessageOrRegisterNewUser(user, email, password, isUserOrEmailExist);
@@ -266,5 +286,14 @@ function writeMessageOrRegisterNewUser(user, email, password, isUserOrEmailExist
     }
 }
 
+
+/**
+ * activate focusing for input
+ * 
+ * @param {string} id of input
+ */
+function focusInput(id) {
+    if (document.getElementById(id) != null) document.getElementById(id).focus(); // Setzt den Fokus auf das Eingabefeld
+}
 
 

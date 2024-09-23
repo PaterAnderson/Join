@@ -8,17 +8,12 @@
     width: 1208px;
     height: 928px;
     position: relative;
-    margin-top: 112px;
     font-family: "Inter", sans-serif;
 
     border: 1px solid;
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
 }
 
@@ -127,6 +122,7 @@ body {
     position: absolute;
     left: 736px;
     top: 451px;
+    width: 383px;
 }
 
 .summ12 {
@@ -313,7 +309,7 @@ body {
 }
 
 .frame-68 {
-    width: 204px;
+    width: auto;
     height: 57px;
     display: flex;
     flex-direction: column;
@@ -334,4 +330,8 @@ body {
     display: flex;
     flex-direction: column;
     text-align: center;
+}
+
+.greet-name {
+    text-align: left;
 }

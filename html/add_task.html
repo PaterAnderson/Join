@@ -29,10 +29,33 @@
     <script src="../script/pikaday_calendar.js"></script>
     <link rel="stylesheet" href="../style/calendar.css">
     <script src="../script/calendar.js"></script>
+
+    <link rel="stylesheet" href="../style/menu_head_resp.css">
+    <link rel="stylesheet" href="../style/add_task_window/add_task_respon.css">
+
 </head>
 
 <body onload="init(), onloadstart()" onclick="bodyOnClick()">
+
     <header>
+
+        <svg class="capa-header" width="32" height="40" viewBox="0 0 32 40" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.927 0.492188H15.8389V8.64696H22.927V0.492188Z" fill="#2A3647" />
+            <path
+                d="M15.8392 15.2793H22.9273V26.7803C22.9597 29.5478 22.1721 32.2624 20.6646 34.5791C19.1761 36.83 16.3027 39.5081 10.9866 39.5081C5.19613 39.5081 1.8211 36.7698 0 35.2692L4.47096 29.7542C6.24844 31.2055 7.96049 32.3994 11.0138 32.3994C13.3256 32.3994 14.2471 31.4574 14.7869 30.6359C15.5207 29.4949 15.9003 28.1604 15.8774 26.8022L15.8392 15.2793Z"
+                fill="#2A3647" />
+            <path d="M12.2239 10.1309H5.13574V17.2505H12.2239V10.1309Z" fill="#29ABE2" />
+            <path
+                d="M26.6409 36.167C26.6409 37.684 25.8721 38.5001 24.798 38.5001C23.7239 38.5001 23.0205 37.5307 23.0205 36.2437C23.0205 34.9567 23.7457 33.938 24.858 33.938C25.9703 33.938 26.6409 34.9402 26.6409 36.167ZM23.8438 36.2272C23.8438 37.1418 24.2091 37.8155 24.8362 37.8155C25.4632 37.8155 25.8176 37.1035 25.8176 36.1725C25.8176 35.3564 25.4904 34.5897 24.8362 34.5897C24.1819 34.5897 23.8438 35.3291 23.8438 36.2272Z"
+                fill="#2A3647" />
+            <path d="M28.0478 34.0039V38.4291H27.2627V34.0039H28.0478Z" fill="#2A3647" />
+            <path
+                d="M28.8975 38.4291V34.0039H29.7698L30.7077 35.8276C30.9491 36.3045 31.1639 36.7945 31.351 37.2954C31.302 36.7477 31.2802 36.1179 31.2802 35.4169V34.0039H31.9999V38.4291H31.1875L30.2387 36.567C29.9876 36.0778 29.7637 35.575 29.5681 35.0609C29.5681 35.6086 29.6063 36.2274 29.6063 36.9887V38.4236L28.8975 38.4291Z"
+                fill="#2A3647" />
+        </svg>
+
+
         <div class="header-content">
             <div class="header-title ui-p">Kanban Project Management Tool</div>
             <div class="header-profile">
@@ -139,192 +162,209 @@
             </div>
         </div>
     </aside>
-    <main>
 
 
-        <div class="window">
+    <div class="main">
 
-            <div onclick="stopProp(event)" id="calendar-container" class="calendar-container"></div>
+
+        <div class="window-summary">
 
 
             <div class="add-task for-center">Add task</div>
 
+            <div class="mobile-add-task-outer">
+                <div class="mobile-add-task">
 
-            <div class="title-description">
-                <div class="title-add-task font1"><span style="color: #2A3647;">Title</span><span
-                        style="color: #FF8190;">*</span>
+                    <div onclick="stopProp(event)" id="calendar-container" class="calendar-container"></div>
 
-                    <div class="input-outside3" id="input_border1"
-                        onclick="focusInput('title_input'), showHideError('title_error', false)">
+                    <div class="title-description">
+                        <div class="title-add-task font1"><span style="color: #2A3647;">Title</span><span
+                                style="color: #FF8190;">*</span>
 
-                        <input onkeydown="enterPressedCreateTask(event)" oninput="showHideError('title_error', false)"
-                            onfocus="showHideError('title_error', false)" class="input-add-task input-title"
-                            id="title_input" maxlength="30" type="name" placeholder="Enter a title"
-                            autocomplete="off" />
+                            <div class="input-outside3" id="input_border1"
+                                onclick="focusInput('title_input'), showHideError('title_error', false)">
 
-                    </div>
+                                <input onkeydown="enterPressedCreateTask(event)"
+                                    oninput="showHideError('title_error', false)"
+                                    onfocus="showHideError('title_error', false)" class="input-add-task input-title"
+                                    id="title_input" maxlength="30" type="name" placeholder="Enter a title"
+                                    autocomplete="off" />
 
-                    <div id="title_error" style="display: none;" class="required font2">This field is required</div>
-                </div>
+                            </div>
 
-                <div class="description font1"><span style="color: #2A3647;">Description</span>
-
-                    <div class="text-area-div for-center" onclick="focusInput('text_area')" style="cursor: pointer;">
-
-                        <textarea id="text_area" class="text-area" maxlength="300"
-                            placeholder="Enter a Description"></textarea>
-
-                        <img src="../assets/icons/recurso.png" alt="">
-                    </div>
-
-                </div>
-
-                <div class="assigned font1"><span style="color: #2A3647;">Assigned to</span>
-
-                    <div class="assigned-input assigned-input-hover"
-                        onclick="openContactsList(), focusInput('contacts_list'), stopProp(event)">
-
-                        <input oninput="searchContacts()" onfocus="openContactsList()"
-                            class="input-add-task input-assigned-to" id="contacts_list" maxlength="30" type="name"
-                            placeholder="Select contacts to assign" autocomplete="off" />
-
-                        <div class="arrow-div for-center" onclick="toggleShowContacts(), stopProp(event)">
-                            <img id="assign_arrow" src="../assets/icons/arrow_drop_down.png" alt="">
-                        </div>
-                    </div>
-
-
-                    <div class="list-of-contacts-outside" id="list_of_contacts_outside">
-                        <div class="list-of-contacts" id="list_of_contacts" onclick="stopProp(event)">
-
-                            <div id="contactsContainer" class="div-contact"></div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="circles-contacts-div" id="circles_contacts_div"></div>
-
-            <div class="separator"></div>
-
-
-            <div class="due-prio" id="due_prio">
-                <div class="title-add-task font1">
-                    <span style="color: #2A3647;">Due date</span>
-                    <span style="color: #FF8190;">*</span>
-
-                    <div onclick="focusInput('input_due_date')" class="input-outside3 font1" id="input_border1"
-                        style="cursor: pointer;">
-
-
-                        <input onkeydown="enterPressedCreateTask(event), handleKeyDown(event)"
-                            onfocus="closeContactsList(), showHideError('date_error', false);" type="tel"
-                            class="input-due-date font1" id="input_due_date" oninput="handleInput(event)"
-                            autocomplete="off" placeholder="dd/mm/yyyy" maxlength="10" onclick="moveCursorToEnd(event)">
-
-
-                        <div class="due-date-icon-hover" onclick="calendarOnClick(), stopProp(event)"></div>
-                        <img class="due-date-icon"
-                            src="../assets/icons/due_date_icon.png" alt="">
-
-
-                    </div>
-
-                    <div class="required-date font2" id="date_error" style="display: none;">This field is required</div>
-                </div>
-
-                <div class="prio font1"><span style="color: #2A3647;">Prio</span>
-
-                    <div class="prio-buttons">
-
-                        <div id="prio_button1" onclick="prioButton1()" class="prio-button1 for-center white-bg">
-                            <div class="font1 for-center"><span style="margin-right: 8px;">Urgent</span><img
-                                    id="img_prio_button1" src="../assets/icons/urgent.png"
-                                    style="width: 20px; height: 15px;"></div>
-                        </div>
-                        <div id="prio_button2" onclick="prioButton2()" class="prio-button2 for-center medium-bg">
-                            <div class="font1 for-center"><span style="margin-right: 8px;">Medium</span><img
-                                    id="img_prio_button2" src="../assets/icons/medium2.png"
-                                    style="width: 20px; height: 8px;"></div>
-                        </div>
-                        <div id="prio_button3" onclick="prioButton3()" class="prio-button3 for-center white-bg">
-                            <div class="font1 for-center"><span style="margin-right: 8px;">Low</span><img
-                                    id="img_prio_button3" src="../assets/icons/low.png"
-                                    style="width: 20px; height: 15px;">
+                            <div id="title_error" style="display: none;" class="required font2">This field is required
                             </div>
                         </div>
 
-                    </div>
+                        <div class="description font1"><span style="color: #2A3647;">Description</span>
 
-                </div>
+                            <div class="text-area-div for-center" onclick="focusInput('text_area')"
+                                style="cursor: pointer;">
 
-                <div class="assigned font1 category-div"><span style="color: #2A3647;">Category</span><span
-                        style="color: #FF8190;">*</span>
+                                <textarea id="text_area" class="text-area" maxlength="300"
+                                    placeholder="Enter a Description"></textarea>
 
-
-                    <div onclick="toggleShowCategory(), stopProp(event)" style="cursor: pointer;"
-                        class="assigned-input category-z" style="color: black;">
-
-                        <span id="selected category" style="margin-left: 16px;">Select task category</span>
-
-                        <div class="arrow-div for-center"><img id="assign_arrow_category"
-                                src="../assets/icons/arrow_drop_down.png" alt=""></div>
-
-                    </div>
-
-                    <div class="list-of-category-outside z1" id="list_of_category_outside" style="overflow: hidden;">
-                        <div class="list-of-category" id="list_of_category" onclick="stopProp(event)">
-
-                            <div onclick="categoryTechnicalTask()" class="category-task-div"><span
-                                    style="margin-left: 16px;">Technical Task</span></div>
-                            <div onclick="categoryUserStory()" class="category-task-div"><span
-                                    style="margin-left: 16px;">User Story</span></div>
+                                <img src="../assets/icons/recurso.png" alt="">
+                            </div>
 
                         </div>
+
+                        <div class="assigned font1"><span style="color: #2A3647;">Assigned to</span>
+
+                            <div class="circles-contacts-div" id="circles_contacts_div"></div>
+
+
+                            <div class="assigned-input assigned-input-hover"
+                                onclick="openContactsList(), focusInput('contacts_list'), stopProp(event)">
+
+                                <input oninput="searchContacts()" onfocus="openContactsList()"
+                                    class="input-add-task input-assigned-to" id="contacts_list" maxlength="30"
+                                    type="name" placeholder="Select contacts to assign" autocomplete="off" />
+
+                                <div class="arrow-div for-center" onclick="toggleShowContacts(), stopProp(event)">
+                                    <img id="assign_arrow" src="../assets/icons/arrow_drop_down.png" alt="">
+                                </div>
+                            </div>
+
+
+                            <div class="list-of-contacts-outside" id="list_of_contacts_outside">
+                                <div class="list-of-contacts" id="list_of_contacts" onclick="stopProp(event)">
+
+                                    <div id="contactsContainer" class="div-contact"></div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
                     </div>
 
 
-                    <div class="required-category font2" id="category_error" style="display: none;">This field is
-                        required</div>
-                </div>
+
+                    <div class="separator"></div>
 
 
-                <div class="assigned-subtasks font1"><span style="color: #2A3647;">Subtasks</span>
+                    <div class="due-prio" id="due_prio">
+                        <div class="title-add-task font1">
+                            <span style="color: #2A3647;">Due date</span>
+                            <span style="color: #FF8190;">*</span>
+
+                            <div onclick="focusInput('input_due_date')" class="input-outside3 font1" id="input_border1"
+                                style="cursor: pointer;">
 
 
-                    <div class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
+                                <input onkeydown="enterPressedCreateTask(event), handleKeyDown(event)"
+                                    onfocus="closeContactsList(), showHideError('date_error', false);" type="tel"
+                                    class="input-due-date font1" id="input_due_date" oninput="handleInput(event)"
+                                    autocomplete="off" placeholder="dd/mm/yyyy" maxlength="10"
+                                    onclick="moveCursorToEnd(event)">
 
-                        <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask"
-                            id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask"
-                            autocomplete="off" />
+
+                                <div class="due-date-icon-hover" onclick="calendarOnClick(), stopProp(event)"></div>
+                                <img class="due-date-icon" src="../assets/icons/due_date_icon.png" alt="">
 
 
-                        <div onclick="addSubtask(), stopProp(event)" id="subtask_add_div"
-                            class="tasks-add-div for-center"><img src="../assets/icons/add_subtasks.png" alt=""></div>
-
-                        <div class="close-check" id="close_check" style="display: none;">
-                            <div class="div24 for-center" onclick="closeSubtasks(), stopProp(event)">
-                                <img src="../assets/icons/close_subtasks.png">
                             </div>
-                            <div class="subtask-separator"></div>
-                            <div class="div24 for-center" onclick="addSubtask(), stopProp(event)">
-                                <img src="../assets/icons/check_subtasks.png">
+
+                            <div class="required-date font2" id="date_error" style="display: none;">This field is
+                                required
                             </div>
                         </div>
 
+                        <div class="prio font1"><span style="color: #2A3647;">Prio</span>
+
+                            <div class="prio-buttons">
+
+                                <div id="prio_button1" onclick="prioButton1()" class="prio-button1 for-center white-bg">
+                                    <div class="font1 for-center"><span style="margin-right: 8px;">Urgent</span><img
+                                            id="img_prio_button1" src="../assets/icons/urgent.png"
+                                            style="width: 20px; height: 15px;"></div>
+                                </div>
+                                <div id="prio_button2" onclick="prioButton2()"
+                                    class="prio-button2 for-center medium-bg">
+                                    <div class="font1 for-center"><span style="margin-right: 8px;">Medium</span><img
+                                            id="img_prio_button2" src="../assets/icons/medium2.png"
+                                            style="width: 20px; height: 8px;"></div>
+                                </div>
+                                <div id="prio_button3" onclick="prioButton3()" class="prio-button3 for-center white-bg">
+                                    <div class="font1 for-center"><span style="margin-right: 8px;">Low</span><img
+                                            id="img_prio_button3" src="../assets/icons/low.png"
+                                            style="width: 20px; height: 15px;">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="assigned font1 category-div"><span style="color: #2A3647;">Category</span><span
+                                style="color: #FF8190;">*</span>
+
+
+                            <div onclick="toggleShowCategory(), stopProp(event)" style="cursor: pointer;"
+                                class="assigned-input category-z" style="color: black;">
+
+                                <span id="selected category" style="margin-left: 16px;">Select task category</span>
+
+                                <div class="arrow-div for-center"><img id="assign_arrow_category"
+                                        src="../assets/icons/arrow_drop_down.png" alt=""></div>
+
+                            </div>
+
+                            <div class="list-of-category-outside z1" id="list_of_category_outside"
+                                style="overflow: hidden;">
+                                <div class="list-of-category" id="list_of_category" onclick="stopProp(event)">
+
+                                    <div onclick="categoryTechnicalTask()" class="category-task-div"><span
+                                            style="margin-left: 16px;">Technical Task</span></div>
+                                    <div onclick="categoryUserStory()" class="category-task-div"><span
+                                            style="margin-left: 16px;">User Story</span></div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="required-category font2" id="category_error" style="display: none;">This field
+                                is
+                                required</div>
+                        </div>
+
+
+                        <div class="assigned-subtasks font1"><span style="color: #2A3647;">Subtasks</span>
+
+
+                            <div class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
+
+                                <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask"
+                                    id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask"
+                                    autocomplete="off" />
+
+
+                                <div onclick="addSubtask(), stopProp(event)" id="subtask_add_div"
+                                    class="tasks-add-div for-center"><img src="../assets/icons/add_subtasks.png" alt="">
+                                </div>
+
+                                <div class="close-check" id="close_check" style="display: none;">
+                                    <div class="div24 for-center" onclick="closeSubtasks(), stopProp(event)">
+                                        <img src="../assets/icons/close_subtasks.png">
+                                    </div>
+                                    <div class="subtask-separator"></div>
+                                    <div class="div24 for-center" onclick="addSubtask(), stopProp(event)">
+                                        <img src="../assets/icons/check_subtasks.png">
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="new-div-for-subtasks" id="render_subtasks"></div>
+
+
+                        </div>
+
                     </div>
-
-
-                    <div class="new-div-for-subtasks" id="render_subtasks"></div>
-
-
                 </div>
-
             </div>
 
 
@@ -352,7 +392,7 @@
         </div>
 
 
-    </main>
+    </div>
 </body>
 
 </html>

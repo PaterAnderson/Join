@@ -5,11 +5,43 @@ if (!sessionStorage.getItem('user')) window.location.href = '../index.html';
 
 function summaryStart() {
 
+    greetingStart();
     showSummary();
-    showGuest();
 }
 
-function showGuest() {
+function greetingStart() {
+
+    showUser();
+
+    if (window.innerWidth <= 600) {
+
+        if (sessionStorage.getItem('greeting') == 'login') {
+
+            document.getElementById('greeting').style = "opacity: 1; display: flex";
+            setTimeout(hideGreeting, 3000);
+
+        } else showContent();
+
+    } else {
+        showContent();
+        sessionStorage.setItem('greeting', '');
+    }
+}
+
+function hideGreeting() {
+
+    document.getElementById('greeting').style = "display: none";
+    sessionStorage.setItem('greeting', '');
+    showContent();
+}
+
+function showContent() {
+
+    document.getElementById('join_360').style = "";
+    document.getElementById('summary').style = "";
+}
+
+function showUser() {
 
     document.getElementById('greet_name').innerText = sessionStorage.getItem('user');
 }

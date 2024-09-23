@@ -1,3 +1,16 @@
+.capa-register {
+    width: 100px;
+    height: 122px;
+    position: absolute;
+    left: 77px;
+    top: 80px;
+}
+
+.main-div {
+    width: 100%;
+    height: 100%;
+    position: inherit;
+}
 
 .overlay {
     width: 100%;
@@ -6,6 +19,16 @@
     opacity: 0.5;
     position: absolute;
     z-index: 1;
+    top: 0;
+}
+
+.success-outer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
 }
 
 .success {
@@ -27,6 +50,12 @@
     bottom: calc((100% / 2) - 37px);
 }
 
+.sign-up-outer {
+    overflow: hidden;
+    position: absolute;
+    top: calc((100% / 2) - (630px / 2));
+}
+
 .register-sign-up-div {
     width: 598px;
     height: 630px;
@@ -37,6 +66,7 @@
     border-radius: 30px;
     position: relative;
     box-shadow: 0px 0px 14px 3px rgba(0 0 0 / 0.04);
+    transform-origin: top left;
 }
 
 .register-sign-up-form {
@@ -61,6 +91,7 @@
     border-radius: 10px;
     margin-bottom: 24px;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .input-outside3:has(.input:focus) {

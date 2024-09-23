@@ -177,8 +177,8 @@ textarea::placeholder {
     width: auto;
     height: 42px;
     position: absolute;
-    left: 96px;
-    bottom: 267px;
+    top: 387px;
+    left: 0px;
     display: flex;
 }
 

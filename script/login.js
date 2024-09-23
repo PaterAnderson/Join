@@ -40,8 +40,8 @@ function loginSubmit() {
     email = document.getElementById('email').value;
     password = document.getElementById('password').value;
 
-    checkEmailAndPasswordForLogin(email, password);
-};
+    if (email != "" && password != "") checkEmailAndPasswordForLogin(email, password);
+}
 
 
 /**
@@ -54,7 +54,7 @@ async function checkEmailAndPasswordForLogin(email, password) {
 
     try {
         // Hole die Daten von Firebase
-        let response = await fetch(BASE_URL + ".json");
+        let response = await fetch(BASE_URL + "/users" + ".json");
 
         if (!response.ok) {
             throw new Error('Netzwerkantwort war nicht ok.');
@@ -158,6 +158,7 @@ function toRegister() {
  */
 function guestLoginStart() {
 
+    sessionStorage.setItem('greeting', 'login');
     sessionStorage.setItem('user', 'Guest');
     window.location.href = '../html/summary.html';
 }
@@ -180,5 +181,14 @@ function userLoginStart(user) {
     window.location.href = '../html/login.html';
 }
 
+
+/**
+ * activate focusing for input
+ * 
+ * @param {string} id of input
+ */
+function focusInput(id) {
+    if (document.getElementById(id) != null) document.getElementById(id).focus(); // Setzt den Fokus auf das Eingabefeld
+}
 
 

@@ -10,7 +10,7 @@
 
 body {
     font-family: "Inter", sans-serif;
-    height: 100vh;
+    overflow-x: hidden;
 }
 
 .capa-login {
@@ -25,7 +25,6 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    position: relative;
 }
 
 .for-center {
@@ -53,7 +52,6 @@ body {
     height: 89px;
     font-size: 61px;
     font-weight: 700;
-    line-height: 73.2px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -95,6 +93,7 @@ body {
     border-radius: 10px;
     margin-bottom: 32px;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .input-outside:has(.input:focus) {
@@ -128,6 +127,7 @@ body {
     margin: 0px 13px 0px 21px;
     font-size: 20px;
     font-weight: 400;
+    cursor: pointer;
 }
 
 input:-webkit-autofill,

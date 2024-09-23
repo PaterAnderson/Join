@@ -1,4 +1,4 @@
-@media (max-width: 1420px) {
+@media (max-width: 1670px) {
 
     .sign-up-div {
         right: 77px;
@@ -10,4 +10,117 @@
         left: 57px;
         top: 60px;
     }
+
+    .login-div,
+    .sign-up-div,
+    .policy-notice-div {
+        scale: 0.8;
+    }
 }
+
+@media (max-width: 1140px) {
+
+    .sign-up-div {
+        right: 27px;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .login-div {
+        scale: 0.7;
+    }
+}
+
+/*--------------------------- mobile ----------------------*/
+
+@media (max-width: 600px) {
+
+    .capa-login {
+        width: 64px;
+        height: 78px;
+        left: 38px;
+        top: 37px;
+    }
+
+    .policy-notice-div {
+        bottom: 5px;
+    }
+
+    .sign-up-div {
+        left: calc((100% / 2) - (279px / 2));
+        top: unset;
+        bottom: 65px;
+    }
+
+    .login-div {
+        scale: 0.9;
+        width: 396px;
+        height: 515px;
+        left: calc((100% / 2) - (396px / 2));
+        transform: translateY(-20px);
+    }
+
+    .login-div span {
+        margin-top: 32px;
+        width: 139px;
+        height: 72px;
+        font-size: 47px;
+    }
+
+    .underline-log-in {
+        width: 80px;
+    }
+
+    .input-div {
+        scale: 0.86;
+        margin-top: -14px;
+    }
+
+    .buttons-login-div {
+        width: 180px;
+        height: 123px;
+        flex-direction: column;
+        align-items: center;
+        gap: 21px;
+    }
+
+    .log-in-button {
+        width: 180px;
+        height: 51px;
+    }
+
+    .guest-log-in-button {
+        width: 180px;
+        height: 51px;
+    }
+
+    .log-in-button,
+    .guest-log-in-button {
+        font-size: 16px;
+    }
+
+    .password-notice-login {
+        left: 0px;
+        bottom: 43px;
+    }
+}
+
+@media (max-width: 440px) {
+
+    .login-div {
+        scale: 0.75
+    }
+}
+
+@media (max-height: 830px) {
+
+    .login-div {
+        scale: 0.7;
+    }
+
+    .sign-up-div {
+        bottom: 62px;
+    }
+}
+

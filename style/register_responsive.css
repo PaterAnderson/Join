@@ -1,0 +1,142 @@
+@media (max-width: 1670px) {
+
+    .sign-up-outer {
+        width: 481px;
+        height: 505px;
+        top: calc((100% / 2) - (505px / 2));
+    }
+
+    .capa-register {
+        width: 80px;
+        height: 102px;
+        left: 57px;
+        top: 60px;
+    }
+
+    .register-sign-up-div,
+    .policy-notice-div {
+        scale: 0.8;
+    }
+
+    .success {
+        scale: 0.8;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .register-sign-up-div {
+        scale: 0.7;
+    }
+
+    .sign-up-outer {
+        width: 421px;
+        height: 443px;
+        top: calc((100% / 2) - (443px / 2));
+    }
+}
+
+/*--------------------------- mobile ----------------------*/
+
+@media (max-width: 600px) {
+
+    .sign-up-outer {
+        width: 358px;
+        height: 538px;
+        top: calc((100% / 2) - (538px / 2));
+    }
+
+    .capa-register {
+        width: 64px;
+        height: 78px;
+        left: 38px;
+        top: 37px;
+    }
+
+    .register-sign-up-div {
+        scale: 0.9;
+        width: 396px;
+        height: 595px;
+    }
+
+    .policy-notice-div {
+        bottom: 5px;
+    }
+
+    .register-sign-up-form {
+        width: 173px;
+        height: 72px;
+        font-size: 47px;
+        margin-top: 32px;
+    }
+
+    .underline-log-in {
+        width: 86px;
+    }
+
+    .arrow-left {
+        left: 38px;
+        top: 38px;
+    }
+
+    .register-inputs {
+        scale: 0.86;
+        margin-top: -23px;
+    }
+
+    .register-sign-up-button {
+        width: 180px;
+        height: 51px;
+        font-size: 16px;
+        margin-top: 34px;
+    }
+
+    .remember-me {
+        margin-top: 93px;
+    }
+
+    .password-notice {
+        left: 0px;
+        bottom: 32px;
+    }
+}
+
+@media (max-width: 440px) {
+
+    .sign-up-outer {
+        width: 299px;
+        height: 448px;
+        top: calc((100% / 2) - (448px / 2));
+    }
+
+    .register-sign-up-div {
+        scale: 0.75
+    }
+}
+
+@media (max-height: 830px) {
+
+    @media (max-width: 1000px) {
+
+        .sign-up-outer {
+            width: 279px;
+            height: 419px;
+            top: calc((100% / 2) - (419px / 2) + 30px);
+        }
+
+        .register-sign-up-div {
+            scale: 0.7;
+        }
+
+        .policy-notice-div {
+            bottom: 5px;
+        }
+
+        @media (min-width: 800px) {
+
+            .register-sign-up-div {
+                margin-top: 0px;
+            }
+        }
+    }
+}

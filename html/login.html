@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../style/index.css">
     <link rel="stylesheet" href="../style/login.css">
     <link rel="stylesheet" href="../style/login_responsive.css">
-
+    
     <script src="../script/login.js"></script>
 </head>
 
@@ -19,7 +19,7 @@
     <div class="main-login display-none" id="main_div">
 
 
-        <img class="capa-login" src="../assets/img/Capa.png" alt="">
+        <img class="capa-login" src="../assets/img/capa.png" alt="">
 
 
         <div class="sign-up-div">
@@ -39,18 +39,18 @@
 
             <div class="input-div">
 
-                <form autocomplete="on" id="login_form" onsubmit="loginSubmit(); return false;">
+                <form autocomplete="off" id="login_form" onsubmit="loginSubmit(); return false;">
 
                     <div>
 
-                        <div class="input-outside" id="input_outside1">
-                            <input onfocus="inputIsOnFocus()" class="input" id="email" maxlength="30" type="email" required placeholder="Email"
+                        <div class="input-outside" id="input_outside1" onclick="focusInput('email')">
+                            <input onfocus="inputIsOnFocus()" class="input" id="email" maxlength="30" type="email" placeholder="Email"
                                 autocomplete="on" />
                             <img src="../assets/fonts/mail.png" alt="">
                         </div>
 
-                        <div class="input-outside2" id="input_outside2">
-                            <input onfocus="inputIsOnFocus(), deleteContent(this)" class="input" id="password" maxlength="30" type="password" required placeholder="Password"
+                        <div class="input-outside2" id="input_outside2" onclick="focusInput('password')">
+                            <input onfocus="inputIsOnFocus(), deleteContent(this)" class="input" id="password" maxlength="30" type="password" placeholder="Password"
                                 autocomplete="on" />
                             <img src="../assets/fonts/lock.png" alt="">
                         </div>
