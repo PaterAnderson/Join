@@ -105,7 +105,7 @@ function focusInput(id) {
 function addSubtask() {
 
     noEditArea();
-
+    
     const subtask = document.getElementById('subtask_input');
 
     if (subtask.value.trim() != "") if (subtaskCollection.length < maxSelectedSubtasks) {

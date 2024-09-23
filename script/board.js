@@ -4,6 +4,8 @@ const priorityMap = {
     "low": "../assets/icons/low.svg"
 };
 
+let editTask;
+
 function initBoard() {
     getTasksFromFirebase();
     fetchAllContactNames();
@@ -28,14 +30,18 @@ async function processData(url) {
 
 async function getTasksFromFirebase() {
     document.getElementById('to-do').innerHTML = ''
+    document.getElementById('in-progress').innerHTML = ''
+    document.getElementById('await-feedback').innerHTML = ''
+    document.getElementById('done').innerHTML = ''
     try {
         let counter = 0
         array = await processData(`${BASE_URL}/tasks.json`)
         Object.keys(array).forEach(key => {
 
             let task = array[key]
+            let id = task.kanbanId
 
-            renderTask(task, counter)
+            renderTask(task, id)
 
             counter++
         })
@@ -44,16 +50,18 @@ async function getTasksFromFirebase() {
     }
 }
 
-function renderTask(task, i) {
-    let id = document.getElementById('to-do')
-    id.innerHTML += returnTaskCard(task, i, returnPrio(task));
+function renderTask(task, id) {
+    let Elementid = document.getElementById(id)
+    Elementid.innerHTML += returnTaskCard(task, returnPrio(task));
     if ('subtasks' in task) {
         let subtask = returnSubtask(task)
-        document.getElementById(`subtask${i}`).innerHTML = '';
-        document.getElementById(`subtask${i}`).innerHTML = renderSubtask(subtask.total, subtask.done, subtask.percentage, task.title)
+        document.getElementById(`subtask${task.title}`).innerHTML = '';
+        document.getElementById(`subtask${task.title}`).innerHTML = renderSubtask(subtask.total, subtask.done, subtask.percentage, task.title)
     }
     if ('assigned' in task) {
-        renderAssignedContacts(task, i)
+        let array = task.assigned
+        let taskName = task.title
+        renderAssignedContacts(array, taskName)
     }
 }
 
@@ -66,14 +74,14 @@ function renderSubtask(total, done, progress, task) {
             <div id="total${task}" class="card-board-subtask-number">${done}/${total} Subtasks</div>`
 }
 
-function renderAssignedContacts(task, counter) {
-    for (let i = 0; i < task.assigned.length; i++) {
-        assingContacts(task.assigned, i, counter)
+function renderAssignedContacts(array, taskName) {
+    for (let i = 0; i < array.length; i++) {
+        assingContacts(array, i, taskName)
     }
 }
 
-function assingContacts(contacts, i, counter) {
-    let id = document.getElementById(`contacts${counter}`)
+function assingContacts(contacts, i, taskName) {
+    let id = document.getElementById(`contacts${taskName}`)
     id.innerHTML += returnAssignedContacts(contacts[i].color, getInitials(contacts[i].contact))
 }
 
@@ -164,9 +172,9 @@ function renderOverlay(data, taskName, overlay) {
     })
 }
 
-
 async function getEditTaskOvleray(taskName) {
     subtaskCollection = [];
+    editTask = true
     try {
         let data = await processData(`${BASE_URL}/tasks.json`)
         editTaskOverlay(data, taskName)
@@ -196,6 +204,7 @@ function editTaskOverlay(data, taskName) {
             if ('assigned' in data) {
                 for (let i = 0; i < data.assigned.length; i++) {
                     selectedContacts.push({ contact: data.assigned[i].contact, color: data.assigned[i].color });
+                    currentNumberOfSelectedContacts++;
                 }
             }
 
@@ -227,7 +236,7 @@ function editDataInArray(taskName) {
     let discription = document.getElementById('text_area').value
     let title = document.getElementById('title_input').value
     let oldTaskName = taskName
-    console.log(subtaskCollection)
+
     if (taskName !== title) {
         for (let key in taskSave) {
             if (key.includes(taskName)) {
@@ -245,29 +254,69 @@ function editDataInArray(taskName) {
         date: date,
         description: discription,
         title: title,
-        subtasks: subtaskCollection.map(item => ({ ...item, edit: undefined }))
+        subtasks: subtaskCollection.map(item => ({ ...item, edit: undefined })),
+        assigned : selectedContacts,
+        prio: prioEdit
     })
 
     changeValue(oldTaskName, taskName);
-    POSTfirebase();
     
+
+    let subtaskValue = returnSubtask(taskSave[taskName])
+    changeSubtaskValue(subtaskValue.done, subtaskValue.total, subtaskValue.percentage, oldTaskName, taskName)
+
+    editTask = false
+    POSTfirebase();
 }
 
-function changeValue(oldTaskName, taskName){
+
+function changeValue(oldTaskName, taskName) {
     let changeTitle = document.getElementById('task-title' + `${oldTaskName}`)
     changeTitle.innerText = taskSave[taskName].title
+    changeTitle.id = 'task-title' + `${taskSave[taskName].title}`
 
     let changeDescirptio = document.getElementById('task-description' + `${oldTaskName}`)
     changeDescirptio.innerText = taskSave[taskName].description
+    changeDescirptio.id = 'task-description' + `${taskSave[taskName].title}`
 
     let changeButtonForTaskOverlay = document.getElementById(`${oldTaskName}`)
     changeButtonForTaskOverlay.onclick = function(){
         getOpenTaskOverlay(taskName)
     }
+    changeButtonForTaskOverlay.id = `${taskSave[taskName].title}`
 
+    let changeOkButtonForEdit = document.getElementById(`firebase-button${oldTaskName}`)
+    changeOkButtonForEdit.onclick = function(){
+        let callback = editDataInArray
+        getEditToFirebase(taskName, callback)
+    }
 
+    let priocard = document.getElementById(`priocard${oldTaskName}`)
+    priocard.id = `priocard${taskName}`
+    
+
+    changeOkButtonForEdit.id = `firebase-button${taskSave[taskName].title}`
+    let urgent = document.getElementById('prio_button1')
+    let medium = document.getElementById('prio_button2')
+    let low = document.getElementById('prio_button3')
+
+    urgent.onclick = function(){
+        changePrio('urgent', taskName)
+        prioButton1()
+    }
+
+    medium.onclick = function(){
+        changePrio('medium', taskName)
+        prioButton2()
+    }
+
+    low.onclick = function(){
+        changePrio('low', taskName)
+        prioButton3()
+    }
 }
-async function POSTfirebase() {
+
+async function POSTfirebase(){
     try {
         await fetch('https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/guest/tasks.json', {
             method: 'PUT',
@@ -302,7 +351,30 @@ async function markSubtaskDone(i, taskName) {
   
 }
 
-function pushSubtaskDone(taskName){
+let prioEdit = ''
+
+async function changePrio(prioTask, taskName) {
+    prioEdit = prioTask
+    document.getElementById(`priocard${taskName}`).src = priorityMap[prioTask];
+    document.getElementById(`priocard${taskName}`).onerror = null;
+
+    let callback = pushUrgent
+    await getEditToFirebase(taskName, callback)
+}
+
+function changeContact(taskName){
+    document.getElementById(`contacts${taskName}`).innerHTML = ''
+    renderAssignedContacts(selectedContacts, taskName)
+}
+
+function pushUrgent(taskName) {
+    Object.assign(taskSave[taskName], {
+        prio: prioEdit
+    })
+    POSTfirebase();
+}
+
+function pushSubtaskDone(taskName) {
     Object.assign(taskSave[taskName], {
         subtasks: subtaskCollection.map(item => ({ ...item, edit: undefined }))
     })
@@ -312,12 +384,15 @@ function pushSubtaskDone(taskName){
     POSTfirebase();
 }
 
-function changeSubtaskValue(done, total, percentage, taskName){
-    let totalNumbers = document.getElementById('total' + `${taskName}`)
-    let progressSubtask = document.getElementById('progress' + `${taskName}`)
+function changeSubtaskValue(done, total, percentage, oldTaskName, taskName){
+    let totalNumbers = document.getElementById('total' + `${oldTaskName}`)
+    let progressSubtask = document.getElementById('progress' + `${oldTaskName}`)
 
     totalNumbers.innerText = `${done}/${total} Subtasks`
     progressSubtask.style.width = `${percentage}%`
+
+    totalNumbers.id = 'total' + `${taskSave[taskName].title}`
+    progressSubtask.id = 'progress' + `${taskSave[taskName].title}`
 }
 
 function returnEditOverlay(data) {
@@ -353,15 +428,15 @@ function returnEditOverlay(data) {
                 </div>
     <div class="prio font1"><span style="color: #2A3647;">Prio</span>
         <div class="prio-buttons">
-            <div id="prio_button1" onclick="prioButton1()" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button1 for-center white-bg">
+            <div id="prio_button1" onclick="prioButton1(), changePrio('urgent', '${data.title}')" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button1 for-center white-bg">
                 <div class="font1 for-center"><span style="margin-right: 8px;">Urgent</span><img id="img_prio_button1"
                         src="../assets/icons/urgent.png" style="width: 20px; height: 15px;"></div>
             </div>
-            <div id="prio_button2" onclick="prioButton2()" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button2 for-center medium-bg">
+            <div id="prio_button2" onclick="prioButton2(), changePrio('medium', '${data.title}')" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button2 for-center medium-bg">
                 <div class="font1 for-center"><span style="margin-right: 8px;">Medium</span><img id="img_prio_button2"
                         src="../assets/icons/medium2.png" style="width: 20px; height: 8px;"></div>
             </div>
-            <div id="prio_button3" onclick="prioButton3()" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button3 for-center white-bg">
+            <div id="prio_button3" onclick="prioButton3(), changePrio('low', '${data.title}')" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button3 for-center white-bg">
                 <div class="font1 for-center"><span style="margin-right: 8px;">Low</span><img id="img_prio_button3"
                         src="../assets/icons/low.png" style="width: 20px; height: 15px;">
                 </div>
@@ -381,7 +456,7 @@ function returnEditOverlay(data) {
             <div class="circles-contacts-div" id="circles_contacts_div" style="height: 0; left: 0; bottom: -8px; margin-top: 4px;"></div>
         </div>
         <div class="list-of-contacts-outside postion-relativ z-index-0" id="list_of_contacts_outside">
-            <div class="list-of-contacts" id="list_of_contacts" onclick="stopProp(event)">
+            <div class="list-of-contacts" id="list_of_contacts" onclick=" changeContact(), stopProp(event)">
 
                 <div id="contactsContainer" class="div-contact">
 
@@ -407,7 +482,7 @@ function returnEditOverlay(data) {
     </div>
 </div>
     <div style="display: flex; justify-content: flex-end; align-items: center;">
-    <button style="width: auto; padding: 0px 12px 0px 12px;" class="create-task for-center" onclick="getEditToFirebase('${data.title}', editDataInArray)">Ok
+    <button id="firebase-button${data.title}" style="width: auto; padding: 0px 12px 0px 12px;" class="create-task for-center" onclick="getEditToFirebase('${data.title}', editDataInArray)">Ok
                         <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5.79923 9.15L14.2742 0.675C14.4742 0.475 14.7117 0.375 14.9867 0.375C15.2617 0.375 15.4992 0.475 15.6992 0.675C15.8992 0.875 15.9992 1.1125 15.9992 1.3875C15.9992 1.6625 15.8992 1.9 15.6992 2.1L6.49923 11.3C6.29923 11.5 6.0659 11.6 5.79923 11.6C5.53256 11.6 5.29923 11.5 5.09923 11.3L0.79923 7C0.59923 6.8 0.503397 6.5625 0.51173 6.2875C0.520064 6.0125 0.62423 5.775 0.82423 5.575C1.02423 5.375 1.26173 5.275 1.53673 5.275C1.81173 5.275 2.04923 5.375 2.24923 5.575L5.79923 9.15Z" fill="white"></path>
                         </svg>
@@ -522,37 +597,65 @@ function closeCardOverlay() {
     }, 250)
     subtaskCollection = [];
     selectedContacts = [];
+    editTask = false
 }
-
 
 function returnAssignedContacts(color, name) {
     return `<div class="card-board-contact-icon" style="background-color:${color};">${name}</div>`
 }
 
+let currentDraggingElement;
+let currentDraggingId;
+let nextDraggingId;
 
+function startDragging(elementid, kanbanId){
+    currentDraggingElement = elementid;
+    currentDraggingId = kanbanId;
+}
 
-function returnTaskCard(task, i, prioSVG) {
-    return `        <div class="card-board" id="${task.title}" onclick="getOpenTaskOverlay('${task.title}')">
+function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+function moveTo(id){
+    let callback = changeKanbanId
+    getEditToFirebase(currentDraggingElement, callback)
+    nextDraggingId = id;
+}
+
+function changeKanbanId(taskName){
+    Object.assign(taskSave[taskName], {
+        kanbanId: nextDraggingId
+    })
+    renderDraggedElement(taskName)
+    POSTfirebase();
+}
+
+function renderDraggedElement(taskName){
+    document.getElementById(taskName).remove()
+    renderTask(taskSave[taskName], nextDraggingId)
+}
+
+function returnTaskCard(task, prioSVG) {
+    return `        <div draggable="true" ondragstart="startDragging('${task.title}', '${task.kanbanId}')" class="card-board" id="${task.title}" onclick="getOpenTaskOverlay('${task.title}')">
                         <div class="card-category">${task.category}</div>
                         <div class="card-board-text-wrap">
                             <div id="task-title${task.title}" class="card-board-title">${task.title}</div>
                             <div id="task-description${task.title}" class="card-board-description">${task.description}</div>
                         </div>
-                        <div class="card-board-subtask" id="subtask${i}">
+                        <div class="card-board-subtask" id="subtask${task.title}">
                         </div>
                         <div class="card-board-contact-urgent-wrapper">
-                            <div class="card-board-contacts" id="contacts${i}">
+                            <div class="card-board-contacts" id="contacts${task.title}">
                             </div>
                             <div class="card-board-urgent">
-                                <div class="card-board-urgent-icon"><img src=${prioSVG} onerror="this.style.visibility='hidden';">
+                                <div class="card-board-urgent-icon"><img id="priocard${task.title}" src=${prioSVG} onerror="this.style.visibility='hidden';">
                                 </div>
                             </div>
                         </div>
                     </div>
             `
 }
-
-
 
 function returnAddTaskOverlay() {
     return `        

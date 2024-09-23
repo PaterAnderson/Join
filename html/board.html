@@ -175,6 +175,7 @@
         flex-direction: column;
         gap: 16px;
         padding-top: 24px;
+        min-height: 800px;
     }
 
     .no-task-in-kanban {
@@ -734,7 +735,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="kanban-card-board" id="to-do">
+                <div class="kanban-card-board" id="to-do" ondrop="moveTo('to-do')" ondragover="allowDrop(event)">
                     <div class="no-task-in-kanban display-board-none">No tasks To do</div>
                 </div>
             </div>
@@ -749,7 +750,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="kanban-card-board">
+                <div class="kanban-card-board" id="in-progress" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)">
                     <div class="no-task-in-kanban">No tasks To do</div>
                 </div>
             </div>
@@ -764,7 +765,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="kanban-card-board">
+                <div class="kanban-card-board"  id="await-feedback" ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)">
                     <div class="no-task-in-kanban">No tasks To do</div>
                 </div>
             </div>
@@ -774,7 +775,7 @@
                     <div>
                     </div>
                 </div>
-                <div class="kanban-card-board">
+                <div class="kanban-card-board"  id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)">
                     <div class="no-task-in-kanban">No tasks To do</div>
                 </div>
             </div>
