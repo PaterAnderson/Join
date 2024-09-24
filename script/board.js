@@ -1,10 +1,11 @@
+
+
 const priorityMap = {
     "urgent": "../assets/icons/urgent.svg",
     "medium": "../assets/icons/medium.svg",
     "low": "../assets/icons/low.svg"
 };
 
-let editTask;
 
 function initBoard() {
     getTasksFromFirebase();

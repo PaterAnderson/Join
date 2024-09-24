@@ -1,3 +1,5 @@
+let editTask;
+
 function subtaskTemplate(text, index) {
 
     return `
@@ -56,6 +58,23 @@ function subtaskEditTemplate(text, index) {
 }
 
 function renderContactsTemplate(addClass, index, kontakt, initialen, addSrc) {
+
+    if(editTask){
+        let taskName = document.getElementById('title_input').value
+        return `
+    
+        <div class="initials-and-name-div ${addClass}" onclick="addContactToTask(${index}, '${kontakt.name}', '${kontakt.farbe}'), changeContact('${taskName}'), stopProp(event)" id="initials_and_name_div${index}">
+            <div style="background-color: ${kontakt.farbe}" class="initials-circle for-center">
+                ${initialen}
+            </div>
+            <div>${kontakt.name}</div>
+            <img src="../assets/icons/${addSrc}_button_contacts_list.png" class="contact-checkbox" id="contact_checkbox${index}">
+        </div>
+        
+        `; 
+
+    }else{
+
         return `
     
         <div class="initials-and-name-div ${addClass}" onclick="addContactToTask(${index}, '${kontakt.name}', '${kontakt.farbe}'), stopProp(event)" id="initials_and_name_div${index}">
@@ -67,6 +86,7 @@ function renderContactsTemplate(addClass, index, kontakt, initialen, addSrc) {
         </div>
         
         `;
+    }
 }
 
 function searchContactsTemplate(addClass, index, kontakt, initialen, addSrc) {
