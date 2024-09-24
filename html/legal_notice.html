@@ -14,10 +14,11 @@
     <title>Join</title>
 
     <link rel="stylesheet" href="../style/text_subpages_responsive.css">
+    <script src="../script/legal_notice.js"></script>
 
 </head>
 
-<body onload="init()" onclick="closeUserMenu()">
+<body onload="init(), legalNoticeStart()" onclick="closeUserMenu()" style="display: none;">
 
     <header>
 
@@ -52,7 +53,7 @@
                         <a href="help.html">
                             <div class="user-icon-menu-nav">Help</div>
                         </a>
-                        <a href="legal_notice.html">
+                        <a>
                             <div class="user-icon-menu-nav">Legal Notice</div>
                         </a>
                         <a href="privacy_policy.html">
@@ -144,6 +145,10 @@
 
 
     <div class="main">
+
+        <div class="arrow-text-subpages-outer" onclick="arrowClick()">
+            <img src="../assets/icons/arrow_text_subpages.png" class="arrow-text-subpages">
+        </div>
 
         <div class="title">
             <div class="heading-1">Legal Notice</div>

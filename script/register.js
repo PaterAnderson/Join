@@ -297,3 +297,27 @@ function focusInput(id) {
 }
 
 
+/**
+ * 
+ * privacy pilicy click
+ * 
+ */
+function privacyPolicyClick() {
+
+    sessionStorage.setItem('textSubpages', 'no menu');
+    window.open('../html/privacy_policy.html', '_blank');
+}
+
+
+/**
+ * 
+ * legal notice click
+ * 
+ */
+function legalNoticeClick() {
+
+    sessionStorage.setItem('textSubpages', 'no menu');
+    window.open('../html/legal_notice.html', '_blank');
+}
+
+

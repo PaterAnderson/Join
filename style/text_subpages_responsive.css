@@ -11,6 +11,29 @@
     scrollbar-width: none;
 }
 
+.arrow-text-subpages-outer {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    position: absolute;
+    right: 27px;
+    top: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.arrow-text-subpages {
+    width: 21px;
+    height: 21px;
+}
+
+.arrow-text-subpages-outer:hover {
+    background-color: rgba(0 0 0 / 0.08);
+    scale: 1.1;
+}
+
 .title {
     margin-top: 0px;
 }
@@ -201,5 +224,12 @@ aside {
         margin-right: -58px;
         top: 0px;
         margin-bottom: 2px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .heading-1 {
+        font-size: 54px;
     }
 }

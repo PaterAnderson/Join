@@ -158,6 +158,7 @@ function toRegister() {
  */
 function guestLoginStart() {
 
+    sessionStorage.setItem('textSubpages', '');
     sessionStorage.setItem('greeting', 'login');
     sessionStorage.setItem('user', 'Guest');
     window.location.href = '../html/summary.html';
@@ -189,6 +190,30 @@ function userLoginStart(user) {
  */
 function focusInput(id) {
     if (document.getElementById(id) != null) document.getElementById(id).focus(); // Setzt den Fokus auf das Eingabefeld
+}
+
+
+/**
+ * 
+ * privacy pilicy click
+ * 
+ */
+function privacyPolicyClick() {
+
+    sessionStorage.setItem('textSubpages', 'no menu');
+    window.open('../html/privacy_policy.html', '_blank');
+}
+
+
+/**
+ * 
+ * legal notice click
+ * 
+ */
+function legalNoticeClick() {
+
+    sessionStorage.setItem('textSubpages', 'no menu');
+    window.open('../html/legal_notice.html', '_blank');
 }
 
 

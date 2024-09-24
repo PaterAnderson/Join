@@ -14,10 +14,11 @@
     <title>Join</title>
 
     <link rel="stylesheet" href="../style/text_subpages_responsive.css">
+    <script src="../script/privacy_policy.js"></script>
 
 </head>
 
-<body onload="init()" onclick="closeUserMenu()">
+<body onload="init(), privacyPolicyStart()" onclick="closeUserMenu()" style="display: none;">
     <header>
 
         <svg class="capa-header" width="32" height="40" viewBox="0 0 32 40" fill="none"
@@ -54,7 +55,7 @@
                         <a href="legal_notice.html">
                             <div class="user-icon-menu-nav">Legal Notice</div>
                         </a>
-                        <a href="privacy_policy.html">
+                        <a>
                             <div class="user-icon-menu-nav">Privacy Policy</div>
                         </a>
                         <a href="login.html">
@@ -143,6 +144,10 @@
 
 
     <div class="main">
+
+        <div class="arrow-text-subpages-outer" onclick="arrowClick()">
+            <img src="../assets/icons/arrow_text_subpages.png" class="arrow-text-subpages">
+        </div>
 
         <div class="title">
             <div class="heading-1">Privacy Policy</div>
