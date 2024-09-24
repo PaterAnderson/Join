@@ -1,3 +1,7 @@
+
+
+
+
 /* -------------------------------------------- */
 
 @media (min-height: 620px) {
@@ -104,11 +108,11 @@
 
         .calendar-container {
             left: 432px;
-            top: 562px;
+            top: 562px !important;
         }
 
         .calendar-container2 {
-            transform: translateX(-54px);
+            transform: translateX(-54px) !important;
         }
 
         .new-div-for-subtasks {
@@ -151,6 +155,7 @@
             overflow-x: hidden;
             transform: translateY(10px);
             scrollbar-color: #a8a8a8ff #f5f6f7;
+            scrollbar-width: thin;
         }
 
         .main {
@@ -189,11 +194,11 @@
         }
 
         .calendar-container {
-            top: 534px;
+            top: 534px !important;
         }
 
         .calendar-container2 {
-            transform: translateX(-141px);
+            transform: translateX(-141px) !important;
         }
 
         .new-div-for-subtasks {
@@ -221,15 +226,15 @@
         }
 
         .title-description {
-            left: 12px;
+            left: 14px;
         }
 
         .due-prio {
-            left: 12px;
+            left: 14px;
         }
 
         .calendar-container2 {
-            transform: translateX(-193px);
+            transform: translateX(-193px) !important;
         }
     }
 
@@ -238,7 +243,6 @@
     @media (max-width: 600px) {
 
         @media (max-height: 940px) {
-
             @media (min-height: 840px) {
 
                 .main {
@@ -260,6 +264,15 @@
                 .mobile-add-task-outer {
                     height: 801px;
                     transform: translateY(85px) translateX(232px);
+                }
+
+                @media (max-width: 600px) {
+                    @media (min-width: 437.1px) {
+
+                        .mobile-add-task-outer {
+                            transform: translateY(85px) translateX(143px);
+                        }
+                    }
                 }
             }
         }
@@ -345,7 +358,46 @@
             }
         }
     }
-
 }
 
 /* -------------------------------------------- */
+
+.calendar-container {
+    top: calc(328px - 36px);
+}
+
+@media (min-width: 888.1px) {
+
+    .add-task {
+        top: calc(110px - 50px);
+    }
+
+    .title-description {
+        top: calc(231px - 50px);
+    }
+
+    .separator {
+        top: calc(231px - 50px);
+    }
+
+    .due-prio {
+        top: calc(231px - 50px);
+    }
+
+    .new-div-for-subtasks {
+        height: 148px;
+        bottom: -159px;
+    }
+
+    .buttons {
+        top: calc(793px + 20px);
+    }
+
+    .field-required {
+        top: calc(830px + 20px);
+    }
+}
+
+/* -------------------------------------------- */
+
+

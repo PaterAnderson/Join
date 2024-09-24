@@ -1,11 +1,11 @@
 body {
     display: flex;
     background-color: #f5f6f7;
-   justify-content: center;
+    justify-content: center;
     margin: 0;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
@@ -27,10 +27,11 @@ main {
 }
 
 main::-webkit-scrollbar {
-    width: 4px; /* Macht die Scrollbar extrem dünn */
+    width: 4px;
+    /* Macht die Scrollbar extrem dünn */
 }
 
 
-.title{
+.title {
     margin-top: 188px;
 }

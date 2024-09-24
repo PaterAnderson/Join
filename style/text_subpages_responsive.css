@@ -1,19 +1,18 @@
 .main {
     position: absolute;
-    top: 81px;
-    left: 170px;
-    overflow: hidden;
-    width: calc(1208px * 0.80 + 2px);
-    height: calc(928px * 0.80 + 1px);
-
-    border: 1px solid;
+    top: 26px;
+    left: 142px;
+    overflow: auto;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    margin-right: -26px;
+    scale: 0.8;
+    margin-bottom: -44px;
+    scrollbar-width: none;
 }
 
-.window-summary {
-    transform-origin: top left;
-    scale: 0.80;
-
-    border: 1px solid;
+.title {
+    margin-top: 0px;
 }
 
 .capa-header {
@@ -194,52 +193,13 @@ aside {
 
 /* -------------------------------------------- */
 
-@media (max-height: 830px) {
-
-    .window-summary {
-        scale: 0.70;
-    }
+@media (max-width: 600px) {
 
     .main {
-        width: calc(1208px * 0.70 + 2px);
-        height: calc(928px * 0.70 + 2px);
+        scale: 0.7;
+        left: -58px;
+        margin-right: -58px;
+        top: 0px;
+        margin-bottom: 2px;
     }
 }
-
-@media (max-height: 735px) {
-
-    .window-summary {
-        scale: 0.65;
-    }
-
-    .main {
-        width: calc(1208px * 0.65 + 2px);
-        height: calc(928px * 0.65 + 2px);
-    }
-}
-
-@media (max-height: 688px) {
-
-    .window-summary {
-        scale: 0.60;
-    }
-
-    .main {
-        width: calc(1208px * 0.60 + 2px);
-        height: calc(928px * 0.60 + 2px);
-    }
-}
-
-@media (max-height: 642px) {
-
-    .window-summary {
-        scale: 0.55;
-    }
-
-    .main {
-        width: calc(1208px * 0.55 + 2px);
-        height: calc(928px * 0.55 + 2px);
-    }
-}
-
-/* -------------------------------------------- */
