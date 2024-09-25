@@ -306,7 +306,7 @@ function privacyPolicyClick() {
 
     sessionStorage.setItem('user', 'Guest');
     sessionStorage.setItem('textSubpages', 'no menu');
-    if (window.innerWidth <= 600) { window.open('../html/privacy_policy_login.html', '_self') } else window.open('../html/privacy_policy_login.html', '_blank');
+    if (window.innerWidth <= 600 || /Mobi|Android/i.test(navigator.userAgent)) { window.open('../html/privacy_policy_login.html', '_self') } else window.open('../html/privacy_policy_login.html', '_blank');
 }
 
 
@@ -319,7 +319,7 @@ function legalNoticeClick() {
 
     sessionStorage.setItem('user', 'Guest');
     sessionStorage.setItem('textSubpages', 'no menu');
-    if (window.innerWidth <= 600) { window.open('../html/legal_notice_login.html', '_self') } else window.open('../html/legal_notice_login.html', '_blank');
+    if (window.innerWidth <= 600 || /Mobi|Android/i.test(navigator.userAgent)) { window.open('../html/legal_notice_login.html', '_self') } else window.open('../html/legal_notice_login.html', '_blank');
 }
 
 
