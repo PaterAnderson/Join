@@ -195,25 +195,27 @@ function focusInput(id) {
 
 /**
  * 
- * privacy pilicy click
+ * privacy policy click, from login
  * 
  */
 function privacyPolicyClick() {
 
+    sessionStorage.setItem('user', 'Guest');
     sessionStorage.setItem('textSubpages', 'no menu');
-    window.open('../html/privacy_policy.html', '_blank');
+    if (window.innerWidth <= 600) { window.open('../html/privacy_policy_login.html', '_self') } else window.open('../html/privacy_policy_login.html', '_blank');
 }
 
 
 /**
  * 
- * legal notice click
+ * legal notice click, from login
  * 
  */
 function legalNoticeClick() {
 
+    sessionStorage.setItem('user', 'Guest');
     sessionStorage.setItem('textSubpages', 'no menu');
-    window.open('../html/legal_notice.html', '_blank');
+    if (window.innerWidth <= 600) { window.open('../html/legal_notice_login.html', '_self') } else window.open('../html/legal_notice_login.html', '_blank');
 }
 
 

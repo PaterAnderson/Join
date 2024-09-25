@@ -7,6 +7,8 @@ function summaryStart() {
 
     greetingStart();
     showSummary();
+
+    getTaskCountsByKanbanId();
 }
 
 function greetingStart() {
@@ -181,4 +183,41 @@ function summaryOnclick() {
 
     window.location.href = '../html/board.html';
 }
+
+
+const getTaskCountsByKanbanId = async () => {
+
+    try {
+        const response = await fetch(`${BASE_URL}/tasks.json`, { method: "GET", headers: { "Content-Type": "application/json" } });
+
+        if (response.ok) {
+
+            const tasks = await response.json();
+            const kanbanCounts = { 'to-do': 0, 'in-progress': 0, 'await-feedback': 0, 'done': 0 };
+
+            for (const key in tasks) {
+
+                const task = tasks[key];
+                if (task.kanbanId && kanbanCounts.hasOwnProperty(task.kanbanId)) {
+                    kanbanCounts[task.kanbanId]++;
+                }
+            }
+
+            showKanbanCountsInSummary(kanbanCounts);
+
+        } else console.error("Fehler beim Abrufen der Tasks:", response.status);
+
+    } catch (error) { console.error("Fehler:", error) }
+};
+
+function showKanbanCountsInSummary(kanbanCounts) {
+
+    document.querySelector('.to-do62-2').innerText = kanbanCounts['to-do'];
+    document.querySelector('.done12-2').innerText = kanbanCounts['done'];
+    document.querySelector('.progress-2').innerText = kanbanCounts['in-progress'];
+    document.querySelector('.feedback-2').innerText = kanbanCounts['await-feedback'];
+    document.querySelector('.board456-2').innerText = kanbanCounts['await-feedback'] + kanbanCounts['in-progress'] + kanbanCounts['done'] + kanbanCounts['to-do'];
+}
+
+
 

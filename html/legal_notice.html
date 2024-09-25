@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../style/text_subpages_responsive.css">
     <script src="../script/legal_notice.js"></script>
 
+    <script src="../script/linking_for_text_subpages.js"></script>
 </head>
 
 <body onload="init(), legalNoticeStart()" onclick="closeUserMenu()" style="display: none;">
@@ -56,7 +57,7 @@
                         <a>
                             <div class="user-icon-menu-nav">Legal Notice</div>
                         </a>
-                        <a href="privacy_policy.html">
+                        <a href="#" onclick="privacyPolicyClick()">
                             <div class="user-icon-menu-nav">Privacy Policy</div>
                         </a>
                         <a href="login.html">
@@ -134,7 +135,7 @@
                 </div>
             </div>
             <div class="legal-div text-body">
-                <a href="privacy_policy.html">
+                <a href="#" onclick="privacyPolicyClick()">
                     <div class="legal-hover">Privacy Policy</div>
                 </a>
                 <div class="legal-hover" style="background-color: #091931;">
