@@ -105,7 +105,7 @@ function focusInput(id) {
 function addSubtask() {
 
     noEditArea();
-    
+
     const subtask = document.getElementById('subtask_input');
 
     if (subtask.value.trim() != "") if (subtaskCollection.length < maxSelectedSubtasks) {
@@ -264,6 +264,11 @@ function enterPressed(event) {
 }
 
 
+
+/* ------------------------------------------------------------------------------------------ */
+
+
+
 /**
  * 
  * This function moves the cursor to the end of the input after any input changes
@@ -298,6 +303,9 @@ function moveCursorToEnd(event) {
     // Set cursor position to the end of the input
     setTimeout(() => inputElement.setSelectionRange(inputElement.value.length, inputElement.value.length), 0);
 }
+
+
+
 
 
 /**
@@ -381,6 +389,99 @@ function handleKeyDown(event) {
         event.preventDefault();
     }
 }
+
+
+/* ------------------------------------------------------------------------------------------ */
+
+
+// start - document.getElementById('input_due_date').addEventListener('paste', function(event) { event.preventDefault() });
+
+
+function DDMMYYYY(value, event) {
+
+    let cursorPosition = event.target.selectionStart;
+    if (cursorPosition == 11) return value.slice(0, -1);
+
+    let newValue = value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');
+
+    if (!event.data) return value;
+
+    if (cursorPosition == 3 || cursorPosition == 6) cursorPosition++;
+    newValue = yearMonthDayAdjustment(value, newValue, cursorPosition, event);
+
+    const dayOrMonth = (index) => index % 2 === 1 && index < 4;
+
+    return newValue.split('').map((v, i) => dayOrMonth(i) ? v + '/' : v).join('');
+}
+
+
+function yearMonthDayAdjustment(value, newValue, cursorPosition, event) {
+
+    if (value.length >= 7 && cursorPosition >= 7 && cursorPosition < value.length) {
+
+        newValue = newValue.slice(0, (cursorPosition - 2)) + newValue.slice((cursorPosition - 2) + 1);
+        setCoursor(event, cursorPosition);
+    }
+
+    if (value.length >= 4 && cursorPosition >= 4 && cursorPosition < 6 && cursorPosition < value.length) {
+
+        newValue = newValue.slice(0, (cursorPosition - 1)) + newValue.slice((cursorPosition - 1) + 1);
+        setCoursor(event, cursorPosition);
+    }
+
+    if (value.length >= 1 && cursorPosition >= 1 && cursorPosition < 3 && cursorPosition < value.length) {
+
+        newValue = newValue.slice(0, (cursorPosition)) + newValue.slice((cursorPosition) + 1);
+        setCoursor(event, cursorPosition);
+    }
+
+    return newValue;
+}
+
+
+function setCoursor(event, cursorPosition) {
+
+    event.target.style.caretColor = 'transparent';
+    setTimeout(() => { event.target.setSelectionRange(cursorPosition, cursorPosition); event.target.style.caretColor = 'auto' }, 1);
+}
+
+
+function handleKeyDownDueDate(event, value) {
+
+    if (event.target.selectionStart !== event.target.selectionEnd) {
+
+        event.target.selectionStart = event.target.selectionEnd;
+        event.target.setSelectionRange(event.target.selectionStart - 1, event.target.selectionStart - 1);
+    }
+
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+
+        event.preventDefault();
+        event.target.setSelectionRange(event.target.selectionStart - 1, event.target.selectionStart - 1);
+    }
+
+    if (event.key === ' ') {
+
+        event.preventDefault();
+        event.target.setSelectionRange(event.target.selectionStart + 1, event.target.selectionStart + 1);
+    }
+
+    if ((event.ctrlKey && event.key === 'v') || (event.key === 'F10' && event.shiftKey)) event.preventDefault();
+}
+
+
+/* ------------------------------------------------------------------------------------------ */
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -22,8 +22,11 @@ if (!sessionStorage.getItem('user')) window.location.href = '../index.html';
  * 
  */
 function onloadstart() {
+
     fetchAllContactNames();
     renderContacts();
+
+    document.getElementById('input_due_date').addEventListener('paste', function(event) { event.preventDefault() });    
 }
 
 

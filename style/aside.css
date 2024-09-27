@@ -69,7 +69,6 @@ aside {
 .legal-div {
     display: flex;
     flex-direction: column;
-    color: #CDCDCD;
     width: 100%;
     justify-content: center;
     cursor: pointer;

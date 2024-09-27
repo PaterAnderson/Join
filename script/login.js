@@ -127,16 +127,14 @@ function savePassword() {
         if ('PasswordCredential' in window) {
 
             const form = document.querySelector('form');
-            const cred = new PasswordCredential({
-                id: form.elements.email.value,
-                password: form.elements.password.value
-            });
+            const cred = new PasswordCredential({ id: form.elements.email.value, password: form.elements.password.value });
 
             navigator.credentials.store(cred).then(function () {
                 //console.log('Credentials stored successfully!');
             }).catch(function (error) { console.error('Error storing credentials:', error) });
         }
-    }
+
+    } else { document.getElementById('email').value = ""; document.getElementById('password').value = "" }
 }
 
 
@@ -173,13 +171,11 @@ function guestLoginStart() {
 function userLoginStart(user) {
 
     savePassword();
+
+    sessionStorage.setItem('textSubpages', '');
+    sessionStorage.setItem('greeting', 'login');
     sessionStorage.setItem('user', user);
-
-
-    alert('user login!' + ' ' + user);
-
-
-    window.location.href = '../html/login.html';
+    window.location.href = '../html/summary.html';
 }
 
 
