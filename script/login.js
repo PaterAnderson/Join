@@ -133,8 +133,7 @@ function savePassword() {
                 //console.log('Credentials stored successfully!');
             }).catch(function (error) { console.error('Error storing credentials:', error) });
         }
-
-    } else { document.getElementById('email').value = ""; document.getElementById('password').value = "" }
+    }
 }
 
 
