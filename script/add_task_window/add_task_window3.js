@@ -397,6 +397,12 @@ function handleKeyDown(event) {
 // start - document.getElementById('input_due_date').addEventListener('paste', function(event) { event.preventDefault() });
 
 
+
+/**
+ * 
+ *  Main function for due date input
+ * 
+ */
 function DDMMYYYY(value, event) {
 
     let cursorPosition = event.target.selectionStart;
@@ -415,37 +421,52 @@ function DDMMYYYY(value, event) {
 }
 
 
+/**
+ * 
+ *   year, month, day adjustment for due date input
+ * 
+ */
 function yearMonthDayAdjustment(value, newValue, cursorPosition, event) {
 
     if (value.length >= 7 && cursorPosition >= 7 && cursorPosition < value.length) {
 
         newValue = newValue.slice(0, (cursorPosition - 2)) + newValue.slice((cursorPosition - 2) + 1);
-        setCoursor(event, cursorPosition);
+        setCursor(event, cursorPosition);
     }
 
     if (value.length >= 4 && cursorPosition >= 4 && cursorPosition < 6 && cursorPosition < value.length) {
 
         newValue = newValue.slice(0, (cursorPosition - 1)) + newValue.slice((cursorPosition - 1) + 1);
-        setCoursor(event, cursorPosition);
+        setCursor(event, cursorPosition);
     }
 
     if (value.length >= 1 && cursorPosition >= 1 && cursorPosition < 3 && cursorPosition < value.length) {
 
         newValue = newValue.slice(0, (cursorPosition)) + newValue.slice((cursorPosition) + 1);
-        setCoursor(event, cursorPosition);
+        setCursor(event, cursorPosition);
     }
 
     return newValue;
 }
 
 
-function setCoursor(event, cursorPosition) {
+/**
+ * 
+ *   set cursor for year, month, day adjustment
+ * 
+ */
+function setCursor(event, cursorPosition) {
 
     event.target.style.caretColor = 'transparent';
     setTimeout(() => { event.target.setSelectionRange(cursorPosition, cursorPosition); event.target.style.caretColor = 'auto' }, 1);
 }
 
 
+/**
+ * 
+ *   handle key down for due date input
+ * 
+ */
 function handleKeyDownDueDate(event, value) {
 
     if (event.target.selectionStart !== event.target.selectionEnd) {

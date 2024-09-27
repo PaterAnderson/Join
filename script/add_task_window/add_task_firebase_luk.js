@@ -96,12 +96,39 @@ const deleteKontakt = async (name) => {
 
 
 
-// Funktion, um ein task in Firebase zu erstellen
+
+/**
+ * 
+ * create task infirebase
+ * 
+ */
 const createTaskInFirebase = async (title, description, dueDate) => {
 
     const taskPfad = encodeURIComponent(title); // Verwende den gesamten Namen als Pfad und kodiert ihn für URLs
+    const taskData = createTaskData(title, description, dueDate);
 
-    const taskData = {
+    try {
+        const response = await fetch(`${BASE_URL}/tasks/${taskPfad}.json`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(taskData) });
+
+        if (response.ok) {
+
+            const data = await response.json();
+            console.log(`Task erstellt:`, data);
+
+        } else { console.error("Fehler beim Erstellen des Tasks:", response.status) }
+
+    } catch (error) { console.error("Fehler:", error) }
+};
+
+
+/**
+ * 
+ * create task data
+ * 
+ */
+function createTaskData(title, description, dueDate) {
+
+    return {
         title: title,
         description: description,
         assigned: selectedContacts,
@@ -109,42 +136,25 @@ const createTaskInFirebase = async (title, description, dueDate) => {
         prio: prio,
         category: selectedCategory,
         kanbanId: 'to-do',
-        subtasks: subtaskCollection.map(item => ({...item, done: false, edit: undefined }))
+        subtasks: subtaskCollection.map(item => ({ ...item, done: false, edit: undefined }))
     };
+}
 
-    try {
-        const response = await fetch(`${BASE_URL}/tasks/${taskPfad}.json`, {
-            method: "PUT",  // Verwendung von PUT, um einen bestimmten Pfad zu erstellen/aktualisieren
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(taskData)
-        });
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log(`Task erstellt:`, data);
-        } else {
-            console.error("Fehler beim Erstellen des Tasks:", response.status);
-        }
-    } catch (error) {
-        console.error("Fehler:", error);
-    }
-};
 
+/**
+ * 
+ * get all due dates from firebase
+ * 
+ */
 const getAllDueDatesFromFirebase = async () => {
 
     let dueDates = [];
-
     try {
-        const response = await fetch(`${BASE_URL}/tasks.json`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-        });
+        const response = await fetch(`${BASE_URL}/tasks.json`, { method: "GET", headers: { "Content-Type": "application/json" } });
 
         if (response.ok) {
             const data = await response.json();
-
             // Überprüfung, ob Daten existieren
             if (data) {
                 // Iteriere über alle Tasks und sammle die dueDate-Werte
@@ -155,7 +165,6 @@ const getAllDueDatesFromFirebase = async () => {
                 }
             }
         } else { console.error("Fehler beim Abrufen der Tasks:", response.status); }
-
     } catch (error) { console.error("Fehler:", error); }
 
     return dueDates;  // Rückgabe der gesammelten Fälligkeitsdaten

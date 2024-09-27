@@ -62,7 +62,7 @@ function toggleActivateButton() {
  * 
  */
 function registerSubmit() {
-
+    
     const password = document.getElementById('password').value.trim();
     const confirmPassword = document.getElementById('confirm_password').value.trim();
     const user = document.getElementById('user').value.trim();
