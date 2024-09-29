@@ -141,7 +141,6 @@ function createTaskData(title, description, dueDate) {
 }
 
 
-
 /**
  * 
  * get all due dates from firebase
