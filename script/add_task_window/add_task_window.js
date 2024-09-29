@@ -22,8 +22,11 @@ if (!sessionStorage.getItem('user')) window.location.href = '../index.html';
  * 
  */
 function onloadstart() {
+
     fetchAllContactNames();
     renderContacts();
+
+    document.getElementById('input_due_date').addEventListener('paste', function(event) { event.preventDefault() });    
 }
 
 
@@ -89,8 +92,10 @@ const fetchAllContactNames = async () => {
  */
 function openContactsList() {
 
-    document.getElementById('contacts_list').placeholder = "";
+    document.getElementById('list_of_contacts_outside').classList.remove('z-1');
+    document.getElementById('list_of_contacts_outside').classList.add('z1');
 
+    document.getElementById('contacts_list').placeholder = "";
     document.getElementById('list_of_contacts').classList.add('list-of-contacts2');
     document.getElementById('assign_arrow').src = "../assets/icons/arrow_drop_up.png";
     toggle1 = true;
@@ -107,6 +112,11 @@ function openContactsList() {
  * 
  */
 function closeContactsList() {
+
+    setTimeout(() => {
+        document.getElementById('list_of_contacts_outside').classList.remove('z1');
+        document.getElementById('list_of_contacts_outside').classList.add('z-1');
+    }, 200);
 
     document.getElementById('contacts_list').placeholder = "Select contacts to assign";
 

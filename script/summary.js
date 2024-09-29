@@ -3,12 +3,25 @@ let dateArray = [];
 if (!sessionStorage.getItem('user')) window.location.href = '../index.html';
 
 
+/**
+ * 
+ * summary onload start
+ * 
+ */
 function summaryStart() {
 
     greetingStart();
     showSummary();
+
+    getTaskCountsByKanbanId();
 }
 
+
+/**
+ * 
+ * function for greeting
+ * 
+ */
 function greetingStart() {
 
     showUser();
@@ -28,6 +41,12 @@ function greetingStart() {
     }
 }
 
+
+/**
+ * 
+ * hide greeting
+ * 
+ */
 function hideGreeting() {
 
     document.getElementById('greeting').style = "display: none";
@@ -35,18 +54,35 @@ function hideGreeting() {
     showContent();
 }
 
+
+/**
+ * 
+ * show content
+ * 
+ */
 function showContent() {
 
     document.getElementById('join_360').style = "";
     document.getElementById('summary').style = "";
 }
 
+
+/**
+ * 
+ * show user
+ * 
+ */
 function showUser() {
 
     document.getElementById('greet_name').innerText = sessionStorage.getItem('user');
 }
 
 
+/**
+ * 
+ * show summary
+ * 
+ */
 const showSummary = () => {
 
     getAllDueDatesFromFirebase()
@@ -72,13 +108,22 @@ const showSummary = () => {
 };
 
 
-// Konvertiere Datum aus dem Format "DD/MM/YYYY" in ein Date-Objekt
+/**
+ * 
+ * Convert date from the format "DD/MM/YYYY" to a Date object
+ * 
+ */
 function parseDate(dateStr) {
     const [day, month, year] = dateStr.split("/");
     return new Date(year, month - 1, day); // month - 1, weil JS Monate 0-basiert speichert
 }
 
-// Erstelle arrayPast mit allen Daten in der Vergangenheit, aber nicht dem aktuellen Datum
+
+/**
+ * 
+ * get past dates
+ * 
+ */
 function getPastDates(dateArray, currentDate) {
     return dateArray.filter(dateStr => {
         const date = parseDate(dateStr);
@@ -88,7 +133,12 @@ function getPastDates(dateArray, currentDate) {
     });
 }
 
-// Erstelle urgentArray mit allen Daten, die mit dem aktuellen Datum übereinstimmen
+
+/**
+ * 
+ * get urgent dates
+ * 
+ */
 function getUrgentDates(dateArray, currentDate) {
     return dateArray.filter(dateStr => {
         const date = parseDate(dateStr);
@@ -100,7 +150,12 @@ function getUrgentDates(dateArray, currentDate) {
     });
 }
 
-// Wenn urgentArray leer ist, finde das nächstgelegene Datum
+
+/**
+ * 
+ * get closest date
+ * 
+ */
 function getClosestDate(dateArray, currentDate) {
     let closestDate = null;
     let minDiff = Infinity;
@@ -119,7 +174,12 @@ function getClosestDate(dateArray, currentDate) {
     return closestDate;
 }
 
-// Hauptfunktion for for editing dateArray
+
+/**
+ * 
+ * process dates
+ * 
+ */
 function processDates(dateArray) {
     const currentDate = new Date(); // aktuelles Datum
 
@@ -140,6 +200,12 @@ function processDates(dateArray) {
     return { arrayPast, urgentArray };
 }
 
+
+/**
+ * 
+ * generate greeting
+ * 
+ */
 function generateGreeting() {
     const now = new Date();
     const hours = now.getHours();
@@ -153,6 +219,12 @@ function generateGreeting() {
     }
 }
 
+
+/**
+ * 
+ * show date in summary urgent
+ * 
+ */
 function showDateInSummaryUrgent(firstDate, pastLength) {
 
     if (firstDate != null) {
@@ -177,8 +249,62 @@ function showDateInSummaryUrgent(firstDate, pastLength) {
     }
 }
 
+
+/**
+ * 
+ * summary on click, redirect
+ * 
+ */
 function summaryOnclick() {
 
     window.location.href = '../html/board.html';
 }
+
+
+/**
+ * 
+ * get task counts by kanbanId
+ * 
+ */
+const getTaskCountsByKanbanId = async () => {
+
+    try {
+        const response = await fetch(`${BASE_URL}/tasks.json`, { method: "GET", headers: { "Content-Type": "application/json" } });
+
+        if (response.ok) {
+
+            const tasks = await response.json();
+            const kanbanCounts = { 'to-do': 0, 'in-progress': 0, 'await-feedback': 0, 'done': 0 };
+
+            for (const key in tasks) {
+
+                const task = tasks[key];
+                if (task.kanbanId && kanbanCounts.hasOwnProperty(task.kanbanId)) {
+                    kanbanCounts[task.kanbanId]++;
+                }
+            }
+
+            showKanbanCountsInSummary(kanbanCounts);
+
+        } else console.error("Fehler beim Abrufen der Tasks:", response.status);
+
+    } catch (error) { console.error("Fehler:", error) }
+};
+
+
+/**
+ * 
+ * show kanban counts in summary
+ * 
+ */
+function showKanbanCountsInSummary(kanbanCounts) {
+
+    document.querySelector('.to-do62-2').innerText = kanbanCounts['to-do'];
+    document.querySelector('.done12-2').innerText = kanbanCounts['done'];
+    document.querySelector('.progress-2').innerText = kanbanCounts['in-progress'];
+    document.querySelector('.feedback-2').innerText = kanbanCounts['await-feedback'];
+    document.querySelector('.board456-2').innerText = kanbanCounts['await-feedback'] + kanbanCounts['in-progress'] + kanbanCounts['done'] + kanbanCounts['to-do'];
+}
+
+
 

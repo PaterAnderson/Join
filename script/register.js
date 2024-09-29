@@ -62,7 +62,7 @@ function toggleActivateButton() {
  * 
  */
 function registerSubmit() {
-
+    
     const password = document.getElementById('password').value.trim();
     const confirmPassword = document.getElementById('confirm_password').value.trim();
     const user = document.getElementById('user').value.trim();
@@ -299,25 +299,27 @@ function focusInput(id) {
 
 /**
  * 
- * privacy pilicy click
+ * privacy policy click, from register
  * 
  */
 function privacyPolicyClick() {
 
+    sessionStorage.setItem('user', 'Guest');
     sessionStorage.setItem('textSubpages', 'no menu');
-    window.open('../html/privacy_policy.html', '_blank');
+    if (window.innerWidth <= 600 || /Mobi|Android/i.test(navigator.userAgent)) { window.open('../html/privacy_policy_login.html', '_self') } else window.open('../html/privacy_policy_login.html', '_blank');
 }
 
 
 /**
  * 
- * legal notice click
+ * legal notice click, from register
  * 
  */
 function legalNoticeClick() {
 
+    sessionStorage.setItem('user', 'Guest');
     sessionStorage.setItem('textSubpages', 'no menu');
-    window.open('../html/legal_notice.html', '_blank');
+    if (window.innerWidth <= 600 || /Mobi|Android/i.test(navigator.userAgent)) { window.open('../html/legal_notice_login.html', '_self') } else window.open('../html/legal_notice_login.html', '_blank');
 }
 
 

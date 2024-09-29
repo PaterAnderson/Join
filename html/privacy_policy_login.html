@@ -13,14 +13,12 @@
     <script src="../script/header.js"></script>
     <title>Join</title>
 
-    <link rel="stylesheet" href="../style/text_subpages_responsive.css">
-    <script src="../script/legal_notice.js"></script>
+    <link rel="stylesheet" href="../style/text_subpages_responsive_login.css">
+    <script src="../script/privacy_policy.js"></script>
 
-    <script src="../script/linking_for_text_subpages.js"></script>
 </head>
 
-<body onload="init(), legalNoticeStart()" onclick="closeUserMenu()" style="display: none;">
-
+<body onload="init(), privacyPolicyStart()" onclick="closeUserMenu()" style="display: none;">
     <header>
 
         <svg class="capa-header" width="32" height="40" viewBox="0 0 32 40" fill="none"
@@ -54,10 +52,10 @@
                         <a href="help.html">
                             <div class="user-icon-menu-nav">Help</div>
                         </a>
-                        <a>
+                        <a href="#" onclick="legalNoticeClick()">
                             <div class="user-icon-menu-nav">Legal Notice</div>
                         </a>
-                        <a href="#" onclick="privacyPolicyClick()">
+                        <a>
                             <div class="user-icon-menu-nav">Privacy Policy</div>
                         </a>
                         <a href="login.html">
@@ -135,11 +133,11 @@
                 </div>
             </div>
             <div class="legal-div text-body">
-                <a href="#" onclick="privacyPolicyClick()">
-                    <div class="legal-hover">Privacy Policy</div>
+                <div class="legal-hover" style="background-color: #091931; color: #CDCDCD;">Privacy Policy</div>
+                <a href="legal_notice_login.html">
+                    <div class="legal-hover">
+                        Legal notice</div>
                 </a>
-                <div class="legal-hover" style="background-color: #091931; color: #CDCDCD;">
-                    Legal notice</div>
             </div>
         </div>
     </aside>
@@ -152,64 +150,64 @@
         </div>
 
         <div class="title">
-            <div class="heading-1">Legal Notice</div>
+            <div class="heading-1">Privacy Policy</div>
         </div>
         <div class="content-privacy">
             <div class="privacy-text">
-                <div class="sub-title">Imprint</div>
-                <div class="body-text-2">
+                <div class="sub-title">Introduction</div>
+                <div class="body-text-2">At <a>Join</a>, we are committed to protecting your privacy. This Privacy
+                    Policy outlines how we collect, use, disclose, and safeguard your personal information when you
+                    use
+                    our website and services. By accessing our Kanban Board, you agree to the terms outlined in this
+                    Privacy Policy. If you do not agree with these terms, please refrain from using our services.
+                </div>
+            </div>
+            <div class="privacy-text">
+                <div class="sub-title">Information We Collect</div>
+                <div class="body-text-2">We collect two types of information from users:
                     <ul>
-                        <li>Lukasz Szymczak | Tom Wahrenberg | Anton Ivkin</li>
-                        <li></li>
-                        <li></li>
+                        <li>Personal Information: This includes data such as your name, email address, and any other
+                            details you provide when creating an account or interacting with our services. We only
+                            collect this information when you voluntarily provide it.</li>
+                        <li>Usage Data: This includes non-personal information about how you access and use our
+                            website,
+                            such as IP addresses, browser types, pages visited, and time spent on the site. We
+                            collect
+                            this data to improve the functionality and performance of our Kanban Board.</li>
                     </ul>
                 </div>
             </div>
             <div class="privacy-text">
-                <div class="sub-title">Exploring the Board</div>
-                <div class="body-text-2">Email:
+                <div class="sub-title">How We Use Your Information</div>
+                <div class="body-text-2">We use the information we collect to:
+                    <ul>
+                        <li>Provide and maintain the Kanban Board services.</li>
+                        <li>Improve user experience and analyze how the service is being used.</li>
+                        <li>Communicate with you regarding updates, service announcements, and support.</li>
+                        <li>Ensure the security of our website and protect against unauthorized access or misuse.
+                        </li>
+                    </ul>
+                    We will never sell, rent, or trade your personal information to third parties. However, we may
+                    share your data with trusted partners who assist in providing services (e.g., hosting
+                    providers), subject to strict confidentiality agreements.
                 </div>
             </div>
             <div class="privacy-text">
-                <div class="sub-title">Acceptance of terms</div>
-                <div class="body-text-2">By accessing and using Join (Product), you acknowledge and agree to the
-                    following terms and conditions, and any policies, guidelines, or amendments thereto that may be
-                    presented to you from time to time. We, the listed students, may update or change the terms and
-                    conditions from time to time without notice.
+                <div class="sub-title">Data Security</div>
+                <div class="body-text-2">We implement reasonable measures to protect your personal data from
+                    unauthorized access, loss, or disclosure. Our servers use industry-standard encryption,
+                    firewalls, and secure hosting environments to safeguard your information. However, no method of
+                    data transmission or storage is 100% secure, and we cannot guarantee absolute security. By using
+                    our service, you acknowledge the inherent risks of internet-based services.
                 </div>
             </div>
             <div class="privacy-text">
-                <div class="sub-title">Scope and ownership of the product</div>
-                <div class="body-text-2">Join has been developed as part of a student group project in a web development
-                    bootcamp at the Developer Akademie GmbH. It has an educational purpose and is not intended for
-                    extensive personal & business usage. As such, we cannot guarantee consistent availability,
-                    reliability, accuracy, or any other aspect of quality regarding this Product.<br><br>The design of
-                    Join is owned by the Developer Akademie GmbH. Unauthorized use, reproduction, modification,
-                    distribution, or replication of the design is strictly prohibited.
-                </div>
-            </div>
-            <div class="privacy-text">
-                <div class="sub-title">Proprietary rights</div>
-                <div class="body-text-2">Aside from the design owned by Developer Akademie GmbH, we, the listed
-                    students, retain all proprietary rights in Join, including any associated copyrighted material,
-                    trademarks, and other proprietary information.
-                </div>
-            </div>
-            <div class="privacy-text">
-                <div class="sub-title">Use of the product</div>
-                <div class="body-text-2">Join is intended to be used for lawful purposes only, in accordance with all
-                    applicable laws and regulations. Any use of Join for illegal activities, or to harass, harm,
-                    threaten, or intimidate another person, is strictly prohibited. You are solely responsible for your
-                    interactions with other users of Join.
-                </div>
-            </div>
-            <div class="privacy-text">
-                <div class="sub-title">Disclaimer of warranties and limitation of liability</div>
-                <div class="body-text-2">Join is provided "as is" without warranty of any kind, whether express or
-                    implied, including but not limited to the implied warranties of merchantability, fitness for a
-                    particular purpose, and non-infringement. In no event will we, the listed students, or the Developer
-                    Akademie, be liable for any direct, indirect, incidental, special, consequential or exemplary
-                    damages, including but not limited to.
+                <div class="sub-title">Your Rights and Choices</div>
+                <div class="body-text-2">You have the right to access, correct, update, or delete your personal
+                    information at any time. If you wish to exercise any of these rights, please contact us at
+                    [insert email/contact form]. We will respond to your request within a reasonable time frame.
+                    Additionally, if you no longer wish to receive marketing communications, you can opt out by
+                    following the unsubscribe instructions included in our emails.
                 </div>
             </div>
         </div>

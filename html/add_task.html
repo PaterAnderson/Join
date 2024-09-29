@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="../style/menu_head_resp.css">
     <link rel="stylesheet" href="../style/add_task_window/add_task_respon.css">
 
+    <script src="../script/linking_for_text_subpages.js"></script>
 </head>
 
 <body onload="init(), onloadstart()" onclick="bodyOnClick(), closeUserMenu()">
@@ -71,10 +72,10 @@
                         <a href="help.html">
                             <div class="user-icon-menu-nav">Help</div>
                         </a>
-                        <a href="legal_notice.html">
+                        <a href="#" onclick="legalNoticeClick()">
                             <div class="user-icon-menu-nav">Legal Notice</div>
                         </a>
-                        <a href="privacy_policy.html">
+                        <a href="#" onclick="privacyPolicyClick()">
                             <div class="user-icon-menu-nav">Privacy Policy</div>
                         </a>
                         <a href="login.html">
@@ -152,10 +153,10 @@
                 </div>
             </div>
             <div class="legal-div text-body">
-                <a href="privacy_policy.html">
+                <a href="#" onclick="privacyPolicyClick()">
                     <div class="legal-hover">Privacy Policy</div>
                 </a>
-                <a href="legal_notice.html">
+                <a href="#" onclick="legalNoticeClick()">
                     <div class="legal-hover">
                         Legal notice</div>
                 </a>
@@ -226,7 +227,7 @@
                             </div>
 
 
-                            <div class="list-of-contacts-outside" id="list_of_contacts_outside">
+                            <div class="list-of-contacts-outside z-1" id="list_of_contacts_outside">
                                 <div class="list-of-contacts" id="list_of_contacts" onclick="stopProp(event)">
 
                                     <div id="contactsContainer" class="div-contact"></div>
@@ -240,7 +241,6 @@
                     </div>
 
 
-
                     <div class="separator"></div>
 
 
@@ -251,14 +251,25 @@
 
                             <div onclick="focusInput('input_due_date')" class="input-outside3 font1" id="input_border1"
                                 style="cursor: pointer;">
-                                
 
 
+                                <!--
                                 <input onkeydown="enterPressedCreateTask(event), handleKeyDown(event)"
                                     onfocus="closeContactsList(), showHideError('date_error', false);" type="tel"
                                     class="input-due-date font1" id="input_due_date" oninput="handleInput(event)"
                                     autocomplete="off" placeholder="dd/mm/yyyy" maxlength="10"
                                     onclick="moveCursorToEnd(event)">
+
+                                    -->
+
+
+                                <input id="input_due_date" autocomplete="off" class="input-due-date font1" type="tel"
+                                    placeholder="dd/mm/yyyy"
+                                    onkeydown="handleKeyDownDueDate(event, this.value), enterPressedCreateTask(event)"
+                                    oninput="this.value = DDMMYYYY(this.value, event)" />
+
+
+
 
 
                                 <div class="due-date-icon-hover" onclick="calendarOnClick(), stopProp(event)"></div>

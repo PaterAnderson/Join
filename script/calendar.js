@@ -1,10 +1,22 @@
 var picker;
 
+
+/**
+ * 
+ *   Initialize the date picker
+ * 
+ */
 function setDate() {
     var calendarDiv = createCalendarContainer(); // Create the calendar container with innerHTML
     initializeDatePicker(calendarDiv); // Initialize the date picker using the created div
 }
 
+
+/**
+ * 
+ *   create calendar container
+ * 
+ */
 function createCalendarContainer() {
     var container = document.getElementById('calendar-container');
 
@@ -15,6 +27,12 @@ function createCalendarContainer() {
     return document.getElementById('calendar');
 }
 
+
+/**
+ * 
+ *   initialize date picker
+ * 
+ */
 function initializeDatePicker(calendarDiv) {
 
     picker = new Pikaday({
@@ -33,12 +51,24 @@ function initializeDatePicker(calendarDiv) {
     });
 }
 
+
+/**
+ * 
+ *   destroy date picker
+ * 
+ */
 function destroyDatePicker() {
 
     picker.destroy(); // Pikaday-Kalender zerstören
     picker = null; // Variable leeren, um spätere Fehler zu vermeiden
 }
 
+
+/**
+ * 
+ *   convert date format
+ * 
+ */
 function convertFormat(date) {
 
     if (!date) { console.log("No date selected."); return }
@@ -53,12 +83,24 @@ function convertFormat(date) {
     setTimeout(() => destroyDatePicker(), 400);
 }
 
+
+/**
+ * 
+ *   change the value of due date
+ * 
+ */
 function changeTheValueOfDueDate(date) {
 
     document.getElementById('input_due_date').value = date;
     closeCalendar();
 }
 
+
+/**
+ * 
+ *   calendar clicked, show calendar
+ * 
+ */
 function calendarOnClick() {
 
     setDate();
@@ -69,6 +111,12 @@ function calendarOnClick() {
     calendarContainerRef.classList.add('calendar-container2');
 }
 
+
+/**
+ * 
+ *   close calendar
+ * 
+ */
 function closeCalendar() {
 
     duePrioRef = document.getElementById('due_prio');
@@ -77,3 +125,5 @@ function closeCalendar() {
     duePrioRef.style = "opacity: 1";
     calendarContainerRef.classList.remove('calendar-container2');
 }
+
+

@@ -127,10 +127,7 @@ function savePassword() {
         if ('PasswordCredential' in window) {
 
             const form = document.querySelector('form');
-            const cred = new PasswordCredential({
-                id: form.elements.email.value,
-                password: form.elements.password.value
-            });
+            const cred = new PasswordCredential({ id: form.elements.email.value, password: form.elements.password.value });
 
             navigator.credentials.store(cred).then(function () {
                 //console.log('Credentials stored successfully!');
@@ -173,13 +170,11 @@ function guestLoginStart() {
 function userLoginStart(user) {
 
     savePassword();
+
+    sessionStorage.setItem('textSubpages', '');
+    sessionStorage.setItem('greeting', 'login');
     sessionStorage.setItem('user', user);
-
-
-    alert('user login!' + ' ' + user);
-
-
-    window.location.href = '../html/login.html';
+    window.location.href = '../html/summary.html';
 }
 
 
@@ -195,25 +190,27 @@ function focusInput(id) {
 
 /**
  * 
- * privacy pilicy click
+ * privacy policy click, from login
  * 
  */
 function privacyPolicyClick() {
 
+    sessionStorage.setItem('user', 'Guest');
     sessionStorage.setItem('textSubpages', 'no menu');
-    window.open('../html/privacy_policy.html', '_blank');
+    if (window.innerWidth <= 600 || /Mobi|Android/i.test(navigator.userAgent)) { window.open('../html/privacy_policy_login.html', '_self') } else window.open('../html/privacy_policy_login.html', '_blank');
 }
 
 
 /**
  * 
- * legal notice click
+ * legal notice click, from login
  * 
  */
 function legalNoticeClick() {
 
+    sessionStorage.setItem('user', 'Guest');
     sessionStorage.setItem('textSubpages', 'no menu');
-    window.open('../html/legal_notice.html', '_blank');
+    if (window.innerWidth <= 600 || /Mobi|Android/i.test(navigator.userAgent)) { window.open('../html/legal_notice_login.html', '_self') } else window.open('../html/legal_notice_login.html', '_blank');
 }
 
 

@@ -137,7 +137,7 @@
 
         .mobile-add-task-outer {
             border: 1px solid #D1D1D1;
-            transform: translateY(86px) translateX(143px);
+            transform: translateY(96px) translateX(143px);
             width: fit-content;
             height: 664px;
             border-radius: 10px;
@@ -180,12 +180,12 @@
 
         .buttons {
             left: 381px;
-            top: 776px;
+            top: 796px;
         }
 
         .field-required {
             left: 248px;
-            top: 784px;
+            top: 804px;
             width: 89px;
         }
 
@@ -250,16 +250,16 @@
                 }
 
                 .buttons {
-                    top: 919px;
+                    top: 930px;
                 }
 
                 .field-required {
-                    top: 930px;
+                    top: 941px;
                 }
 
                 .mobile-add-task-outer {
                     height: 801px;
-                    transform: translateY(85px) translateX(232px);
+                    transform: translateY(92px) translateX(232px);
                 }
 
                 @media (max-width: 600px) {
@@ -276,7 +276,7 @@
         @media (max-height: 750px) {
 
             .main {
-                height: 504px;
+                height: 528px;
             }
 
             .mobile-add-task {
@@ -284,16 +284,16 @@
             }
 
             .buttons {
-                top: 686px;
+                top: 722px;
             }
 
             .field-required {
-                top: 696px;
+                top: 732px;
             }
 
             .mobile-add-task-outer {
                 height: 589px;
-                transform: translateY(74px) translateX(232px);
+                transform: translateY(96px) translateX(232px);
             }
         }
     }
@@ -305,7 +305,7 @@
         @media (max-width: 600px) {
 
             .main {
-                height: 504px;
+                height: 519px;
             }
 
             .mobile-add-task {
@@ -313,16 +313,16 @@
             }
 
             .buttons {
-                top: 686px;
+                top: 707px;
             }
 
             .field-required {
-                top: 696px;
+                top: 720px;
             }
 
             .mobile-add-task-outer {
                 height: 579px;
-                transform: translateY(82px) translateX(142px);
+                transform: translateY(94px) translateX(142px);
             }
         }
 
