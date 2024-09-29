@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/board.css">
     <link rel="stylesheet" href="../style/body.css">
     <link rel="stylesheet" href="../style/fonts.css">
     <link rel="stylesheet" href="../style/aside.css">
@@ -12,6 +13,7 @@
 
     <script src="../script/menu.js"></script>
     <script src="../script/header.js"></script>
+    <script src="../script/board_template.js"></script>
     <script src="../script/board.js"></script>
 
     <script src="../script/add_task_window_anton/add_task_window_anton.js"></script>
@@ -28,554 +30,10 @@
     <script src="../script/pikaday_calendar.js"></script>
     <link rel="stylesheet" href="../style/calendar.css">
     <script src="../script/calendar.js"></script>
+
+    <link rel="stylesheet" href="../style/menu_head_resp.css">
     <title>Join</title>
 </head>
-<style>
-    .title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .search-bar {
-        display: flex;
-        gap: 32px;
-    }
-
-    .add-task-button {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 4px;
-        height: 48px;
-        font-family: "Inter", sans-serif;
-        font-size: 21px;
-        font-weight: 700;
-        line-height: 25.2px;
-        text-align: left;
-        color: white;
-        border-radius: 10px;
-        background-color: #2A3647;
-        border: none;
-        padding: 8px 16px 8px 16px;
-        cursor: pointer;
-    }
-
-    .add-task-button:hover {
-        background-color: #29ABE2;
-        box-shadow: 0px 4px 4px 0px #00000040;
-        border: none;
-    }
-
-    .search-input {
-        width: 180px;
-        height: 24px;
-        border: none;
-        font-family: "Inter", sans-serif;
-        font-size: 20px;
-        font-weight: 400;
-        line-height: 24px;
-        text-align: left;
-        padding-left: 22px;
-    }
-
-    .search-input:focus {
-        outline: none;
-    }
-
-    .search-field:has(.search-input:focus) {
-        border: 1px solid #29ABE2;
-    }
-
-    .search-field {
-        width: 312px;
-        border-radius: 10px;
-        border: 1px solid #A8A8A8;
-        display: flex;
-        align-items: center;
-        background-color: white;
-        justify-content: space-between;
-    }
-
-    .search-icon {
-        cursor: pointer;
-    }
-
-    .search-background {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 24px;
-        width: 24px;
-        margin-right: 18px;
-        margin-left: 18px;
-    }
-
-    .search-background:hover {
-        background-color: #D1D1D1;
-        border-radius: 200px;
-    }
-
-    @media (max-width: 1000px) {
-        .title {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 22px;
-        }
-
-        .kanban-subtitle {
-            max-width: 55px;
-
-        }
-    }
-
-    .kanban-board {
-        display: flex;
-        flex-direction: column;
-        width: 246px;
-    }
-
-    .kanban-wrapper {
-        display: flex;
-        flex-direction: row;
-        padding-top: 48px;
-        gap: 24px;
-    }
-
-    .kanban-title {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    .kanban-subtitle {
-        font-family: "Inter", sans-serif;
-        font-size: 20px;
-        font-weight: 700;
-        line-height: 24px;
-        text-align: left;
-        color: #42526E;
-        display: flex;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .add-task-board {
-        stroke: #2A3647;
-        cursor: pointer;
-    }
-
-    .add-task-board:hover {
-        stroke: #29ABE2;
-    }
-
-    .kanban-card-board {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        padding-top: 24px;
-        min-height: 800px;
-    }
-
-    .no-task-in-kanban {
-        width: 100%;
-        height: 48px;
-        background-color: #E7E7E7;
-        border-radius: 10px;
-        border: 1px dashed #A8A8A8;
-        box-shadow: 0px 0px 4px 0px #00000029;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "Inter", sans-serif;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 19.2px;
-        text-align: left;
-        color: #A8A8A8;
-    }
-
-    .overlay-board-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.30);
-        z-index: 9;
-    }
-
-    .overlay-add-task {
-        width: 95%;
-        height: 95%;
-        border-radius: 30px;
-        box-shadow: 0px 0px 4px 0px #0000001A;
-        background-color: white;
-        max-width: 1116px;
-        max-height: 870px;
-        margin-top: 88px;
-        position: fixed;
-        transition: right 0.25s ease-in-out;
-        top: 50%;
-        right: -100%;
-        transform: translate(50%, -60%);
-        z-index: 10;
-    }
-
-    .card-board-task-overlay {
-        width: 95%;
-        height: auto;
-        border-radius: 30px;
-        box-shadow: 0px 0px 4px 0px #0000001A;
-        background-color: white;
-        max-width: 465px;
-        max-height: 835px;
-        margin-top: 88px;
-        position: fixed;
-        transition: right 0.25s ease-in-out;
-        top: 50%;
-        right: -100%;
-        transform: translate(50%, -60%);
-        z-index: 10;
-        padding: 48px 40px 48px 40px;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-    }
-
-    .overlay-add-task-transition {
-        right: 50%;
-    }
-
-    .display-opacity-board {
-        display: none;
-    }
-
-    .card-board {
-        max-height: 264px;
-        background-color: #FFFFFF;
-        height: auto;
-        box-shadow: 0px 0px 10px 3px #00000014;
-        border-radius: 24px;
-        display: flex;
-        flex-direction: column;
-        padding: 16px;
-        gap: 24px;
-        cursor: pointer;
-    }
-
-    .card-category {
-        background-color: #0038FF;
-        border-radius: 8px;
-        padding: 4px 16px 4px 16px;
-        font-family: "Inter", sans-serif;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 19.2px;
-        text-align: left;
-        color: white;
-        width: fit-content;
-    }
-
-    .card-board-text-wrap {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .card-board-title {
-        font-family: "Inter", sans-serif;
-        font-size: 16px;
-        font-weight: 700;
-        line-height: 19.2px;
-        text-align: left;
-        color: #2A3647;
-    }
-
-    .card-board-description {
-        font-family: "Inter", sans-serif;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 19.2px;
-        text-align: left;
-        color: #A8A8A8;
-        white-space: wrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        overflow: hidden;
-
-    }
-
-    .card-board-subtask-progress-wrap {
-        width: 58%;
-    }
-
-    .card-board-subtask {
-        display: flex;
-        flex-direction: row;
-        max-width: 220px;
-        gap: 8px;
-        align-items: center;
-    }
-
-    .card-board-subtask-progress-background {
-        width: 100%;
-        background-color: #F4F4F4;
-        height: 8px;
-        border-radius: 8px;
-    }
-
-    .card-board-subtask-progress {
-        background: #4589FF;
-        width: 0;
-        height: 8px;
-        border-radius: 8px;
-    }
-
-    .card-board-subtask-number {
-        font-family: "Inter", sans-serif;
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 14.4px;
-        text-align: left;
-
-    }
-
-    .card-board-urgent {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .card-board-contact-urgent-wrapper {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .card-board-contacts {
-        display: flex;
-        justify-content: center;
-    }
-
-    .card-board-contact-icon {
-        width: 32px;
-        height: 32px;
-        background-color: orange;
-        border-radius: 45px;
-        font-family: "Inter", sans-serif;
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 14.4px;
-        text-align: center;
-        color: #FFFFFF;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: -8px;
-        border: 2px solid white;
-    }
-
-    .display-board-none {
-        display: none;
-    }
-
-    .card-overlay-category {
-        background-color: #0038FF;
-        border-radius: 8px;
-        padding: 4px 16px 4px 16px;
-        font-family: "Inter", sans-serif;
-        font-size: 23px;
-        font-weight: 400;
-        line-height: 27.6px;
-        text-align: left;
-        color: white;
-        width: fit-content;
-    }
-
-    .card-overlay-category-close-wrapper {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .card-overlay-title {
-        font-family: "Inter", sans-serif;
-        font-size: 61px;
-        font-weight: 700;
-        line-height: 73.2px;
-        text-align: left;
-    }
-
-    .card-overlay-descritption {
-        font-family: "Inter", sans-serif;
-        font-size: 20px;
-        font-weight: 400;
-        line-height: 24px;
-        text-align: left;
-        word-wrap: break-word;
-        text-wrap: wrap;
-    }
-
-    .card-overlay-wrapper {
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: row;
-        gap: 25px;
-        align-items: center;
-    }
-
-    .card-overlay-subtitle {
-        font-family: "Inter", sans-serif;
-        font-size: 20px;
-        font-weight: 400;
-        line-height: 24px;
-        text-align: left;
-        color: #2A3647;
-    }
-
-    .card-overlay-date {
-        font-family: "Inter", sans-serif;
-        font-size: 20px;
-        font-weight: 400;
-        line-height: 24px;
-        text-align: left;
-    }
-
-    .prio-wrapper-overlay {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        padding: 4px 18px 4px 18px;
-        font-family: "Inter", sans-serif;
-        font-size: 20px;
-        font-weight: 400;
-        line-height: 24px;
-        text-align: left;
-    }
-
-    .card-overlay-contact {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .card-overlay-contact-card {
-        padding: 7px 16px 7px 16px;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .coard-board-contact-name {
-        font-family: "Inter", sans-serif;
-        font-size: 19px;
-        font-weight: 400;
-        line-height: 22.8px;
-        text-align: left;
-    }
-
-    .card-overlay-subtask-title {
-        font-family: "Inter", sans-serif;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 19.2px;
-        text-align: left;
-
-    }
-
-    .card-overlay-close {
-        cursor: pointer;
-    }
-
-    .card-overlay-subtask {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        padding: 6px 16px 6px 16px;
-    }
-
-    .check-mark-wrapper {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-    }
-
-    .card-overlay-edit-wrapper {
-        display: flex;
-        justify-content: flex-end;
-        flex-direction: row;
-        gap: 8px;
-        font-family: "Inter", sans-serif;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 19.2px;
-        text-align: left;
-        color: #2A3647;
-
-    }
-
-    .card-overlay-delete-edit-wrapper {
-        display: flex;
-        flex-direction: row;
-        gap: 8px;
-        align-items: center;
-        cursor: pointer;
-    }
-
-    .card-overlay-delete-edit-wrapper:hover {
-        color: #29ABE2;
-    }
-
-    .card-overlay-delete-edit-wrapper:hover path {
-        fill: #29ABE2;
-    }
-
-    .overflow-card-board {
-        height: 98px;
-        overflow-y: auto;
-        scrollbar-width: thin;
-        scrollbar-color: #888 transparent;
-    }
-
-    .overflow-card-board::-webkit-scrollbar {
-        width: 2px;
-    }
-
-    .overflow-card-board::-webkit-scrollbar-thumb {
-        background-color: #888;
-        border-radius: 4px;
-    }
-
-    .container-edit-overlay {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        overflow-y: auto;
-        height: 90%;
-    }
-
-    .postion-relativ {
-        position: relative !important;
-    }
-
-    .z-index-3 {
-        z-index: 3 !important;
-    }
-
-    .z-index-0 {
-        z-index: 0;
-    }
-</style>
-
 <body onload="initBoard()">
     <div id="overlay-board-task" class="overlay-board">
         <div id="card-board-task-overlay" class="card-board-task-overlay">>
@@ -699,10 +157,10 @@
     </aside>
     <main>
         <div class="title">
-            <div class="heading-1">Board</div>
+            <div class="heading-1">Board <button onclick="goToLink('add_task.html')" class="mobile-add-task-button"><img src="../assets/icons/plus-mobile-add-task.svg"></button></div>
             <div class="search-bar">
                 <div class="search-field">
-                    <input type="text" max="20" class="search-input" placeholder="Find Task">
+                    <input onfocus="searcFocus()" type="text" max="20" class="search-input" placeholder="Find Task">
                     <svg width="2" height="32" viewBox="0 0 2 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 0.5V31.5" stroke="#D1D1D1" />
                     </svg>
@@ -737,7 +195,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="kanban-card-board" id="to-do" ondrop="moveTo('to-do')" ondragover="allowDrop(event)">
+                <div class="kanban-card-board" id="to-do" ondrop="moveTo('to-do')" ondragleave="removehilightDrag('to-do')" ondragover="allowDrop(event); hilightDrag('to-do')">
                     <div class="no-task-in-kanban display-board-none">No tasks To do</div>
                 </div>
             </div>
@@ -752,7 +210,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="kanban-card-board" id="in-progress" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)">
+                <div class="kanban-card-board" id="in-progress" ondrop="moveTo('in-progress')" ondragleave="removehilightDrag('in-progress')" ondragover="allowDrop(event); hilightDrag('in-progress')">
                     <div class="no-task-in-kanban">No tasks To do</div>
                 </div>
             </div>
@@ -767,7 +225,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="kanban-card-board"  id="await-feedback" ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)">
+                <div class="kanban-card-board"  id="await-feedback" ondrop="moveTo('await-feedback')" ondragleave="removehilightDrag('await-feedback')" ondragover="allowDrop(event); hilightDrag('await-feedback')">
                     <div class="no-task-in-kanban">No tasks To do</div>
                 </div>
             </div>
@@ -777,7 +235,7 @@
                     <div>
                     </div>
                 </div>
-                <div class="kanban-card-board"  id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)">
+                <div class="kanban-card-board"  id="done" ondrop="moveTo('done')" ondragleave="removehilightDrag('done')" ondragover="allowDrop(event); hilightDrag('done')">
                     <div class="no-task-in-kanban">No tasks To do</div>
                 </div>
             </div>

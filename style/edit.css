@@ -1,0 +1,515 @@
+body {
+    margin: 0;
+    background-color: #F6F7F8;
+    overflow-x: hidden;
+    font-family: "Inter", sans-serif;
+}
+
+.gap-8 {
+    margin-left: 24px;
+}
+
+.background-change {
+    background-color: #2A3647;
+    transition: background-color 0.1s ease-out; 
+    border-radius: 15px;
+    color: white;
+}
+
+.dialog-bg {
+    z-index: 999;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(8000px);
+    transition: all 200ms  ease-in-out;
+}
+
+.fading-background {
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 1500ms ease-in-out;
+}
+
+.logo {
+    width: 55.6px;
+    height: 66.48px;
+    margin-left: 46.9px;
+    margin-top: 154px;
+}
+
+.text {
+    margin-left: 46.9px;
+}
+
+.edit-text {
+    margin-left: 46.9px;
+    margin-top: 24px;
+}
+
+.filler {
+    color: white;
+}
+
+.dialog {
+    height: 592px;
+    width: 745px;
+    background-color: white;
+    border-radius: 0 30px 30px 0;
+}
+
+.flag {
+    background-color: #2A3647;
+    height: 592px;
+    width: 467px;
+    border-radius: 30px 0 0 30px;
+}
+
+.information {
+    height: 364px;
+    width: 461px;
+}
+
+.content {
+    display: flex;
+}
+
+.new-user{
+    width: 120px;
+    margin-left: 73px;
+    margin-top: 108px;
+    cursor: pointer;
+}
+
+.sub-buttons {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.sub-text {
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+
+}
+
+.info-box {
+   display: flex;
+}
+
+.info-user {
+    width: 120px;
+}
+
+.warning-message {
+    color: red;
+    display: block;
+    position: relative;
+    top: -30px;
+    left: 10px;
+}
+
+.info-name {
+    font-size: 47px;
+    font-weight: 500;
+    line-height: 56.4px;
+    height: 32px;
+    margin-top: 20px;
+}
+
+.info-icons {
+    width: 18px;
+    margin-right: 13px;
+
+}
+
+.contact-info {
+    width: 207px;
+    height: 74px;
+    display: flex;
+    align-items: center;
+}
+
+.contact-text {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.custom-text {
+    font-weight: 700;
+}
+
+.mail-design {
+    text-decoration: none;
+}
+
+.mail-design2 {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    display: flex;
+    margin-top: -10px;
+    color: #007CEE;
+}
+
+.max-width {
+    width: 287px;
+    white-space: nowrap;
+
+}
+
+.phone-design {
+    text-decoration: none;
+    color: black;
+}
+
+.close {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 5px;
+}
+
+.close-button {
+    cursor: pointer;
+    width: 32px;
+    margin-top: 48px;
+    margin-right: 45px;
+}
+
+.close-button:hover {
+    background-color: gray;
+    box-shadow: 0 6px 2px -2px rgba(0 0 0 / 0.2);
+    border-radius: 50%;
+}
+
+.d-none {
+    display: none;
+}
+
+.input-fields {
+        margin-left: 265px;
+        margin-top: -265px;
+}
+
+.buttons {
+    width: 322px;
+    height: 48px;
+    margin-left: 275px;
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-img {
+    cursor: pointer;
+}
+
+.create-button {
+    width: 214px;
+    height: 57px;
+    border-radius: 8px;
+    background-color: #2A3647;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: 700;
+    border: none;
+    margin-left: 24px;
+}
+
+.cancel-button {
+    width: 126px;
+    height: 57px;
+    border-radius: 8px;
+    border: 1px solid #2A3647;
+    background-color: #ffffffff;
+    color: #2A3647;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.save-button {
+    width: 111px;
+    height: 57px;
+    border-radius: 8px;
+    background-color: #2A3647;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: 700;
+    border: none;
+    margin-left: 24px;
+}
+
+.delete-button {
+    width: 113px;
+    height: 57px;
+    border-radius: 8px;
+    border: 1px solid #2A3647;
+    background-color: #ffffffff;
+    color: #2A3647;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-settings {
+    display: flex;
+    align-items: center;
+}
+
+.hover-container {
+    display: flex;
+    align-items: center;
+}
+
+.cancel-button:hover,
+.delete-button:hover {
+    border: 1px solid #29ABE2;
+    color: #29ABE2;
+    box-shadow: 0 6px 2px -2px rgba(0 0 0 / 0.2);
+}
+
+.hover-container:hover {
+    color: #29ABE2;
+    filter: brightness(0) saturate(100%) invert(46%) sepia(99%) saturate(1354%) hue-rotate(200deg) brightness(102%) contrast(92%);
+}
+
+.cancel-button:hover img,
+.delete-button:hover img {
+    filter: brightness(0) saturate(100%) invert(46%) sepia(99%) saturate(1354%) hue-rotate(200deg) brightness(102%) contrast(92%);
+}
+
+.create-button:hover,
+.add-button:hover,
+.save-button:hover {
+    background-color: #29ABE2;
+    box-shadow: 0 6px 2px -2px rgba(0 0 0 / 0.2);
+}
+
+.contact-container {
+    position: relative;
+    background-color: #ffffff;
+    width: 456px;
+    height: 928px;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fixed-button {
+    position: fixed;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+}
+
+.add-button {
+    width: 352px;
+    height: 56px;
+    border-radius: 8px;
+    background-color: #2A3647;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: 700;
+    border: none;
+    top: 118.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.person {
+    width: 29.33px;
+    height: 20.91px;
+    margin-left: 16px;
+    
+}
+
+.top-section {
+    display: flex;
+    justify-content: center;
+    width: 436px;
+    height: 101px;
+    background-color: #ffffff;
+    position: fixed;
+}
+
+.contact-list {
+    display: flex;
+}
+
+.alphabet {
+    width: 352px;
+    height: 58px;
+    margin-top: 8px;
+}
+
+.alphabet h2 {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.single-contact {
+    width: 352px;
+    height: 78px;
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    margin-top: 15px
+}
+
+.single-contact:hover {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    color: black;
+}
+
+.active {
+    background-color: #29ABE2;
+}
+
+.contact-placeholder {
+    width: 42px;
+    margin-right: 40px;
+}
+
+.profile-name {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.contact-headline {
+    position: absolute;
+    width: 569px;
+    height: 73px;
+    top: 65px;
+    left: 511px;
+}
+
+.headline-stat {
+    display: flex;
+    align-items: center;
+}
+
+.headline-stat h1 {
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73.2px;
+    margin-right: 30px;
+}
+
+.headline-stat h2 {
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 32.4px;
+    margin-left: 30px;
+}
+
+.overlay-menu {
+    background-color: #F6F7F8;
+    position: absolute;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction:  column;
+    width: 461px;
+    height: 364px;
+    transform: translate(8000px);
+    transition: all 225ms ease-in-out;
+    top: 190px;
+    left: 518px;
+    margin-top: 21px;
+}
+
+.show-overlay-menu {
+    transform: translate(0);
+}
+
+.contacts-window {
+    margin-top: 96px;
+    width: 1208px;
+    height: 928px;
+    position: relative;
+}
+
+.circles-contacts-div {
+    width: auto;
+    height: 42px;
+}
+
+.contact-circle {
+    width: 42px; /* Breite des Kreises */
+    height: 42px; /* Höhe des Kreises, gleich der Breite */
+    background-color: #3498db; /* Hintergrundfarbe des Kreises */
+    border: 3px solid white; /* Weißer Rand */
+    border-radius: 50%; /* Macht die Ecken rund und formt einen Kreis */
+    display: flex; /* Ermöglicht die Darstellung von Inhalt in der Mitte */
+    align-items: center; /* Zentriert den Inhalt vertikal */
+    justify-content: center; /* Zentriert den Inhalt horizontal */
+    color: white; /* Textfarbe */
+    font-size: 12px; /* Schriftgröße */
+    font-weight: 400;
+    margin-right: 35px;
+    margin-left: 20px;
+    margin-top: 10px;
+    top: 5px;
+}
+
+.big-contact-circle {
+    width: 120px; /* Breite des Kreises */
+    height: 120px; /* Höhe des Kreises, gleich der Breite */
+    background-color: #3498db; /* Hintergrundfarbe des Kreises */
+    border: 3px solid white; /* Weißer Rand */
+    border-radius: 50%; /* Macht die Ecken rund und formt einen Kreis */
+    display: flex; /* Ermöglicht die Darstellung von Inhalt in der Mitte */
+    align-items: center; /* Zentriert den Inhalt vertikal */
+    justify-content: center; /* Zentriert den Inhalt horizontal */
+    color: white; /* Textfarbe */
+    font-size: 47px; /* Schriftgröße */
+    font-weight: 500;
+    margin-right: 48px;
+    top: 5px;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+}
+
+/* Scrollleisten für Webkit-Browser */
+::-webkit-scrollbar {
+    width: 12px; /* Breite der vertikalen Scrollleiste */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Farbe des Scrollbalkens */
+    border-radius: 6px; /* Abgerundete Ecken */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Farbe des Scrollbalkens beim Hover */
+}
+

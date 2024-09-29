@@ -124,6 +124,12 @@ const createTaskInFirebase = async (title, description, dueDate) => {
         if (response.ok) {
             const data = await response.json();
             console.log(`Task erstellt:`, data);
+            renderTask(taskData, 'to-do')
+            currentNumberOfSelectedContacts = 0;
+            subtaskCollection = [];
+            selectedContacts = [];
+            allContactNames = []
+
         } else {
             console.error("Fehler beim Erstellen des Tasks:", response.status);
         }
