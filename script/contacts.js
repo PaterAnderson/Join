@@ -101,7 +101,7 @@ function showAlphabet(letter) {
   return `
     <div class="alphabet">
       <h2>${letter}</h2>
-      <img class="separator" src="../assets/img/line.svg">
+      <hr class="separator">
     </div>
   `;
 }

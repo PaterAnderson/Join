@@ -127,6 +127,14 @@
     }
 }
 
+@media (max-height: 870px) {
+    .card-board-task-overlay{
+        scale: 0.75;
+        top: 45%!important;
+        margin-top: 0!important;
+    }
+}
+
 @media (max-width: 600px) {
     .overlay-add-task{
         overflow-x: auto;
@@ -186,6 +194,10 @@
     }
     .kanban-subtitle{
         max-width: 100%;
+    }
+
+    .card-board-task-overlay{
+        right: 40%!important;
     }
 }
 
@@ -639,4 +651,24 @@
 
 .z-index-0 {
     z-index: 0;
+}
+
+.z-1 {
+    z-index: -1;
+}
+
+.z1 {
+    z-index: 1;
+}
+
+.list-of-contacts-outside-2 {
+    width: 441px;
+    height: 240px;
+    transform: translateY(-45px);
+    overflow: hidden;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-radius: 10px;
 }

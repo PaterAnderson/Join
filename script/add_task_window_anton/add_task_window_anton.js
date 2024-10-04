@@ -108,6 +108,11 @@ function openContactsList() {
  */
 function closeContactsList() {
 
+    setTimeout(() => {
+        document.getElementById('list_of_contacts_outside').classList.remove('z1');
+        document.getElementById('list_of_contacts_outside').classList.add('z-1');
+    }, 200);
+
     document.getElementById('contacts_list').placeholder = "Select contacts to assign";
 
     document.getElementById('list_of_contacts').classList.remove('list-of-contacts2');
@@ -118,6 +123,7 @@ function closeContactsList() {
 
     numberOfContactsDisplayedInDropdownMenu(3);
 }
+
 
 
 /**
