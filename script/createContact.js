@@ -355,4 +355,8 @@ function closeEditDeleteMobileDropdownMenu() {
 function editMobileClicked() {
 
     document.querySelector('.hover-container').click();
+    setTimeout(() => closeEditDeleteMobileDropdownMenu(), 100);
 }
+
+
+

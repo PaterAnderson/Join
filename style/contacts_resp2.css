@@ -1,6 +1,18 @@
 /* ----------------------------------------------------------------- */
 
 
+/* 
+@media screen and (orientation: landscape) {
+
+    body {
+        background-color: red;
+    }
+}
+ */
+
+
+
+
 @media (max-width: 1141px) {
 
     .main {
