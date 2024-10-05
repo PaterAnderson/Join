@@ -58,7 +58,7 @@ function returnEditOverlay(data) {
             </div>
             <div class="circles-contacts-div" id="circles_contacts_div" style="height: 0; left: 0; bottom: -8px; margin-top: 4px;"></div>
         </div>
-        <div class="list-of-contacts-outside postion-relativ z-index-0" id="list_of_contacts_outside">
+        <div class="list-of-contacts-outside-2 postion-relativ z-index-0" id="list_of_contacts_outside">
             <div class="list-of-contacts" id="list_of_contacts" onclick=" changeContact(), stopProp(event)">
 
                 <div id="contactsContainer" class="div-contact">

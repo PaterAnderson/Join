@@ -32,3 +32,9 @@ main::-webkit-scrollbar {
 .title {
     margin-top: 188px;
 }
+
+@media (max-width: 970px) {
+    .title{
+        font-size: 41px;
+    }
+}
