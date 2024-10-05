@@ -12,8 +12,6 @@ a {
 
 main {
     max-width: 1440px;
-    outline: 2px solid black;
-    outline-offset: -2px;
     width: calc(100% - 232px);
     padding-left: 186px;
     padding-right: 48px;

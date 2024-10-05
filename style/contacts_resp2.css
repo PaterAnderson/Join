@@ -1,0 +1,361 @@
+/* ----------------------------------------------------------------- */
+
+
+@media (max-width: 1141px) {
+
+    .main {
+        width: 910px;
+    }
+
+    .info-name {
+        font-size: 44px;
+    }
+}
+
+@media (max-width: 1082px) {
+
+    .window-summary {
+        scale: 0.75;
+    }
+
+    .main {
+        width: 859px;
+    }
+
+    .contact-container {
+        height: calc((100vh - 70px)* 1.333);
+    }
+
+    .dialog-bg-outer {
+        left: calc((100% / 2) - (912px / 2));
+        bottom: calc((100vh / 2) - (446px / 2));
+        width: 912px;
+        height: 446px;
+    }
+
+    .dialog-bg {
+        scale: 0.75;
+    }
+}
+
+@media (max-width: 1031px) {
+
+    .main {
+        width: -webkit-fill-available;
+    }
+
+    .window-summary {
+        width: calc((100vw - 167px) * 1.333);
+        height: calc((100vh - 70px) * 1.333);
+    }
+
+    .headline-stat {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .headline-stat>img {
+        order: 3;
+        transform: rotate(90deg) scaleY(1.8);
+        margin-left: 57px;
+    }
+
+    .headline-stat h1 {
+        margin: 0;
+    }
+
+    .contact-headline {
+        top: 170px;
+    }
+
+    .headline-stat h2 {
+        margin-left: 0;
+        margin-bottom: -16px;
+        margin-top: 6px;
+    }
+
+    .contact-headline {
+        top: 105px;
+    }
+
+    .overlay-menu {
+        left: calc((100% / 2) - (632px / 2) + 80px);
+        background-color: #F6F7F8;
+    }
+
+    .overlay-menu.show-overlay-menu~.contact-container {
+        display: none;
+    }
+
+    .overlay-menu.show-overlay-menu {
+        top: 264px;
+        left: 60px;
+    }
+
+    .overlay-menu.show-overlay-menu~.contact-headline {
+        left: 60px;
+        display: block;
+    }
+
+    .overlay-menu.show-overlay-menu~.mobile-arrow-hover {
+        display: flex;
+    }
+
+}
+
+@media (max-width: 1000px) {
+
+    /*------------------ add contact overlay ----------------------------*/
+
+    .dialog-bg-outer {
+        left: calc((100% / 2) - (354px / 2) + 85px);
+        bottom: calc((100vh / 2) - (572px / 2));
+        width: 354px;
+        height: 572px;
+    }
+
+    .dialog-bg {
+        flex-direction: column;
+        width: 467px;
+        height: 760px;
+    }
+
+    .flag {
+        width: 396px;
+        height: 352px;
+        border-radius: 30px 30px 0 0px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .edit-or-add {
+        position: absolute;
+        right: 100px;
+        top: 86px;
+        scale: 0.82;
+    }
+
+    .dialog {
+        width: 467px;
+        height: 480px;
+        border-radius: 0px 0px 30px 30px;
+    }
+
+    .new-user {
+        position: absolute;
+        top: -262px;
+        left: 96px;
+        scale: 1.1;
+    }
+
+    .input-fields2 {
+        left: 25px;
+        top: 92px;
+    }
+
+    .buttons2 {
+        left: 57px;
+        top: 344px;
+    }
+
+    .close {
+        right: 25px;
+        top: -298px;
+    }
+
+    .close:hover {
+        background-color: #878383;
+    }
+
+    .close-button {
+        background-image: url('../assets/icons/contacts_edit_close_mobile.svg');
+        width: 32px;
+        height: 32px;
+    }
+
+    /*------------------ edit contact overlay ----------------------------*/
+
+    .b-c-c-m {
+        position: absolute;
+        top: -262px;
+        left: 82px;
+        scale: 1.1;
+    }
+
+    .i-f-m {
+        left: 25px;
+        top: 92px;
+    }
+
+    .b-m {
+        left: 104px;
+        top: 344px;
+    }
+}
+
+@media (max-width: 789px) {
+
+    .contact-headline {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .info-box {
+        flex-direction: column;
+    }
+
+    .overlay-menu {
+        width: 456px;
+        left: calc((100% / 2) - (456px / 2) + 80px);
+    }
+
+    .contact-headline {
+        width: 393px;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .overlay-menu.show-overlay-menu {
+        left: 34px;
+    }
+
+    .overlay-menu.show-overlay-menu~.contact-headline {
+        left: 33px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    body {
+        background-color: #FFFFFF;
+    }
+
+    .window-summary {
+        scale: 0.75;
+        height: calc((100vh - 160px) * 1.33);
+        width: calc(100% * 1.33);
+    }
+
+    .contact-container {
+        width: calc((100% * 1.333) - 34px);
+        height: calc((100vh - 160px)* 1.333);
+        align-items: flex-start;
+        margin-left: 34px;
+    }
+
+    .main {
+        width: 100%;
+        height: calc(100vh - 160px);
+        left: 0px;
+        top: 80px;
+    }
+
+    .top-section {
+        display: none;
+    }
+
+    .add-button {
+        width: 352px;
+    }
+
+    .content {
+        margin-top: 23px;
+    }
+
+    .add-contact-mobile {
+        display: block;
+    }
+
+    .big-contact-circle {
+        scale: 0.75;
+        transform: translateX(-18px);
+    }
+
+    .overlay-menu {
+        transition: none;
+        left: 34px;
+    }
+
+    .sub-buttons {
+        display: none;
+    }
+
+    .contact-info {
+        margin-top: -10px;
+    }
+
+    .custom-text {
+        margin-top: 17px !important;
+    }
+
+    .contact-headline {
+        display: none;
+        top: 52px;
+        scale: 0.9;
+        width: 374px;
+        left: 17px !important;
+    }
+
+    .overlay-menu {
+        top: 174px !important;
+        left: 36px !important;
+    }
+
+    .info-name {
+        margin-top: 6px;
+    }
+
+    .info-data {
+        margin-top: -14px;
+    }
+
+    .edit-mobile-dropdown {
+        display: block;
+    }
+
+    /*-----------------------------------*/
+
+    .dialog-bg-outer {
+        left: calc((100% / 2) - (306px / 2));
+        bottom: calc((100vh / 2) - (496px / 2));
+        width: 306px;
+        height: 496px;
+    }
+
+    .dialog-bg {
+        scale: 0.65;
+    }
+
+    :root {
+        --translate-x: 0px;
+        --translate-y: 900px;
+    }
+}
+
+@media (max-width: 360px) {
+
+    .info-name {
+        font-size: 40px;
+    }
+}
+
+/* ----------------------------------------------------------------- */
+
+@media (max-height: 690px) {
+
+    @media (min-width: 1000px) {
+
+        .contact-headline {
+            top: 38px;
+        }
+
+        .overlay-menu {
+            top: 186px !important;
+        }
+    }
+}
