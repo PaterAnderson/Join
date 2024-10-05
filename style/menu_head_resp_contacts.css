@@ -205,52 +205,5 @@ aside {
 
 /* -------------------------------------------- */
 
-@media (max-height: 830px) {
 
-    .window-summary {
-        scale: 0.70;
-    }
 
-    .main {
-        width: calc(1208px * 0.70 + 2px);
-        height: calc(928px * 0.70 + 2px);
-    }
-}
-
-@media (max-height: 735px) {
-
-    .window-summary {
-        scale: 0.65;
-    }
-
-    .main {
-        width: calc(1208px * 0.65 + 2px);
-        height: calc(928px * 0.65 + 2px);
-    }
-}
-
-@media (max-height: 688px) {
-
-    .window-summary {
-        scale: 0.60;
-    }
-
-    .main {
-        width: calc(1208px * 0.60 + 2px);
-        height: calc(928px * 0.60 + 2px);
-    }
-}
-
-@media (max-height: 642px) {
-
-    .window-summary {
-        scale: 0.55;
-    }
-
-    .main {
-        width: calc(1208px * 0.55 + 2px);
-        height: calc(928px * 0.55 + 2px);
-    }
-}
-
-/* -------------------------------------------- */
