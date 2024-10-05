@@ -258,6 +258,10 @@ function editDataInArray(taskName) {
     changeSubtaskValue(subtaskValue.done, subtaskValue.total, subtaskValue.percentage, taskName)
 
     editTask = false
+    setTimeout(() => {
+        document.getElementById('card-board-overlay-background').classList.add('display-opacity-board')
+        getOpenTaskOverlay(taskName)
+    }, 400)
     POSTfirebase();
 }
 
