@@ -28,6 +28,7 @@ header {
 
 .header-profile svg{
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .user-icon{

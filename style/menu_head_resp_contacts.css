@@ -1,5 +1,5 @@
 body {
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .main {
@@ -33,6 +33,7 @@ header {
 }
 
 .user-icon {
+    -webkit-tap-highlight-color: transparent;
     font-size: 27px;
 }
 
