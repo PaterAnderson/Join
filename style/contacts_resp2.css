@@ -243,6 +243,11 @@
 
 @media (max-width: 600px) {
 
+
+    header {
+        z-index: 3;
+    }
+
     body {
         background-color: #FFFFFF;
     }

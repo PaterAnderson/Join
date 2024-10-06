@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 .main {
     position: absolute;
     top: 26px;
@@ -116,12 +120,38 @@ aside {
 
 @media (max-width: 600px) {
 
-    .user-icon-menu {
-        transform: translateX(-52%);
-        margin-top: 251px;
-        right: -91px;
-        top: -218px;
+    tbody tr:nth-child(2) {
+        order: 3;
     }
+
+    tbody tr:nth-child(3) {
+        order: 2;
+    }
+
+    tbody tr:nth-child(4) {
+        order: 4;
+    }
+
+    /*---------------------- user icon menu mobile -----------------------*/
+
+    .user-icon-menu {
+        margin-top: 251px;
+        right: -71px;
+        top: -218px;
+
+        transition: transform 0.3s ease;
+        transform: translateX(160px);
+    }
+
+    .d-none {
+        display: flex;
+    }
+
+    .u-i-m-sh-m {
+        transform: translateX(-55px) !important;
+    }
+
+    /*-------------------------------------------------------------------*/
 
     .ui-p,
     .legal-div,
@@ -171,6 +201,7 @@ aside {
         justify-content: space-between;
         align-items: center;
         font-size: 14px;
+        scale: 0.9;
     }
 
     .menu-table>tbody tr td svg {

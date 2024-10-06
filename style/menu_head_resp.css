@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .main {
     position: absolute;
     top: 81px;
@@ -5,13 +9,11 @@
     overflow: hidden;
     width: calc(1208px * 0.80 + 2px);
     height: calc(928px * 0.80 + 1px);
-
 }
 
 .window-summary {
     transform-origin: top left;
     scale: 0.80;
-
 }
 
 .capa-header {
@@ -104,12 +106,26 @@ aside {
         order: 4;
     }
 
+    /*---------------------- user icon menu mobile -----------------------*/
+
     .user-icon-menu {
-        transform: translateX(-52%);
         margin-top: 251px;
-        right: -91px;
+        right: -71px;
         top: -218px;
+
+        transition: transform 0.3s ease;
+        transform: translateX(160px);
     }
+
+    .d-none {
+        display: flex;
+    }
+
+    .u-i-m-sh-m {
+        transform: translateX(-55px) !important;
+    }
+
+    /*-------------------------------------------------------------------*/
 
     .ui-p,
     .legal-div,

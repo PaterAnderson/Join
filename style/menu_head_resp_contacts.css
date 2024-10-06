@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .main {
     position: absolute;
     top: 81px;
@@ -61,9 +65,9 @@ aside {
 }
 
 .user-icon-menu {
-    margin-top: 235px;
+    margin-top: 50px;
     scale: 0.8;
-    right: -66px;
+    right: -26px;
 }
 
 .text-body {
@@ -86,7 +90,7 @@ aside {
     }
 
     .user-icon-menu {
-        transform: translateX(-36%);
+        transform: translateX(-16%);
     }
 }
 
@@ -104,12 +108,26 @@ aside {
         order: 4;
     }
 
+    /*---------------------- user icon menu mobile -----------------------*/
+
     .user-icon-menu {
-        transform: translateX(-52%);
         margin-top: 251px;
-        right: -91px;
-        top: -218px;
+        right: -51px;
+        top: -211px;
+
+        transition: transform 0.3s ease;
+        transform: translateX(160px);
     }
+
+    .d-none {
+        display: flex;
+    }
+
+    .u-i-m-sh-m {
+        transform: translateX(-55px) !important;
+    }
+
+    /*-------------------------------------------------------------------*/
 
     .ui-p,
     .legal-div,
