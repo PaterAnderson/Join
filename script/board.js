@@ -48,6 +48,75 @@ async function getTasksFromFirebase() {
         })
     } catch (error) {
         console.log(error)
+    } finally {
+        checkIfTaskTrue()
+    }
+}
+
+let to_do_kanban = false;
+let in_progress_kanban = false;
+let await_feedback_kanban = false;
+let done_kanban = false;
+
+function checkIfTaskTrue(){
+    if (document.getElementById('to-do').querySelector('.card-board')) {
+        to_do_kanban = false
+    }else{
+        to_do_kanban = true
+    }
+
+    if (document.getElementById('in-progress').querySelector('.card-board')) {
+        in_progress_kanban = false
+    }else{
+        in_progress_kanban = true
+    }
+
+    if (document.getElementById('await-feedback').querySelector('.card-board')) {
+        await_feedback_kanban = false
+    }else{
+        await_feedback_kanban = true
+    }
+
+    if (document.getElementById('done').querySelector('.card-board')) {
+        done_kanban = false
+    }else{
+        done_kanban = true
+    }
+
+    renderNoTaskToDo()
+}
+
+function renderNoTaskToDo(){
+    if (to_do_kanban) {
+        document.getElementById('to-do').innerHTML = '<div id="no-task-in-kanban-to-do" class="no-task-in-kanban">No tasks To do</div>'
+    }else{
+        if(document.getElementById('no-task-in-kanban-to-do')){
+            document.getElementById('no-task-in-kanban-to-do').remove()
+        }
+    }
+
+    if (in_progress_kanban) {
+        document.getElementById('in-progress').innerHTML = '<div id="no-task-in-kanban-in-progress" class="no-task-in-kanban">No tasks To do</div>'
+    }else{
+        if(document.getElementById('no-task-in-kanban-in-progress')){
+            document.getElementById('no-task-in-kanban-in-progress').remove()
+        }
+    }
+
+    if (await_feedback_kanban) {
+        document.getElementById('await-feedback').innerHTML = '<div id="no-task-in-kanban-await-feedback" class="no-task-in-kanban">No tasks To do</div>'
+    }else{
+        if(document.getElementById('no-task-in-kanban-await-feedback')){
+            document.getElementById('no-task-in-kanban-await-feedback').remove()
+        }
+    }
+
+    if (done_kanban) {
+        document.getElementById('done').innerHTML = '<div id="no-task-in-kanban-done" class="no-task-in-kanban">No tasks To do</div>'
+    }else{
+        if(document.getElementById('no-task-in-kanban-done')){
+            document.getElementById('no-task-in-kanban-done').remove()
+        }
     }
 }
 
@@ -319,7 +388,7 @@ function changeValue(oldTaskName, taskName) {
 
 async function POSTfirebase() {
     try {
-        await fetch('https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/guest/tasks.json', {
+        await fetch(`${BASE_URL}` + `/tasks.json`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -459,10 +528,13 @@ function checkDraggingStatusRender(taskName) {
         renderTask(taskSave[taskName], currentDraggingId)
     }
     draggingStatus = false
+    
 }
 
 function renderDraggedElement(taskName) {
     renderTask(taskSave[taskName], nextDraggingId)
+    checkIfTaskTrue()
+    
 }
 
 async function deleteTaskFromBoard(taskName) {
@@ -471,6 +543,9 @@ async function deleteTaskFromBoard(taskName) {
 
     let callback = deleteTask
     await getEditToFirebase(taskName, callback)
+    setTimeout(() => {
+        checkIfTaskTrue()
+    },200)
 }
 
 function deleteTask(taskName) {
@@ -515,11 +590,11 @@ function updateOnClickBasedOnWidth() {
 
     elements.forEach(element => {
         if (window.innerWidth <= 990) {
-            element.onclick = function() {
+            element.onclick = function () {
                 goToLink('add_task.html');
             };
         } else {
-            element.onclick = function() {
+            element.onclick = function () {
                 addTaskBoardOverlayToggle();
             };
         }
@@ -529,3 +604,64 @@ function updateOnClickBasedOnWidth() {
 updateOnClickBasedOnWidth();
 
 window.addEventListener('resize', updateOnClickBasedOnWidth);
+
+
+let longPressTimer;
+let isDragging = false;
+let draggedElement = null;
+let dropTarget = null;
+let parentStartId = null;
+
+// Funktion, um zu erkennen, ob ein Longtouch stattgefunden hat
+async function startLongTouch(event, task, kanban) {
+    await getEditToFirebase(task)
+    longPressTimer = setTimeout(() => {
+        startDragging(task, kanban)
+        draggedElement = event.target.closest('.card-board');
+        const parentElement = draggedElement.closest('.kanban-card-board');
+        parentStartId = parentElement ? parentElement.id : null;
+        isDragging = true;
+        ondragRemoveCurrentElement()
+    }, 500);
+}
+
+// Funktion, die ausgelöst wird, wenn das Element während des Longtouches bewegt wird
+function onTouchMove(event) {
+    if (isDragging) { {
+            event.preventDefault();  // Verhindert das Standardverhalten
+        
+            // Finde das aktuelle Ziel unter dem Finger
+            const touch = event.touches[0];
+            dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+        
+        }
+    }
+}
+
+function onDrop(event) {
+    if (dropTarget && dropTarget.classList.contains('kanban-card-board')) {
+        // Simuliere das ondrop-Event
+        moveTo(dropTarget.id)
+    }else {
+        // Aufruf der Funktion, wenn kein gültiges Drop-Target vorhanden ist
+        handleNoDropTarget();
+    }
+
+    draggedElement = null;
+    dropTarget = null;
+}
+
+// Funktion, die ausgeführt wird, wenn der Benutzer den Finger loslässt
+function endLongTouch(event) {
+    clearTimeout(longPressTimer);  // Stoppe den Long-Touch-Timer, wenn der Finger losgelassen wird
+    if (isDragging) {
+        isDragging = false;  // Beende das Dragging
+    }
+}
+
+function handleNoDropTarget() {
+    renderTask(taskSave[draggedElement.id], parentStartId)
+    checkIfTaskTrue()
+}
+
+

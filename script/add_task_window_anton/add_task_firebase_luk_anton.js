@@ -1,4 +1,4 @@
-const BASE_URL = "https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/guest";
+const BASE_URL = `https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/users/${sessionStorage.getItem('user')}/`;
 
 const kontakte = [
     { name: "Anna Müller", email: "anna.mueller@example.com", telefonnummer: "123456789" },

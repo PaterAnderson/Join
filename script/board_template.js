@@ -31,15 +31,15 @@ function returnEditOverlay(data) {
                 </div>
     <div class="prio font1"><span style="color: #2A3647;">Prio</span>
         <div class="prio-buttons">
-            <div id="prio_button1" onclick="prioButton1(), changePrio('urgent', '${data.title}')" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button1 for-center white-bg">
+            <div id="prio_button1" onclick="prioButton1(), changePrio('urgent', '${data.title}')" style="border: 1px solid lightgray" class="prio-button1 for-center white-bg">
                 <div class="font1 for-center"><span style="margin-right: 8px;">Urgent</span><img id="img_prio_button1"
                         src="../assets/icons/urgent.png" style="width: 20px; height: 15px;"></div>
             </div>
-            <div id="prio_button2" onclick="prioButton2(), changePrio('medium', '${data.title}')" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button2 for-center medium-bg">
+            <div id="prio_button2" onclick="prioButton2(), changePrio('medium', '${data.title}')" style="border: 1px solid lightgray" class="prio-button2 for-center medium-bg">
                 <div class="font1 for-center"><span style="margin-right: 8px;">Medium</span><img id="img_prio_button2"
                         src="../assets/icons/medium2.png" style="width: 20px; height: 8px;"></div>
             </div>
-            <div id="prio_button3" onclick="prioButton3(), changePrio('low', '${data.title}')" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button3 for-center white-bg">
+            <div id="prio_button3" onclick="prioButton3(), changePrio('low', '${data.title}')" style="border: 1px solid lightgray" class="prio-button3 for-center white-bg">
                 <div class="font1 for-center"><span style="margin-right: 8px;">Low</span><img id="img_prio_button3"
                         src="../assets/icons/low.png" style="width: 20px; height: 15px;">
                 </div>
@@ -184,7 +184,7 @@ function returnAssignedContacts(color, name) {
 }
 
 function returnTaskCard(task, prioSVG, categoryColor) {
-    return `        <div draggable="true" ondrag="ondragRemoveCurrentElement()" ondragstart="startDragging('${task.title}', '${task.kanbanId}')" ondragend="getDataForRenderStatus()" class="card-board" id="${task.title}" onclick="getOpenTaskOverlay('${task.title}')">
+    return `        <div draggable="true" ondrag="ondragRemoveCurrentElement()" ondragstart="startDragging('${task.title}', '${task.kanbanId}')" ondragend="getDataForRenderStatus()" class="card-board" id="${task.title}" onclick="getOpenTaskOverlay('${task.title}')" data-long-press="500" ontouchstart="startLongTouch(event,'${task.title}', '${task.kanbanId}')" ontouchend="onDrop(event)" ontouchmove="onTouchMove(event)">
                         <div style="background-color: ${categoryColor}" class="card-category">${task.category}</div>
                         <div class="card-board-text-wrap">
                             <div id="task-title${task.title}" class="card-board-title">${task.title}</div>
@@ -291,17 +291,17 @@ function returnAddTaskOverlay() {
                     </div>
                     <div class="prio font1"><span style="color: #2A3647;">Prio</span>
                         <div class="prio-buttons">
-                            <div id="prio_button1" onclick="prioButton1()" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button1 for-center white-bg">
+                            <div id="prio_button1" onclick="prioButton1()" style="border: 1px solid lightgray" class="prio-button1 for-center white-bg">
                                 <div class="font1 for-center"><span style="margin-right: 8px;">Urgent</span><img
                                         id="img_prio_button1" src="../assets/icons/urgent.png"
                                         style="width: 20px; height: 15px;"></div>
                             </div>
-                            <div id="prio_button2" onclick="prioButton2()" style="box-shadow: 0px 0px 4px 0px #0000001A;" class="prio-button2 for-center medium-bg">
+                            <div id="prio_button2" onclick="prioButton2()" style="border: 1px solid lightgray" class="prio-button2 for-center medium-bg">
                                 <div class="font1 for-center"><span style="margin-right: 8px;">Medium</span><img
                                         id="img_prio_button2" src="../assets/icons/medium2.png"
                                         style="width: 20px; height: 8px;"></div>
                             </div>
-                            <div id="prio_button3" onclick="prioButton3()" style="box-shadow: 0px 0px 4px 0px #0000001A;"  class="prio-button3 for-center white-bg">
+                            <div id="prio_button3" onclick="prioButton3()" style="border: 1px solid lightgray"  class="prio-button3 for-center white-bg">
                                 <div class="font1 for-center"><span style="margin-right: 8px;">Low</span><img
                                         id="img_prio_button3" src="../assets/icons/low.png"
                                         style="width: 20px; height: 15px;">

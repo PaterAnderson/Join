@@ -130,7 +130,7 @@
 @media (max-height: 870px) {
     .card-board-task-overlay{
         scale: 0.75;
-        top: 45%!important;
+        top: 35%!important;
         margin-top: 0!important;
     }
 }
@@ -141,8 +141,7 @@
     }
 
     .card-board-task-overlay{
-        width: 70%!important;
-        height: 80%!important;
+        max-height: 440px!important;
         overflow-y: auto;
     }
     main{
@@ -194,10 +193,6 @@
     }
     .kanban-subtitle{
         max-width: 100%;
-    }
-
-    .card-board-task-overlay{
-        right: 40%!important;
     }
 }
 

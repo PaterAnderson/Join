@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="../style/header.css">
     <link rel="stylesheet" href="../style/add_task_overlay_board.css">
 
-    <script src="../script/menu.js"></script>
     <script src="../script/header.js"></script>
+    <script src="../script/menu.js"></script>
     <script src="../script/board_template.js"></script>
     <script src="../script/board.js"></script>
 
@@ -32,9 +32,11 @@
     <script src="../script/calendar.js"></script>
 
     <link rel="stylesheet" href="../style/menu_head_resp.css">
+
+    <script src="../script/linking_for_text_subpages.js"></script>
     <title>Join</title>
 </head>
-<body onload="initBoard()">
+<body onload="initBoard(), init()">
     <div id="overlay-board-task" class="overlay-board">
         <div id="card-board-task-overlay" class="card-board-task-overlay">>
         </div>
@@ -160,10 +162,10 @@
                 </div>
             </div>
             <div class="legal-div text-body">
-                <a href="privacy_policy.html" target="_blank">
+                <a href="#" onclick="privacyPolicyClick()">
                     <div class="legal-hover">Privacy Policy</div>
                 </a>
-                <a href="legal_notice.html" target="_blank">
+                <a href="#" onclick="legalNoticeClick()">
                     <div class="legal-hover">
                         Legal notice</div>
                 </a>
@@ -211,7 +213,6 @@
                     </div>
                 </div>
                 <div class="kanban-card-board" id="to-do" ondrop="moveTo('to-do')" ondragleave="removehilightDrag('to-do')" ondragover="allowDrop(event); hilightDrag('to-do')">
-                    <div class="no-task-in-kanban display-board-none">No tasks To do</div>
                 </div>
             </div>
             <div class="kanban-board">
@@ -226,7 +227,6 @@
                     </div>
                 </div>
                 <div class="kanban-card-board" id="in-progress" ondrop="moveTo('in-progress')" ondragleave="removehilightDrag('in-progress')" ondragover="allowDrop(event); hilightDrag('in-progress')">
-                    <div class="no-task-in-kanban">No tasks To do</div>
                 </div>
             </div>
             <div class="kanban-board">
@@ -241,7 +241,6 @@
                     </div>
                 </div>
                 <div class="kanban-card-board"  id="await-feedback" ondrop="moveTo('await-feedback')" ondragleave="removehilightDrag('await-feedback')" ondragover="allowDrop(event); hilightDrag('await-feedback')">
-                    <div class="no-task-in-kanban">No tasks To do</div>
                 </div>
             </div>
             <div class="kanban-board">
@@ -251,7 +250,6 @@
                     </div>
                 </div>
                 <div class="kanban-card-board"  id="done" ondrop="moveTo('done')" ondragleave="removehilightDrag('done')" ondragover="allowDrop(event); hilightDrag('done')">
-                    <div class="no-task-in-kanban">No tasks To do</div>
                 </div>
             </div>
         </div>
