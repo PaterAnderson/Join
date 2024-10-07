@@ -1,5 +1,5 @@
 body {
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .main {
@@ -43,6 +43,7 @@ header {
 }
 
 .header-profile {
+    -webkit-tap-highlight-color: transparent;
     position: absolute;
     right: 40px;
 }
