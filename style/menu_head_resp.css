@@ -41,7 +41,6 @@ header {
 
 .user-icon {
     font-size: 27px;
-    -webkit-tap-highlight-color: transparent;
 }
 
 .top-aside svg,
@@ -51,6 +50,7 @@ header {
 }
 
 .header-profile {
+    -webkit-tap-highlight-color: transparent;
     position: absolute;
     right: 40px;
 }

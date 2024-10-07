@@ -33,7 +33,6 @@ header {
 }
 
 .user-icon {
-    -webkit-tap-highlight-color: transparent;
     font-size: 27px;
 }
 
@@ -44,6 +43,7 @@ header {
 }
 
 .header-profile {
+    -webkit-tap-highlight-color: transparent;
     position: absolute;
     right: 40px;
 }
