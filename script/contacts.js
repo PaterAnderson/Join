@@ -3,6 +3,7 @@ const BASE_URL = `https://join-projekt-85028-default-rtdb.europe-west1.firebased
 let contacts = [];
 let contactFarbe;
 let contactInitials;
+let nameForEdit;
 
 
 /**
@@ -23,43 +24,47 @@ function backgroundClick() {
 
 
 
-
+/* 
 function includeHTML() {
   var z, i, elmnt, file, xhttp;
-  /* Loop through a collection of all HTML elements: */
+
   z = document.getElementsByTagName("*");
   for (i = 0; i < z.length; i++) {
     elmnt = z[i];
-    /*search for elements with a certain atrribute:*/
+
     file = elmnt.getAttribute("w3-include-html");
     if (file) {
-      /* Make an HTTP request using the attribute value as the file name: */
+
       xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
           if (this.status == 200) { elmnt.innerHTML = this.responseText; }
           if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
-          /* Remove the attribute, and call this function once more: */
+
           elmnt.removeAttribute("w3-include-html");
           includeHTML();
         }
       }
       xhttp.open("GET", file, true);
       xhttp.send();
-      /* Exit the function: */
+
       return;
     }
   }
 }
+ */
+
+
+
 
 async function getAllContacts(path = "") {
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
 
-  // Hier wird ein Array von Objekten erstellt, die die gewünschten Werte enthalten
   contacts = Object.values(responseToJson).map(user => ({
-    id: user.id,
-    name: user.name, // oder den tatsächlichen Schlüssel, der den Namen repräsentiert
+
+    //id: user.id,
+    name: user.name, 
     email: user.email,
     farbe: user.farbe,
     telefonnummer: user.telefonnummer
@@ -132,12 +137,10 @@ function closeContactInfo() {
   infoContainer.innerHTML = "";
 }
 
-
-
-
 function backgroundChangeOff(clickedElement) {
-  // Hier ist clickedElement die Instanz des geklickten Elements
-  const allContainers = document.querySelectorAll("[id^='background-']");
+
+  const allContainers = document.querySelectorAll(".single-contact");
+
   allContainers.forEach(container => {
     container.classList.remove('background-change');
   });
@@ -148,8 +151,10 @@ function backgroundChangeOff(clickedElement) {
 function showContacts(contact) {
   let initials = contact.name.charAt(0) + contact.name.split(" ", 2)[1].charAt(0);
 
+
+  //id="background-${contact.id}"
   return `
-    <div id="background-${contact.id}" onclick='loadContactInfo(${JSON.stringify(contact)}, this)' class="single-contact">
+    <div onclick='loadContactInfo(${JSON.stringify(contact)}, this)' class="single-contact">
       <div class="center-content">
         <div style="background-color: ${contact.farbe};" class="contact-circle">${initials}</div>
         <div>
@@ -190,11 +195,6 @@ function showContactInfo(contact) {
 
   contactFarbe = contact.farbe;
   contactInitials = initials;
-
-
-  console.log('show contact info' + contactStr);
-  
-
 
   return `
   <div class="info-box">
@@ -246,18 +246,26 @@ function showEditMenu(contact) {
 
       <div class="content">
           <div class="input-fields i-f-m" id="ContactForm">
+
               <div class="input-outside" onclick="focusInput('edit-name')">
-                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="edit-name" maxlength="30" type="text" required placeholder="Name" autocomplete="on" value="${contact.name}" />
+                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="name" maxlength="30" type="text" required placeholder="Name" autocomplete="on" value="${contact.name}" />
                   <img src="../assets/icons/contacts_edit_person.svg" alt="">
               </div>
+              <div id="name-warning" class="name-warning"></div>
+
               <div class="input-outside" onclick="focusInput('edit-email')">
-                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="edit-email" maxlength="30" type="email" required placeholder="Email" autocomplete="on" value="${contact.email}" />
+                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="email" maxlength="30" type="email" required placeholder="Email" autocomplete="on" value="${contact.email}" />
                   <img src="../assets/icons/contacts_edit_mail.svg" alt="">
               </div>
+              <div class="mail-warning"></div>
+
+
               <div class="input-outside2" onclick="focusInput('edit-phone')">
-                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="edit-phone" maxlength="30" type="tel" required placeholder="Phone" autocomplete="on" value="${contact.telefonnummer}" />
+                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="phone" maxlength="30" type="tel" required placeholder="Phone" autocomplete="on" value="${contact.telefonnummer}" />
                   <img src="../assets/icons/contacts_edit_call.svg" alt="">
               </div>
+              <div class="phone-warning"></div>
+
           </div>
       </div>
       <div class="buttons b-m">
@@ -306,17 +314,21 @@ function showFrame21x(x) {
 function openEditDialog(contactStr) {
 
 
-  
-
   console.log('edit dialog' + contactStr);
   
-
 
   showFrame21x(1);
 
   document.getElementById('dialog').classList.remove('d-none');
   let editDialog = document.getElementById("contact_form");
   let contact = JSON.parse(contactStr.replace(/'/g, '"'));
+
+
+  console.log('name to edit - ', contact.name);
+
+  nameForEdit = contact.name;
+
+
   editDialog.innerHTML = showEditMenu(contact);
 }
 
@@ -344,8 +356,8 @@ function closeMenu() {
 
 
 function backgroundChange(clickedElement) {
-  // Hier ist clickedElement die Instanz des geklickten Elements
-  const allContainers = document.querySelectorAll("[id^='background-']");
+
+  const allContainers = document.querySelectorAll(".single-contact");
   allContainers.forEach(container => {
     container.classList.remove('background-change');
   });

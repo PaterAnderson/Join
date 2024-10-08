@@ -1,6 +1,8 @@
 :root {
     --translate-x: 6000px;
     --translate-y: 0px;
+    --created-x: 560px;
+    --created-y: 0px;
 }
 
 body {
@@ -35,6 +37,27 @@ body {
 
 .show-overlay-menu {
     transform: translate(0px, 0px) !important;
+}
+
+.contact-created {
+    z-index: 10;
+    display: block;
+    position: absolute;
+    left: 414px;
+    top: 570px;
+    width: calc(334px * 0.8);
+    height: calc(82px * 0.8);
+    transform: translate(var(--created-x), var(--created-y));
+    transition: transform 0.3s ease;
+}
+
+.show-contact-created {
+    transform: translate(0, 0);
+}
+
+.contact-created img {
+    transform-origin: left top;
+    scale: 0.8;
 }
 
 .dialog-bg {
@@ -101,6 +124,7 @@ body {
 }
 
 .sub-buttons {
+    -webkit-tap-highlight-color: transparent;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -121,12 +145,31 @@ body {
     width: 120px;
 }
 
-.warning-message {
-    color: red;
-    display: block;
-    position: relative;
-    top: -30px;
-    left: 10px;
+.name-warning {
+    color: #FF8190;
+    position: absolute;
+    top: 56px;
+    left: 0px;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.mail-warning {
+    color: #FF8190;
+    position: absolute;
+    top: 138px;
+    left: 0px;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.phone-warning {
+    color: #FF8190;
+    position: absolute;
+    top: 219px;
+    left: 0px;
+    font-weight: 400;
+    font-size: 13px;
 }
 
 .info-name {
@@ -334,6 +377,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    scroll-behavior: smooth;
 }
 
 .fixed-button {
@@ -520,6 +564,3 @@ body {
     display: flex;
     align-items: center;
 }
-
-
-

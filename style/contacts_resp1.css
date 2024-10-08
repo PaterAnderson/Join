@@ -129,6 +129,7 @@ header {
 }
 
 .add-contact-mobile {
+    -webkit-tap-highlight-color: transparent;
     display: none;
     position: fixed;
     right: 11px;
@@ -167,6 +168,7 @@ header {
 }
 
 .edit-mobile {
+    -webkit-tap-highlight-color: transparent;
     height: 64px;
     position: fixed;
     right: 11px;
