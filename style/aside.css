@@ -59,6 +59,7 @@ aside {
 .menu-table tr:hover {
     background-color: #2A3D59;
     color: white;
+    cursor: pointer;
 }
 
 

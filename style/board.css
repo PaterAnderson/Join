@@ -1,3 +1,12 @@
+.background-click {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 .title {
     display: flex;
     align-items: center;
@@ -110,94 +119,101 @@
 }
 
 @media (max-width: 990px) {
-    .kanban-wrapper{
+    .kanban-wrapper {
         flex-direction: column;
     }
 
-    .kanban-card-board{
-        flex-direction: row!important;
-        min-height: 264px!important;
+    .kanban-card-board {
+        flex-direction: row !important;
+        min-height: 264px !important;
         width: 100%;
         overflow-x: auto;
         overflow-y: hidden;
         padding: 8px 0px 16px 0px;
     }
-    .kanban-board{
+
+    .kanban-board {
         width: 100%;
     }
 }
 
 @media (max-height: 870px) {
-    .card-board-task-overlay{
+    .card-board-task-overlay {
         scale: 0.75;
-        top: 35%!important;
-        margin-top: 0!important;
+        top: 35% !important;
+        margin-top: 0 !important;
     }
 }
 
 @media (max-width: 600px) {
-    .overlay-add-task{
+    .overlay-add-task {
         overflow-x: auto;
     }
 
-    .card-board-task-overlay{
-        max-height: 440px!important;
+    .card-board-task-overlay {
+        max-height: 440px !important;
         overflow-y: auto;
     }
-    main{
-        padding-left: 16px!important;
-        padding-right: 32px!important;
-        width: 100%!important;
+
+    main {
+        padding-left: 16px !important;
+        padding-right: 32px !important;
+        width: 100% !important;
     }
 
-    .kanban-wrapper{
-        padding-bottom: 96px!important;
+    .kanban-wrapper {
+        padding-bottom: 96px !important;
     }
 
-    .add-task-button{
-        display: none!important;
+    .add-task-button {
+        display: none !important;
     }
 
-    .title{
-        margin-top: 126px!important;
+    .title {
+        margin-top: 126px !important;
     }
-    
-    .search-bar{
+
+    .search-bar {
         width: 100%;
         height: 48px;
     }
 
-    .search-field{
+    .search-field {
         width: 100%;
         height: 100%;
     }
 
-    .search-input{
+    .search-input {
         width: 80%;
     }
 
-    .card-board{
+    .card-board {
         min-width: 232px;
         max-width: 252px;
     }
 
-    .heading-1{
+    .heading-1 {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
         align-items: center;
     }
-    .mobile-add-task-button{
-        display: flex!important;
+
+    .mobile-add-task-button {
+        display: flex !important;
     }
-    .kanban-subtitle{
+
+    .kanban-subtitle {
         max-width: 100%;
     }
 }
 
-.mobile-add-task-button{
-    width: 40px; height: 40px; background-color: #2A3647; display: none;
+.mobile-add-task-button {
+    width: 40px;
+    height: 40px;
+    background-color: #2A3647;
+    display: none;
     border-radius: 10px;
     appearance: none;
     border-width: 0px;
@@ -243,7 +259,7 @@
     min-height: 600px;
 }
 
-.hilighting-kanban{
+.hilighting-kanban {
     background-color: rgba(144, 144, 144, 0.391);
     border-radius: 24px;
     opacity: 0.5;

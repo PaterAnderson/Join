@@ -4,8 +4,8 @@
  * funkction for start
  * 
  */
-function init(){
-    userIconName()
+function init() {
+    userIconName();
 }
 
 
