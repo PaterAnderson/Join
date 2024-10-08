@@ -125,7 +125,7 @@
 
     .kanban-card-board {
         flex-direction: row !important;
-        min-height: 264px !important;
+        min-height: 100px !important;
         width: 100%;
         overflow-x: auto;
         overflow-y: hidden;
@@ -133,15 +133,172 @@
     }
 
     .kanban-board {
-        width: 100%;
+        width: 90%;
     }
 }
 
-@media (max-height: 870px) {
+@media (max-width: 1160px) {
+    .add-task-board-wrapper {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .add-task {
+        position: unset !important;
+        margin-bottom: 22px;
+    }
+
+    .title-description-overlay {
+        position: unset !important
+    }
+
+    .due-prio {
+        position: unset !important;
+        margin-top: 82px;
+    }
+
+    .separator {
+        display: none !important;
+    }
+
+    .overlay-add-task {
+        width: auto !important;
+        padding: 22px 22px 22px 22px;
+        overflow-y: auto;
+    }
+
+    .buttons {
+        position: unset !important;
+        margin-top: 122px;
+    }
+
+    .task-added-to-board {
+        display: none !important;
+    }
+
+    .new-div-for-subtasks {
+        position: unset !important;
+    }
+
+    .field-required {
+        position: unset !important;
+        margin-top: 22px;
+    }
+
+    .circles-contacts-div {
+        position: unset !important;
+    }
+
+    .calendar-container {
+        left: 120px!important;
+        top: 650px!important;
+    }
+}
+
+
+
+@media (max-height: 930px),
+(max-width: 600px) {
     .card-board-task-overlay {
-        scale: 0.75;
-        top: 35% !important;
+        transform: translate(50%, -50%) scale(0.75) !important;
         margin-top: 0 !important;
+        padding: 48px 40px 24px 40px !important;
+        
+    }
+
+    .title-add-task-overlay {
+        width: 100% !important;
+    }
+
+    .description {
+        width: 100% !important;
+    }
+
+    .input-outside3 {
+        width: 90% !important;
+    }
+
+    .text-area-div {
+        width: 90% !important;
+    }
+
+    .prio-buttons {
+        width: 90% !important;
+        justify-content: unset !important;
+        gap: 12px;
+
+    }
+
+    .prio-button1 {
+        width: 90px !important;
+        height: 30px !important;
+    }
+
+    .prio-button2 {
+        width: 90px !important;
+        height: 30px !important;
+    }
+
+    .prio-button3 {
+        width: 90px !important;
+        height: 30px !important;
+    }
+
+    .prio {
+        width: 100% !important;
+    }
+
+    .prio-button1 .font1 {
+        font-size: 14px !important;
+    }
+
+    .prio-button2 .font1 {
+        font-size: 14px !important;
+    }
+
+    .prio-button3 .font1 {
+        font-size: 14px !important;
+    }
+
+    .assigned {
+        width: 100% !important;
+    }
+
+    .assigned-input {
+        width: 90% !important;
+    }
+
+    .text-area {
+        width: 100% !important;
+    }
+
+    .list-of-contacts {
+        width: 90% !important;
+    }
+
+    .list-of-contacts-outside-2 {
+        width: 100% !important;
+    }
+
+    .initials-and-name-div {
+        width: 90% !important;
+    }
+
+    .assigned-subtasks {
+        width: 90% !important;
+    }
+
+    .assigned-input-subtasks {
+        width: 100% !important;
+    }
+
+    .new-div-for-subtasks {
+        width: 100% !important;
+    }
+
+    .div-contact {
+        min-width: 0 !important;
     }
 }
 
@@ -153,6 +310,7 @@
     .card-board-task-overlay {
         max-height: 440px !important;
         overflow-y: auto;
+        min-height: 600px;
     }
 
     main {
@@ -179,7 +337,7 @@
     }
 
     .search-field {
-        width: 100%;
+        width: 90%;
         height: 100%;
     }
 
@@ -196,8 +354,9 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        width: 100%;
+        width: 90%;
         align-items: center;
+        font-size: 48px!important;
     }
 
     .mobile-add-task-button {
@@ -207,6 +366,14 @@
     .kanban-subtitle {
         max-width: 100%;
     }
+}
+
+.circles-contacts-div_2 {
+    width: auto;
+    height: 42px;
+    left: 96px;
+    bottom: 267px;
+    display: flex;
 }
 
 .mobile-add-task-button {
@@ -346,7 +513,7 @@
     max-height: 264px;
     background-color: #FFFFFF;
     height: auto;
-    box-shadow: 0px 0px 10px 3px #00000014;
+    box-shadow: 0px 0px 10px 3px #ac9d9d14;
     border-radius: 24px;
     display: flex;
     flex-direction: column;

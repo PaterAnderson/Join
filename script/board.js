@@ -611,41 +611,125 @@ let isDragging = false;
 let draggedElement = null;
 let dropTarget = null;
 let parentStartId = null;
+let milliseconds = 0;
+let interval;
+let touching = false;
+let canDrop = false
+
+function returnNone(){
+    return;
+}
 
 // Funktion, um zu erkennen, ob ein Longtouch stattgefunden hat
 async function startLongTouch(event, task, kanban) {
-    await getEditToFirebase(task)
-    longPressTimer = setTimeout(() => {
+    console.log('C')
+    touching = true;
+    startTouchCounter()
+    console.log(milliseconds + 'test1')
+    await getEditToFirebase(task, returnNone)
+    setTimeout(() => {
+        if(milliseconds >= 490){
+        console.log('erfolg')
+        canDrop = true;
         startDragging(task, kanban)
         draggedElement = event.target.closest('.card-board');
         const parentElement = draggedElement.closest('.kanban-card-board');
         parentStartId = parentElement ? parentElement.id : null;
         isDragging = true;
         ondragRemoveCurrentElement()
-    }, 500);
+        createDragStatusElement()
+        }else{
+            console.log('abbruch')
+            console.log(milliseconds + 'test2')
+        }
+        console.log('E')
+    }, 600);
+
 }
+
 
 // Funktion, die ausgelöst wird, wenn das Element während des Longtouches bewegt wird
 function onTouchMove(event) {
     if (isDragging) { {
-            event.preventDefault();  // Verhindert das Standardverhalten
+            event.preventDefault(); // Verhindert das Standardverhalten
+
+            const followElement = document.getElementById('drag-status');
+            console.log(followElement)
+        
+            if (followElement) {
+                const touch2 = event.touches[0];
+                followElement.style.left = touch2.pageX + 'px';
+                followElement.style.top = touch2.pageY + 'px';
+            }
         
             // Finde das aktuelle Ziel unter dem Finger
             const touch = event.touches[0];
-            dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+            dropTarget = document.elementFromPoint(touch.clientX, touch.clientY).closest('.kanban-card-board');
         
         }
     }
 }
 
+function createDragStatusElement() {
+    const dragStatus = document.createElement('div');
+    dragStatus.id = 'drag-status';
+    document.body.appendChild(dragStatus);
+
+    // Style für das Element setzen (alternativ könntest du dies im CSS machen)
+    dragStatus.style.position = 'absolute';
+    dragStatus.style.width = '50px';
+    dragStatus.style.height = '50px';
+    dragStatus.style.backgroundColor = 'white';
+    dragStatus.style.border = '1px solid black';
+    dragStatus.style.boxShadow = '0px 0px 5px rgba(0, 0, 0, 0.2)';
+    dragStatus.style.borderRadius = '5px';
+    dragStatus.style.pointerEvents = 'none';
+    dragStatus.style.top = '0'
+    dragStatus.style.left = '0' // Verhindert, dass das Element klickbar ist
+}
+
+
+function startTouchCounter() {
+    interval = setInterval(function() {
+        milliseconds += 10;  // Erhöhe die Variable um 10 Millisekunden
+        console.log(milliseconds + " ms");
+        console.log(touching)
+        switch(true){
+            case(milliseconds === 710 || !touching):
+            milliseconds = 0;
+            clearTimeout(interval)
+            break;
+        }
+    }, 10);  // Das Intervall ist 10 Millisekunden
+}
+
 function onDrop(event) {
-    if (dropTarget && dropTarget.classList.contains('kanban-card-board')) {
-        // Simuliere das ondrop-Event
-        moveTo(dropTarget.id)
-    }else {
-        // Aufruf der Funktion, wenn kein gültiges Drop-Target vorhanden ist
-        handleNoDropTarget();
+    if(canDrop){
+        console.log('B')
+        if (dropTarget && dropTarget.classList.contains('kanban-card-board')) {
+            // Simuliere das ondrop-Event
+            moveTo(dropTarget.id)
+        }else {
+            // Aufruf der Funktion, wenn kein gültiges Drop-Target vorhanden ist
+            handleNoDropTarget();
+        }
+        if(document.getElementById('drag-status')){
+            document.getElementById('drag-status').remove()
+        }
+        canDrop = false;
+        milliseconds = 0;
+    }else{
+        console.log('A')
+        milliseconds = 0;  // Stoppe den Long-Touch-Timer, wenn der Finger losgelassen wird
+        if (isDragging) {
+            isDragging = false;  // Beende das Dragging
+        }
+        if(document.getElementById('drag-status')){
+            document.getElementById('drag-status').remove()
+        }
+        touching = false;
     }
+
 
     draggedElement = null;
     dropTarget = null;
@@ -653,7 +737,8 @@ function onDrop(event) {
 
 // Funktion, die ausgeführt wird, wenn der Benutzer den Finger loslässt
 function endLongTouch(event) {
-    clearTimeout(longPressTimer);  // Stoppe den Long-Touch-Timer, wenn der Finger losgelassen wird
+    console.log('A')
+    clearTimeout(milliseconds);  // Stoppe den Long-Touch-Timer, wenn der Finger losgelassen wird
     if (isDragging) {
         isDragging = false;  // Beende das Dragging
     }

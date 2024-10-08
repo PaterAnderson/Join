@@ -46,7 +46,7 @@ function returnEditOverlay(data) {
             </div>
         </div>
     </div>
-    <div class="assigned font1"><span style="color: #2A3647;">Assigned to</span>
+    <div class="assigned font1"><div style="display: flex; flex-direction: column; gap: 12px;"><span style="color: #2A3647;">Assigned to</span><div class="circles-contacts-div_2" id="circles_contacts_div" style="left: 0;"></div></div>
         <div class="assigned-input assigned-input-hover"
             onclick="openContactsList(), focusInput('contacts_list'), stopProp(event), changeZindex()">
             <input oninput="searchContacts()" onfocus="openContactsList()" class="input-add-task input-assigned-to"
@@ -209,7 +209,7 @@ function returnAddTaskOverlay() {
     <div id="overlay-add-task" class="overlay-add-task">
  <div onclick="stopProp(event)," id="calendar-container" style="transform: translateX(100vw); transition: transform 0.35s ease-in-out;" class="calendar-container"></div>
             <div onclick="bodyOnClick()">
-
+                <div class="add-task-board-wrapper">
                 <div class="add-task for-center">Add task</div>
 
 
@@ -245,7 +245,7 @@ function returnAddTaskOverlay() {
 
                     </div>
 
-                    <div class="assigned font1"><span style="color: #2A3647;">Assigned to</span>
+                    <div class="assigned font1"><div style="display: flex; flex-direction: column; gap: 12px;"><span style="color: #2A3647;">Assigned to</span><div class="circles-contacts-div_2" id="circles_contacts_div" style="left: 0;"></div></div>
 
                         <div class="assigned-input assigned-input-hover"
                             onclick="openContactsList(), focusInput('contacts_list'), stopProp(event)">
@@ -258,8 +258,7 @@ function returnAddTaskOverlay() {
                                 <img id="assign_arrow" src="../assets/icons/arrow_drop_down.png" alt="">
                             </div>
                         </div>
-                        <div class="circles-contacts-div" id="circles_contacts_div" style="height: 0; left: 0; bottom: 0; margin-top: 4px;"></div>
-
+                        
 
                         <div class="list-of-contacts-outside" id="list_of_contacts_outside">
                             <div class="list-of-contacts" id="list_of_contacts" onclick="stopProp(event)">
