@@ -58,8 +58,11 @@ function includeHTML() {
 
 
 async function getAllContacts(path = "") {
+
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
+
+  if (!responseToJson) return;
 
   contacts = Object.values(responseToJson).map(user => ({
 
