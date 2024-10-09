@@ -61,12 +61,10 @@ async function getAllContacts(path = "") {
 
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
-
-  if (!responseToJson) return;
+  if (!responseToJson) { contacts = []; return }
 
   contacts = Object.values(responseToJson).map(user => ({
 
-    //id: user.id,
     name: user.name,
     email: user.email,
     farbe: user.farbe,
