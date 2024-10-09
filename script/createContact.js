@@ -1,5 +1,11 @@
 const CONTACT_URL = `https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/users/${sessionStorage.getItem('user')}/contacts`;
 
+
+const TASKS_URL = `https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/users/${sessionStorage.getItem('user')}/tasks`;
+
+
+
+
 //let users = []; // Hier speichern wir alle unsere Kontakte
 
 
@@ -87,8 +93,16 @@ function updateBodyBackground() {
 }
 
 
+/* 
 function getRandomColor() {
     const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    return randomColor;
+}
+ */
+
+function getRandomColor() {
+
+    const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
     return randomColor;
 }
 
@@ -99,10 +113,13 @@ function getRandomColor() {
 
 
 
-
-
-
+/**
+ * 
+ *   funktion called from form button type submit, edit or create contact
+ * 
+ */
 function testPOST(event) {
+
 
     console.log('testPost');
 
@@ -182,16 +199,17 @@ function isValidPhone(phone) {
 //}
 
 
-
+/**
+ * 
+ *   create contact
+ * 
+ */
 function createContact(name, email, phone) {
-
-    //    const newContactId = generateRandomId();
 
     let farbe;
     if (document.querySelector('.edit-or-add').src.includes('_210')) { farbe = getRandomColor() } else farbe = contactFarbe;
 
     return {
-        //        id: newContactId,
         name: name,
         email: email,
         farbe: farbe,
@@ -251,12 +269,18 @@ function contactAlreadyExists(contact) {
     }
 }
 
+
+/**
+ * 
+ *   post data
+ * 
+ */
 async function postData(contact) {
 
     const contactPath = encodeURIComponent(contact.name);
 
     let response = await fetch(`${CONTACT_URL}/${contactPath}.json`, {
-        method: "PUT", // Ändere dies auf PUT, um den Kontakt mit der ID zu erstellen
+        method: "PUT", 
         headers: {
             "Content-Type": "application/json",
         },
@@ -291,6 +315,8 @@ async function updateContact(contact) {
     return responseToJson;
 }
 
+/*--------------------------------------------------------*/
+
 async function deleteContact(contactId) {
 
     closeDialog();
@@ -299,25 +325,94 @@ async function deleteContact(contactId) {
     try {
         const response = await sendDeleteRequest(contactId);
         handleDeleteResponse(response, contactId);
-    } catch (error) {
-        console.error("Fehler beim Löschen des Kontakts:", error);
-    }
+
+        await removeContactFromAssigned(contactId);
+
+    } catch (error) { console.error("Fehler beim Löschen des Kontakts:", error) }
 }
 
 async function sendDeleteRequest(contactId) {
-    return await fetch(`${CONTACT_URL}/${contactId}.json`, {
-        method: "DELETE",
-    });
+
+    return await fetch(`${CONTACT_URL}/${contactId}.json`, { method: "DELETE" });
 }
 
 function handleDeleteResponse(response, contactId) {
+
     if (response.ok) {
         console.log(`Kontakt mit ID ${contactId} erfolgreich gelöscht.`);
         refreshContacts();
-    } else {
-        console.error("Fehler beim Löschen des Kontakts:", response.statusText);
-    }
+
+    } else { console.error("Fehler beim Löschen des Kontakts:", response.statusText) }
 }
+
+/*--------------------------------------------------------*/
+
+// console.log('tasks - ', tasks);
+
+// console.log('assignedContacts - ', assignedContacts);
+
+// console.log('updatedAssignedContacts - ', updatedAssignedContacts);
+
+
+
+
+async function removeContactFromAssigned(contactId) {
+
+    const tasksUrl = `${TASKS_URL}.json`;
+
+    try {
+        const tasksResponse = await fetch(tasksUrl);
+        const tasks = await tasksResponse.json();
+        if (!tasks) return;  // Keine Aufgaben vorhanden
+
+
+        console.log('tasks - ', tasks);
+
+
+        for (const [taskId, task] of Object.entries(tasks)) {
+
+            const assignedContacts = task.assigned || [];
+
+
+            console.log('assignedContacts - ', assignedContacts);
+
+
+            const updatedAssignedContacts = assignedContacts.filter(contactObj => contactObj.contact !== contactId);
+
+
+            console.log('updatedAssignedContacts - ', updatedAssignedContacts);
+
+
+            // Wenn sich das 'assigned'-Array geändert hat, aktualisieren
+            if (updatedAssignedContacts.length !== assignedContacts.length) { await updateTaskAssigned(taskId, updatedAssignedContacts) }
+        }
+
+        console.log(`Kontakt mit ID ${contactId} wurde aus allen 'assigned'-Listen entfernt.`);
+
+    } catch (error) { console.error("Fehler beim Entfernen des Kontakts aus 'assigned'-Listen:", error) }
+}
+
+async function updateTaskAssigned(taskId, updatedAssignedContacts) {
+
+    const taskUrl = `${TASKS_URL}/${taskId}/assigned.json`;
+
+    try {
+        await fetch(taskUrl, { method: "PUT", body: JSON.stringify(updatedAssignedContacts) });
+
+        console.log(`Aufgabe ${taskId}: 'assigned'-Liste erfolgreich aktualisiert.`);
+
+    } catch (error) { console.error(`Fehler beim Aktualisieren der Aufgabe ${taskId}:`, error) }
+}
+
+
+
+
+
+
+
+
+
+
 
 async function refreshContacts() {
     await getAllContacts("/contacts");
@@ -407,7 +502,7 @@ function showCreateMenu() {
         </div>
         <div class="buttons2">
             <div class="button-settings">
-                <button onclick="resetInputFields()" type="button" class="cancel-button">Cancel
+                <button type="button" onclick="resetInputFields()" class="cancel-button">Cancel
                     <img class="cancel2" src="../assets/icons/contacts_add_contact_cancel.svg">
                 </button>
                 <button type="submit" class="create-button">Create contact

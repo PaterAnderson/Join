@@ -64,7 +64,7 @@ async function getAllContacts(path = "") {
   contacts = Object.values(responseToJson).map(user => ({
 
     //id: user.id,
-    name: user.name, 
+    name: user.name,
     email: user.email,
     farbe: user.farbe,
     telefonnummer: user.telefonnummer
@@ -195,6 +195,7 @@ function showContactInfo(contact) {
 
   contactFarbe = contact.farbe;
   contactInitials = initials;
+  if (!contact.telefonnummer) { phoneNumber = "-------" } else { phoneNumber = contact.telefonnummer }
 
   return `
   <div class="info-box">
@@ -222,7 +223,7 @@ function showContactInfo(contact) {
       <p class="custom-text" style="margin-top: 34px">Email</p>
       <a class="mail-design" href="mailto:${contact.email}">${contact.email}</a>
       <p class="custom-text" style="margin-top: 28px">Phone</p>
-      <a class="phone-design" href="tel:${contact.telefonnummer}">${contact.telefonnummer}</a>
+      <a class="phone-design" href="tel:${contact.telefonnummer}">${phoneNumber}</a>
   </div>
   `;
 }
@@ -235,6 +236,9 @@ function showContactInfo(contact) {
 
 
 function showEditMenu(contact) {
+
+  if (!contact.telefonnummer) { phoneNumber = "" } else { phoneNumber = contact.telefonnummer }
+
   return `
       <div onclick="closeDialog(), stopProp(event)" class="close">
             <div class="close-button"></div>
@@ -248,20 +252,20 @@ function showEditMenu(contact) {
           <div class="input-fields i-f-m" id="ContactForm">
 
               <div class="input-outside" onclick="focusInput('edit-name')">
-                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="name" maxlength="30" type="text" required placeholder="Name" autocomplete="on" value="${contact.name}" />
+                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="name" maxlength="30" type="text" placeholder="Name" autocomplete="on" value="${contact.name}" />
                   <img src="../assets/icons/contacts_edit_person.svg" alt="">
               </div>
               <div id="name-warning" class="name-warning"></div>
 
               <div class="input-outside" onclick="focusInput('edit-email')">
-                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="email" maxlength="30" type="email" required placeholder="Email" autocomplete="on" value="${contact.email}" />
+                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="email" maxlength="30" type="email" placeholder="Email" autocomplete="on" value="${contact.email}" />
                   <img src="../assets/icons/contacts_edit_mail.svg" alt="">
               </div>
               <div class="mail-warning"></div>
 
 
               <div class="input-outside2" onclick="focusInput('edit-phone')">
-                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="phone" maxlength="30" type="tel" required placeholder="Phone" autocomplete="on" value="${contact.telefonnummer}" />
+                  <input onblur="editInputOnblur(this)" onfocus="editInputOnfocus(this)" class="input" id="phone" maxlength="30" type="tel" placeholder="Phone" autocomplete="on" value="${phoneNumber}" />
                   <img src="../assets/icons/contacts_edit_call.svg" alt="">
               </div>
               <div class="phone-warning"></div>
@@ -270,8 +274,8 @@ function showEditMenu(contact) {
       </div>
       <div class="buttons b-m">
           <div class="button-settings">
-              <button class="delete-button" onclick="deleteContact('${contact.name}')">Delete</button>
-              <button type="submit" class="save-button" >Save
+              <button type="button" class="delete-button" onclick="deleteContact('${contact.name}'), stopProp(event)">Delete</button>
+              <button type="submit" class="save-button" onclick="stopProp(event)">Save
                   <img class="create-img" src="../assets/icons/contacts_edit_check.svg">
               </button>
           </div>
@@ -296,9 +300,9 @@ function showFrame21x(x) {
 
   document.querySelector('.edit-or-add').src = `../assets/icons/contacts_frame_21${x}.svg`;
 
-  if (x == 1) { document.querySelector('.flag').style = "" } else { 
-    
-    document.querySelector('.flag').style = "width: 467px" 
+  if (x == 1) { document.querySelector('.flag').style = "" } else {
+
+    document.querySelector('.flag').style = "width: 467px"
     document.querySelector('.edit-or-add').style = "";
   }
 
@@ -315,7 +319,7 @@ function openEditDialog(contactStr) {
 
 
   console.log('edit dialog' + contactStr);
-  
+
 
   showFrame21x(1);
 

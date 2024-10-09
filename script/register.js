@@ -1,4 +1,3 @@
-
 const BASE_URL = "https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/users/";
 
 let noticeIndex;
@@ -62,7 +61,7 @@ function toggleActivateButton() {
  * 
  */
 function registerSubmit() {
-    
+
     const password = document.getElementById('password').value.trim();
     const confirmPassword = document.getElementById('confirm_password').value.trim();
     const user = document.getElementById('user').value.trim();
@@ -107,9 +106,72 @@ function writeNotice(notice) {
 function addNewUser(user, email, password) {
 
     putData(`${user}`, { email: email, password: password, user: user });
-    animationSuccess();
 
+    createContactWithUserDetails(user, email);
+
+    animationSuccess();
     setTimeout(() => { closeAnimationSuccess(); window.location.href = '../html/login.html' }, 2500);
+}
+
+
+/**
+ * 
+ *   create a contact with user details
+ * 
+ */
+function createContactWithUserDetails(user, email) {
+
+    const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+
+    const newContact = {
+        name: user,
+        email: email,
+        farbe: randomColor,
+    };
+
+    postContactData(newContact);
+}
+
+
+/**
+ * 
+ *   post contact data - call of postData
+ * 
+ */
+function postContactData(contact) {
+
+    postData(contact).then(response => {
+
+        console.log("Kontakt erfolgreich hinzugefügt:", response);
+
+
+        alert('----')
+
+    }).catch(error => { console.error("Fehler beim Hinzufügen des Kontakts:", error) });
+}
+
+
+/**
+ * 
+ *   post data
+ * 
+ */
+async function postData(contact) {
+
+    const contactPath = encodeURIComponent(contact.name);
+    const CONTACT_URL = `https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/users/${contactPath}/contacts`;
+
+
+    let response = await fetch(`${CONTACT_URL}/${contactPath}.json`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contact)
+    });
+
+    const responseToJson = await response.json();
+    return responseToJson;
 }
 
 
@@ -271,7 +333,6 @@ async function checkEmailAndUserForRegister(user, email, password) {
  */
 function writeMessageOrRegisterNewUser(user, email, password, isUserOrEmailExist) {
 
-    // Logge aus, falls Benutzer oder E-Mail bereits vorhanden sind
     if (isUserOrEmailExist) {
 
         writeNotice("User or email already exists.");

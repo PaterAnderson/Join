@@ -119,8 +119,12 @@ body {
 .greeting {
     position: absolute;
     left: 736px;
-    top: 451px;
+    top: calc(50% + 54px);
     width: 383px;
+    transform: translateY(-50%);
+    hyphens: auto;
+    word-break: break-word;
+    white-space: normal;
 }
 
 .summ12 {

@@ -88,11 +88,8 @@ const showSummary = () => {
     getAllDueDatesFromFirebase()
 
         .then(dueDates => {
-            // Überprüfen, ob Daten erfolgreich abgerufen wurden
-            if (!dueDates || dueDates.length === 0) {
-                console.error('Keine Fälligkeitsdaten gefunden.');
-                return;  // Keine Daten, also stoppen wir hier
-            }
+
+            if (!dueDates || dueDates.length === 0) { document.getElementById('upcoming').innerText = "no tasks" }
 
             dateArray = dueDates;
 

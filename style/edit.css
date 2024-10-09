@@ -354,6 +354,7 @@ body {
 .hover-container:hover {
     color: #29ABE2;
     filter: brightness(0) saturate(100%) invert(46%) sepia(99%) saturate(1354%) hue-rotate(200deg) brightness(102%) contrast(92%);
+    scale: 1.03;
 }
 
 .cancel-button:hover img,
