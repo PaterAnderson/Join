@@ -172,7 +172,19 @@
 .password-notice {
     position: absolute;
     left: 89px;
-    bottom: 167px;
+    bottom: 172px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #FF8190;
+    font-family: "Poppins", sans-serif;
+}
+
+.valid-name {
+    position: absolute;
+    left: 89px;
+    top: 218px;
+    width: 260px;
+    height: 20px;
     font-size: 12px;
     font-weight: 400;
     color: #FF8190;

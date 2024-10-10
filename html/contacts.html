@@ -16,12 +16,14 @@
 
     <script src="../script/contacts.js"></script>
     <script src="../script/createContact.js"></script>
+    <script src="../script/createContact_2.js"></script>
 
     <link rel="stylesheet" href="../style/menu_head_resp_contacts.css">
     <link rel="stylesheet" href="../style/contacts_resp1.css">
     <link rel="stylesheet" href="../style/contacts_resp2.css">
 
     <script src="../script/linking_for_text_subpages.js"></script>
+    <script src="../script/contacts_templates.js"></script>
 </head>
 
 <body onload="init(), onloadFunc(), contactsPageStart()">
@@ -78,8 +80,6 @@
                         </svg></a>
                     <div id="user-icon" class="user-icon" onclick="openUserMenu(), closeDialog(), stopProp(event)">
                     </div>
-
-
 
                 </div>
             </div>
@@ -208,14 +208,12 @@
 
                 </div>
 
-
                 <section class="contact-container">
 
                     <div class="top-section">
                         <button
                             onclick="openCreateDialog(), showDialog(), showFrame21x(0), closeUserMenu(), stopProp(event)"
-                            class="fixed-button add-button">Add new
-                            contact
+                            class="fixed-button add-button">Add new contact
                             <img class="person" src="../assets/icons/contacts_person_add.svg">
                         </button>
                     </div>
@@ -223,7 +221,6 @@
                     <div class="content">
                         <div id="contacts" class="content-list"></div>
                     </div>
-
 
                 </section>
 

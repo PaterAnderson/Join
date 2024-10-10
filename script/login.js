@@ -1,10 +1,9 @@
-
 const BASE_URL = "https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/";
 
 
 /**
  * 
- *   first check whether redirection to index.html is necessary
+ *   body onload, first check whether redirection to index.html is necessary
  * 
  */
 function loginStart() {

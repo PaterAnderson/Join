@@ -64,13 +64,10 @@ const fetchAllContactNames = async () => {
 
     try {
         const response = await fetch(`${BASE_URL}/contacts.json`);
-
-        if (!response.ok) {
-            console.error("Fehler beim Laden der Kontakte:", response.status);
-            return;
-        }
+        if (!response.ok) { console.error("Fehler beim Laden der Kontakte:", response.status); return }
 
         const kontakte = await response.json();
+        if (!kontakte || Object.keys(kontakte).length === 0) { numberOfContactsDropdownMenu = 1; return }
 
         // Extrahiere alle Kontaktnamen und füge für jeden Kontakt ein `checked: false` Attribut hinzu
         allContactNames = Object.values(kontakte).map(kontakt => ({
@@ -78,10 +75,7 @@ const fetchAllContactNames = async () => {
             checked: false
         }));
 
-
-    } catch (error) {
-        console.error("Fehler beim Abrufen der Kontaktnamen:", error);
-    }
+    } catch (error) { console.error("Fehler beim Abrufen der Kontaktnamen:", error) }
 };
 
 

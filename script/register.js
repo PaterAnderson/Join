@@ -66,14 +66,13 @@ function registerSubmit() {
     const confirmPassword = document.getElementById('confirm_password').value.trim();
     const user = document.getElementById('user').value.trim();
     const email = document.getElementById('email').value.trim();
+    const validName = document.getElementById('valid_name');
+
+    if (!isValidName(user)) { validName.innerText = "Please enter at least a first and last name."; return } else { validName.innerText = "" }
 
     if (password != "" && confirmPassword != "" && user != "" && email != "") {
 
-        if (password == confirmPassword) {
-
-            checkEmailAndUserForRegister(user, email, password);
-
-        } else {
+        if (password == confirmPassword) { checkEmailAndUserForRegister(user, email, password) } else {
 
             writeNotice("Your passwords don't match. Please try again.");
             noticeIndex = 2;
@@ -81,6 +80,16 @@ function registerSubmit() {
             document.getElementById('input_border4').style = "border: 1px solid #FF8190";
         }
     }
+}
+
+
+/**
+ * 
+ * is vaild name ?
+ * 
+ */
+function isValidName(name) {
+    return name.split(" ").length >= 2;
 }
 
 
@@ -142,10 +151,7 @@ function postContactData(contact) {
 
     postData(contact).then(response => {
 
-        console.log("Kontakt erfolgreich hinzugefügt:", response);
-
-
-        alert('----')
+        //console.log("Kontakt erfolgreich hinzugefügt:", response);
 
     }).catch(error => { console.error("Fehler beim Hinzufügen des Kontakts:", error) });
 }
@@ -160,7 +166,6 @@ async function postData(contact) {
 
     const contactPath = encodeURIComponent(contact.name);
     const CONTACT_URL = `https://join-projekt-85028-default-rtdb.europe-west1.firebasedatabase.app/users/${contactPath}/contacts`;
-
 
     let response = await fetch(`${CONTACT_URL}/${contactPath}.json`, {
         method: "PUT",
