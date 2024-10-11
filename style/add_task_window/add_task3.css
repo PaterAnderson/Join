@@ -94,6 +94,42 @@
     height: 14px;
 }
 
+/*-----------------------------*/
+
+.frame36 {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 57px;
+    height: 23px;
+    background-color: #FFFFFF;
+}
+
+.frame36-hover1 {
+    position: absolute;
+    right: 33px;
+    top: 0px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.frame36-hover2 {
+    position: absolute;
+    right: 1px;
+    top: 0px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.frame36-hover1:hover,
+.frame36-hover2:hover {
+    background: rgba(0 0 0 / 0.08);
+}
+
+/*-----------------------------*/
+
 .close-check {
     display: flex;
     width: 56px;
@@ -295,3 +331,8 @@
     outline: none;
     cursor: pointer;
 }
+
+
+
+
+

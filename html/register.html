@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../style/register_responsive.css">
 
     <script src="../script/register.js"></script>
+    <script src="../script/register_2.js"></script>
 </head>
 
 <body onload="registerStart()" class="for-center">
@@ -50,7 +51,7 @@
                 <div class="register-inputs">
 
 
-                    <form autocomplete="off" id="register_form" onsubmit="registerSubmit(); return false;">
+                    <form novalidate autocomplete="off" id="register_form" onsubmit="registerSubmit(); return false;">
 
 
                         <div onclick="focusInput('user')" class="input-outside3" id="input_border1">
@@ -100,6 +101,7 @@
                     </div>
 
                     <div class="valid-name" id="valid_name"></div>
+                    <div class="valid-email" id="valid_email"></div>
                     <div class="password-notice display-none" id="password_notice"></div>
 
                 </div>

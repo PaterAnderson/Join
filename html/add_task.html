@@ -361,13 +361,20 @@
 
                                     <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask"
                                         id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask"
-                                        autocomplete="off" />
+                                        autocomplete="off" onkeypress="showFrame36SubtaskInput(event)" />
 
 
-                                    <div onclick="addSubtask(), stopProp(event)" id="subtask_add_div"
+                                    <div id="subtask_add_div"
                                         class="tasks-add-div for-center"><img src="../assets/icons/add_subtasks.png"
                                             alt="">
                                     </div>
+
+                                    <div class="frame36" style="display: none">
+                                        <img src="../assets/icons/add_task_subtasks_input_frame36.svg">
+                                        <div onclick="frame36Cancel(), stopProp(event)" class="frame36-hover1"></div>
+                                        <div onclick="addSubtask()" class="frame36-hover2"></div>
+                                    </div>
+
 
                                     <div class="close-check" id="close_check" style="display: none;">
                                         <div class="div24 for-center" onclick="closeSubtasks(), stopProp(event)">

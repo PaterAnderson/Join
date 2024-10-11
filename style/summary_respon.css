@@ -89,7 +89,7 @@
         }
 
         .greet-name {
-            width: min-content;
+            width: auto;
         }
 
         .join-360 {

@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'Inter';
-    src: url('../assets/fonts/Inter/inter.ttf') format('truetype');
+    src: url('../assets/fonts/inter/inter.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Poppins';
-    src: url('../assets/fonts/Poppins/poppins_regular.ttf') format('truetype');
+    src: url('../assets/fonts/poppins/poppins_regular.ttf') format('truetype');
 }
 
 body {

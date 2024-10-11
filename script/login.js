@@ -39,7 +39,20 @@ function loginSubmit() {
     email = document.getElementById('email').value;
     password = document.getElementById('password').value;
 
+    if (!isValidEmail(email)) {showNotice(); return}
     if (email != "" && password != "") checkEmailAndPasswordForLogin(email, password);
+}
+
+
+/**
+ * 
+ * is vaild email ?
+ * 
+ */
+function isValidEmail(email) {
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
 }
 
 

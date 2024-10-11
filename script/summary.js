@@ -31,7 +31,7 @@ function greetingStart() {
         if (sessionStorage.getItem('greeting') == 'login') {
 
             document.getElementById('greeting').style = "opacity: 1; display: flex";
-            setTimeout(hideGreeting, 3000);
+            setTimeout(hideGreeting, 2700);
 
         } else showContent();
 
