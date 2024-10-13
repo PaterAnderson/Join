@@ -48,7 +48,7 @@ function returnEditOverlay(data) {
         </div>
     </div>
     <div class="assigned font1"><div style="display: flex; flex-direction: column; gap: 12px;"><span style="color: #2A3647;">Assigned to</span><div class="circles-contacts-div_2" id="circles_contacts_div" style="left: 0;"></div></div>
-        <div class="assigned-input assigned-input-hover" style="z-index: 4!important"
+        <div class="assigned-input assigned-input-hover"
             onclick="openContactsList(), focusInput('contacts_list'), stopProp(event), changeZindex()">
             <input oninput="searchContacts()" onfocus="openContactsList()" class="input-add-task input-assigned-to"
                 id="contacts_list" maxlength="30" type="name" placeholder="Select contacts to assign"
