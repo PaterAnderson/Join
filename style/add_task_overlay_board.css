@@ -670,19 +670,37 @@ textarea::placeholder {
     margin-right: -6px;
 }
 
-.subtask-text-div2:hover {
-    background-color: #edededff;
 
+@media (min-width: 900px) {
+    .subtask-text-div2:hover {
+        background-color: #edededff;
+    
+        .edit-subtask-icon {
+            display: block;
+        }
+    
+        .delete-subtask-icon {
+            display: block;
+        }
+    
+        .subtask-separator {
+            display: block;
+        }
+    }
+    
+}
+
+@media (max-width: 900px) {
     .edit-subtask-icon {
-        display: block;
+        display: block!important;
     }
 
     .delete-subtask-icon {
-        display: block;
+        display: block!important;
     }
 
     .subtask-separator {
-        display: block;
+        display: block!important;
     }
 }
 
@@ -767,4 +785,36 @@ textarea::placeholder {
     border: none;
     outline: none;
     cursor: pointer;
+}
+
+.frame36 {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 57px;
+    height: 23px;
+    background-color: #FFFFFF;
+}
+
+.frame36-hover1 {
+    position: absolute;
+    right: 33px;
+    top: 0px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.frame36-hover2 {
+    position: absolute;
+    right: 1px;
+    top: 0px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.frame36-hover1:hover,
+.frame36-hover2:hover {
+    background: rgba(0 0 0 / 0.08);
 }

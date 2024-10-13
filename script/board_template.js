@@ -1,5 +1,6 @@
 function returnEditOverlay(data) {
     return `
+    <img onclick="closeCardOverlay()" src="/assets/icons/close-card-overlay.svg" class="card-overlay-close" style="width: 14px; height: 14px; align-self: end;">
     <div onclick="stopProp(event)" id="calendar-container" style="left: 150px; transform: translateX(100vw); transition: transform 0.35s ease-in-out;" class="calendar-container"></div>
 <div id="due_prio" class="container-edit-overlay" onclick="removeZindex(), bodyOnClick()">
     <div class="title-add-task-overlay font1"><span style="color: #2A3647;">Title</span><span
@@ -69,8 +70,15 @@ function returnEditOverlay(data) {
     </div>
     <div style="margin-top: 42px;" class="assigned-subtasks font1"><span style="color: #2A3647;">Subtasks</span>
         <div class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
-            <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask" id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask" autocomplete="off">
+            <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask" id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask" autocomplete="off" onkeypress="showFrame36SubtaskInput(event)">
             <div id="subtask_add_div" class="tasks-add-div for-center"><img src="../assets/icons/add_subtasks.png" alt=""></div>
+            
+        <div class="frame36" style="display: none">
+            <img src="../assets/icons/add_task_subtasks_input_frame36.svg">
+            <div onclick="frame36Cancel(), stopProp(event)" class="frame36-hover1"></div>
+            <div onclick="addSubtask()" class="frame36-hover2"></div>
+        </div>
+
             <div class="close-check" id="close_check" style="display: none;">
                 <div class="div24 for-center" onclick="closeSubtasks(), stopProp(event)">
                     <img src="../assets/icons/close_subtasks.png">
@@ -81,7 +89,7 @@ function returnEditOverlay(data) {
                 </div>
             </div>
         </div>
-        <div class="new-div-for-subtasks" style="position: static;  margin-top: 16px;" id="render_subtasks"></div>
+        <div class="new-div-for-subtasks" style="position: static;  margin-top: 16px; height: 122px!important;" id="render_subtasks"></div>
     </div>
 </div>
     <div style="display: flex; justify-content: flex-end; align-items: center;">
@@ -99,17 +107,17 @@ function returnSubtaskCardOverlay(data, i) {
     if (data.subtasks[i].done) {
 
         return `
-        <div class="card-overlay-subtask">
-            <div class="check-mark-wrapper" onclick="markSubtaskDone(${i},'${data.title}')">
+        <div onclick="markSubtaskDone(${i},'${data.title}')" class="card-overlay-subtask" style="user-select: none;">
+            <div class="check-mark-wrapper">
                 <img id="checkmark${i}" src="/assets/icons/check-mark-subtask-ovleray-checked.svg">
             </div>
-                <div id="subtask-text${i}" style="text-decoration: line-through" class="card-overlay-subtask-title">${data.subtasks[i].task}</div>
+                <div  id="subtask-text${i}" style="text-decoration: line-through" class="card-overlay-subtask-title">${data.subtasks[i].task}</div>
             </div>`
     } else {
 
         return `
-        <div class="card-overlay-subtask">
-            <div class="check-mark-wrapper" onclick="markSubtaskDone(${i},'${data.title}')">
+        <div onclick="markSubtaskDone(${i},'${data.title}')" class="card-overlay-subtask" style="user-select: none;">
+            <div class="check-mark-wrapper">
                 <img id="checkmark${i}" src="/assets/icons/check-mark-subtask-overlay-unchecked.svg">
             </div>
                 <div id="subtask-text${i}" class="card-overlay-subtask-title">${data.subtasks[i].task}</div>
@@ -140,6 +148,7 @@ function renderPrio(data, prioSVG) {
 
 function returnTaskOverlay(data) {
     return `
+        <div class="inner-div-overflow" style="overflow-y: auto; display: flex; gap: 24px; flex-direction: column;">
             <div class="card-overlay-category-close-wrapper">
                 <div class="card-overlay-category">${data.category}</div>
                 <img onclick="closeCardOverlay()" src="/assets/icons/close-card-overlay.svg" class="card-overlay-close">
@@ -176,6 +185,7 @@ function returnTaskOverlay(data) {
                 </svg>
                 <div>Edit</div>
                 </div>
+            </div>
             </div>`
 }
 
@@ -206,7 +216,8 @@ function returnTaskCard(task, prioSVG, categoryColor) {
 
 function returnAddTaskOverlay() {
     return `        
-    <div id="overlay-add-task" class="overlay-add-task">
+    <div id="overlay-add-task" class="overlay-add-task" style="display: flex; flex-direction: column;">
+        <img onclick="closeCardOverlay()" src="/assets/icons/close-card-overlay.svg" class="card-overlay-close" style="padding: 24px; width: 14px; height: 14px; align-self: end;">
  <div onclick="stopProp(event)," id="calendar-container" style="transform: translateX(100vw); transition: transform 0.35s ease-in-out;" class="calendar-container"></div>
             <div onclick="bodyOnClick()">
                 <div class="add-task-board-wrapper">
@@ -338,9 +349,15 @@ function returnAddTaskOverlay() {
                         <div class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
                             <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask"
                                 id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask"
-                                autocomplete="off" />
+                                autocomplete="off" onkeypress="showFrame36SubtaskInput(event)" />
                             <div id="subtask_add_div" class="tasks-add-div for-center"><img
                                     src="../assets/icons/add_subtasks.png" alt=""></div>
+
+                                    <div class="frame36" style="display: none">
+                                        <img src="../assets/icons/add_task_subtasks_input_frame36.svg">
+                                        <div onclick="frame36Cancel(), stopProp(event)" class="frame36-hover1"></div>
+                                        <div onclick="addSubtask()" class="frame36-hover2"></div>
+                                    </div>
 
                             <div class="close-check" id="close_check" style="display: none;">
                                 <div class="div24 for-center" onclick="closeSubtasks(), stopProp(event)">

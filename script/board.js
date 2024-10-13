@@ -292,6 +292,9 @@ async function getEditToFirebase(taskName, callback) {
     }
 }
 
+let previoussubtasklength = 0;
+let currentsubtasklength;
+
 function editDataInArray(taskName) {
     let date = document.getElementById('input_due_date').value
     let discription = document.getElementById('text_area').value
@@ -321,18 +324,35 @@ function editDataInArray(taskName) {
     })
 
     changeValue(oldTaskName, taskName);
-
-
     let subtaskValue = returnSubtask(taskSave[taskName])
-    changeSubtaskValue(subtaskValue.done, subtaskValue.total, subtaskValue.percentage, taskName)
-
+    currentsubtasklength = taskSave[taskName].subtasks.length;
+    checkSubtaskTotal(taskName)
+    if(document.getElementById(`subtask${taskName}`).innerHTML.trim() !== ""){
+        changeSubtaskValue(subtaskValue.done, subtaskValue.total, subtaskValue.percentage, taskName)
+    }
+    previoussubtasklength = currentsubtasklength;
     editTask = false
     setTimeout(() => {
         document.getElementById('card-board-overlay-background').classList.add('display-opacity-board')
         getOpenTaskOverlay(taskName)
     }, 400)
+
+
     POSTfirebase();
 }
+
+ function checkSubtaskTotal(taskName){
+    console.log(currentsubtasklength)
+     if(taskSave[taskName].subtasks.length === 0){
+        document.getElementById(`subtask${taskName}`).replaceChildren()
+     }
+
+     if(previoussubtasklength === 0 && currentsubtasklength > 0){
+        let subtask = returnSubtask(taskSave[taskName])
+        document.getElementById(`subtask${taskSave[taskName].title}`).innerHTML = '';
+        document.getElementById(`subtask${taskSave[taskName].title}`).innerHTML = renderSubtask(subtask.total, subtask.done, subtask.percentage, taskSave[taskName].title)
+    }
+ }
 
 function changeValue(oldTaskName, taskName) {
     let changeTitle = document.getElementById('task-title' + `${oldTaskName}`)
@@ -358,11 +378,13 @@ function changeValue(oldTaskName, taskName) {
     let priocard = document.getElementById(`priocard${oldTaskName}`)
     priocard.id = `priocard${taskName}`
 
-    let totalNumbers = document.getElementById('total' + `${oldTaskName}`)
-    let progressSubtask = document.getElementById('progress' + `${oldTaskName}`)
-
-    totalNumbers.id = 'total' + `${taskSave[taskName].title}`
-    progressSubtask.id = 'progress' + `${taskSave[taskName].title}`
+    if(document.getElementById(`subtask${taskName}`).innerHTML.trim() !== ""){
+        let totalNumbers = document.getElementById('total' + `${oldTaskName}`)
+        let progressSubtask = document.getElementById('progress' + `${oldTaskName}`)
+    
+        totalNumbers.id = 'total' + `${taskSave[taskName].title}`
+        progressSubtask.id = 'progress' + `${taskSave[taskName].title}`
+    }
 
 
     changeOkButtonForEdit.id = `firebase-button${taskSave[taskName].title}`
@@ -570,18 +592,28 @@ function ondragRemoveCurrentElement() {
 function searcFocus() {
     document.querySelector('.search-input').addEventListener('input', () => {
         let query = document.querySelector('.search-input').value.toLocaleLowerCase()
-        let card = document.querySelectorAll('.card-board')
+        let cards = document.querySelectorAll('.card-board')
 
-        card.forEach((card) => {
+        cards.forEach((card) => {
             let cardtitle = card.querySelector('.card-board-title').textContent.toLocaleLowerCase()
+            let carddescription = card.querySelector('.card-board-description').textContent.toLocaleLowerCase()
 
-            if (cardtitle.includes(query)) {
+            if (cardtitle.includes(query) || carddescription.includes(query)) {
                 card.style.display = 'flex'
             } else {
                 card.style.display = 'none'
             }
-        })
-    })
+            
+        });
+
+        let allCardsAreNone = Array.from(cards).every(card => card.style.display === 'none');
+
+        if (allCardsAreNone) {
+            document.getElementById('error-message-search').innerText = 'Kein Task gefunden!';
+        } else {
+            document.getElementById('error-message-search').innerHTML = '';
+        }
+    });
 
 }
 

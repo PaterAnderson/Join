@@ -287,3 +287,36 @@ function clearTitleDescriptionDueDate() {
     document.getElementById('input_due_date').value = "";
 }
 
+/**
+ * 
+ * show frame36 - subtask input
+ * 
+ */
+function showFrame36SubtaskInput(event) {
+
+    if (event.key !== " ") document.querySelector('.frame36').style = "";
+}
+
+
+/**
+ * 
+ * hide frame36 - subtask input 
+ * 
+ */
+function hideFrame36SubtaskInput() {
+
+    document.querySelector('.frame36').style = "display: none";
+}
+
+
+/**
+ * 
+ * frame36, cancel clicked - subtask input
+ * 
+ */
+function frame36Cancel() {
+
+    document.getElementById('subtask_input').value = "";
+    document.getElementById('subtask_input').blur();
+    document.querySelector('.frame36').style = "display: none";
+}
