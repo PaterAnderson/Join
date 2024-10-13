@@ -70,7 +70,7 @@ function returnEditOverlay(data) {
     </div>
     <div style="margin-top: 42px;" class="assigned-subtasks font1"><span style="color: #2A3647;">Subtasks</span>
         <div class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
-            <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask" id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask" autocomplete="off" onkeypress="showFrame36SubtaskInput(event)">
+            <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask" id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask" autocomplete="off" oninput="showFrame36SubtaskInput(event)">
             <div id="subtask_add_div" class="tasks-add-div for-center"><img src="../assets/icons/add_subtasks.png" alt=""></div>
             
         <div class="frame36" style="display: none">
@@ -148,7 +148,7 @@ function renderPrio(data, prioSVG) {
 
 function returnTaskOverlay(data) {
     return `
-        <div class="inner-div-overflow" style="overflow-y: auto; display: flex; gap: 24px; flex-direction: column;">
+        <div class="inner-div-overflow">
             <div class="card-overlay-category-close-wrapper">
                 <div class="card-overlay-category">${data.category}</div>
                 <img onclick="closeCardOverlay()" src="/assets/icons/close-card-overlay.svg" class="card-overlay-close">
@@ -349,7 +349,7 @@ function returnAddTaskOverlay() {
                         <div class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
                             <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask"
                                 id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask"
-                                autocomplete="off" onkeypress="showFrame36SubtaskInput(event)" />
+                                autocomplete="off" oninput="showFrame36SubtaskInput(event)" />
                             <div id="subtask_add_div" class="tasks-add-div for-center"><img
                                     src="../assets/icons/add_subtasks.png" alt=""></div>
 

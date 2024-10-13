@@ -63,7 +63,7 @@ function renderContactsTemplate(addClass, index, kontakt, initialen, addSrc) {
         let taskName = document.getElementById('title_input').value
         return `
     
-        <div class="initials-and-name-div ${addClass}" onclick="addContactToTask(${index}, '${kontakt.name}', '${kontakt.farbe}'), changeContact('${taskName}'), stopProp(event)" id="initials_and_name_div${index}">
+        <div class="initials-and-name-div ${addClass}" onclick="addContactToTask(${index}, '${kontakt.name}', '${kontakt.farbe}'), stopProp(event)" id="initials_and_name_div${index}">
             <div style="background-color: ${kontakt.farbe}" class="initials-circle for-center">
                 ${initialen}
             </div>

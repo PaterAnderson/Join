@@ -24,6 +24,7 @@
     align-items: center;
     gap: 4px;
     height: 48px;
+    width: 148px;
     font-family: "Inter", sans-serif;
     font-size: 21px;
     font-weight: 700;
@@ -118,7 +119,13 @@
     gap: 32px;
 }
 
-@media (max-width: 990px) {
+@media (max-width: 720px) {
+    .search-bar{
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1200px) {
     .kanban-wrapper {
         flex-direction: column;
     }
@@ -166,6 +173,7 @@
         width: auto !important;
         padding: 22px 22px 22px 22px;
         overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .buttons {
@@ -228,21 +236,6 @@
         justify-content: unset !important;
         gap: 12px;
 
-    }
-
-    .prio-button1 {
-        width: 90px !important;
-        height: 30px !important;
-    }
-
-    .prio-button2 {
-        width: 90px !important;
-        height: 30px !important;
-    }
-
-    .prio-button3 {
-        width: 90px !important;
-        height: 30px !important;
     }
 
     .prio {
@@ -427,6 +420,7 @@
     min-height: 600px;
 }
 
+
 .hilighting-kanban {
     background-color: rgba(144, 144, 144, 0.391);
     border-radius: 24px;
@@ -513,7 +507,7 @@
 .card-board {
     max-height: 264px;
     background-color: #FFFFFF;
-    height: auto;
+    height: fit-content;
     box-shadow: 0px 0px 10px 3px #ac9d9d14;
     border-radius: 24px;
     display: flex;
@@ -521,6 +515,8 @@
     padding: 16px;
     gap: 24px;
     cursor: pointer;
+    min-width: 188px;
+    max-width: 228px;
 }
 
 
@@ -552,6 +548,7 @@
     line-height: 19.2px;
     text-align: left;
     color: #2A3647;
+    overflow-wrap: break-word;
 }
 
 .card-board-description {
@@ -659,6 +656,14 @@
     width: fit-content;
 }
 
+.inner-div-overflow{
+    overflow-y: auto;
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+}
+
+
 .card-overlay-category-close-wrapper {
     display: flex;
     flex-direction: row;
@@ -671,6 +676,7 @@
     font-weight: 700;
     line-height: 73.2px;
     text-align: left;
+    overflow-wrap: break-word;
 }
 
 .card-overlay-descritption {
@@ -833,6 +839,7 @@
     overflow-y: auto;
     height: 90%;
 }
+
 
 .postion-relativ {
     position: relative !important;

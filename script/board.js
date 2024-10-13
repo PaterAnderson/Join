@@ -133,6 +133,8 @@ function renderTask(task, id) {
         let taskName = task.title
         renderAssignedContacts(array, taskName)
     }
+    
+    checkIfTaskTrue()
 }
 
 function renderAssignedContacts(array, taskName) {
@@ -249,6 +251,28 @@ function editTaskOverlay(data, taskName) {
         if (entry.title === taskName) {
             data = entry
             document.getElementById('card-board-task-overlay').innerHTML = returnEditOverlay(data)
+
+            if(entry.prio === 'low'){
+                if(document.getElementById('prio_button3').classList.contains('white-bg')){
+                    prioButton3()
+                }
+                prio = 'low'
+            }
+
+            if(entry.prio === 'medium'){
+                if(document.getElementById('prio_button2').classList.contains('white-bg')){
+                    prioButton2()
+                }
+                prio = 'medium'
+            }
+
+            if(entry.prio === 'urgent'){
+                if(document.getElementById('prio_button1').classList.contains('white-bg')){
+                    prioButton1()
+                }
+                prio = 'urgent'
+            }
+
             document.getElementById('text_area').value = data.description
 
             if ('subtasks' in data) {
@@ -282,6 +306,7 @@ function editTaskOverlay(data, taskName) {
 
 let taskSave = {};
 
+
 async function getEditToFirebase(taskName, callback) {
     try {
         data = await processData(`${BASE_URL}/tasks.json`)
@@ -294,12 +319,14 @@ async function getEditToFirebase(taskName, callback) {
 
 let previoussubtasklength = 0;
 let currentsubtasklength;
+let prioEdit;
 
 function editDataInArray(taskName) {
     let date = document.getElementById('input_due_date').value
     let discription = document.getElementById('text_area').value
     let title = document.getElementById('title_input').value
     let oldTaskName = taskName
+    prioEdit = taskSave[oldTaskName].prio
 
     if (taskName !== title) {
         for (let key in taskSave) {
@@ -313,7 +340,6 @@ function editDataInArray(taskName) {
         taskName = title
     }
 
-
     Object.assign(taskSave[taskName], {
         date: date,
         description: discription,
@@ -326,7 +352,7 @@ function editDataInArray(taskName) {
     changeValue(oldTaskName, taskName);
     let subtaskValue = returnSubtask(taskSave[taskName])
     currentsubtasklength = taskSave[taskName].subtasks.length;
-    checkSubtaskTotal(taskName)
+    checkSubtaskTotal(taskName, oldTaskName)
     if(document.getElementById(`subtask${taskName}`).innerHTML.trim() !== ""){
         changeSubtaskValue(subtaskValue.done, subtaskValue.total, subtaskValue.percentage, taskName)
     }
@@ -337,8 +363,11 @@ function editDataInArray(taskName) {
         getOpenTaskOverlay(taskName)
     }, 400)
 
-
+    changeContact(oldTaskName, taskName)
     POSTfirebase();
+    selectedContacts = [];
+    currentNumberOfSelectedContacts = 0;
+    prio = '';
 }
 
  function checkSubtaskTotal(taskName){
@@ -349,8 +378,8 @@ function editDataInArray(taskName) {
 
      if(previoussubtasklength === 0 && currentsubtasklength > 0){
         let subtask = returnSubtask(taskSave[taskName])
-        document.getElementById(`subtask${taskSave[taskName].title}`).innerHTML = '';
-        document.getElementById(`subtask${taskSave[taskName].title}`).innerHTML = renderSubtask(subtask.total, subtask.done, subtask.percentage, taskSave[taskName].title)
+        document.getElementById(`subtask${taskName}`).innerHTML = '';
+        document.getElementById(`subtask${taskName}`).innerHTML = renderSubtask(subtask.total, subtask.done, subtask.percentage, taskSave[taskName].title)
     }
  }
 
@@ -378,12 +407,14 @@ function changeValue(oldTaskName, taskName) {
     let priocard = document.getElementById(`priocard${oldTaskName}`)
     priocard.id = `priocard${taskName}`
 
-    if(document.getElementById(`subtask${taskName}`).innerHTML.trim() !== ""){
+    if(document.getElementById(`subtask${oldTaskName}`).innerHTML.trim() !== ""){
         let totalNumbers = document.getElementById('total' + `${oldTaskName}`)
         let progressSubtask = document.getElementById('progress' + `${oldTaskName}`)
+        let subtask = document.getElementById(`subtask${oldTaskName}`)
     
         totalNumbers.id = 'total' + `${taskSave[taskName].title}`
         progressSubtask.id = 'progress' + `${taskSave[taskName].title}`
+        subtask.id = 'subtask' + `${taskSave[taskName].title}`
     }
 
 
@@ -443,8 +474,6 @@ async function markSubtaskDone(i, taskName) {
 
 }
 
-let prioEdit = ''
-
 async function changePrio(prioTask, taskName) {
     prioEdit = prioTask
     document.getElementById(`priocard${taskName}`).src = priorityMap[prioTask];
@@ -454,9 +483,9 @@ async function changePrio(prioTask, taskName) {
     await getEditToFirebase(taskName, callback)
 }
 
-function changeContact(taskName) {
-    document.getElementById(`contacts${taskName}`).innerHTML = ''
-    renderAssignedContacts(selectedContacts, taskName)
+function changeContact(oldTaskName) {
+    document.getElementById(`contacts${oldTaskName}`).innerHTML = ''
+    renderAssignedContacts(selectedContacts, oldTaskName)
 }
 
 function pushUrgent(taskName) {
@@ -506,6 +535,8 @@ function closeCardOverlay() {
     }, 250)
     subtaskCollection = [];
     selectedContacts = [];
+    currentNumberOfSelectedContacts = 0;
+    prio = '';
     editTask = false
 }
 
@@ -624,10 +655,6 @@ function updateOnClickBasedOnWidth() {
         if (window.innerWidth <= 990) {
             element.onclick = function () {
                 goToLink('add_task.html');
-            };
-        } else {
-            element.onclick = function () {
-                addTaskBoardOverlayToggle();
             };
         }
     });

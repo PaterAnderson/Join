@@ -292,9 +292,9 @@ function clearTitleDescriptionDueDate() {
  * show frame36 - subtask input
  * 
  */
-function showFrame36SubtaskInput(event) {
+function showFrame36SubtaskInput() {
 
-    if (event.key !== " ") document.querySelector('.frame36').style = "";
+    if (document.getElementById('subtask_input').value.trim() !== "") { document.querySelector('.frame36').style = "" } else document.querySelector('.frame36').style = "display: none";
 }
 
 

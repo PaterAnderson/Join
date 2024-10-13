@@ -1,7 +1,7 @@
 
 let toggle1 = false;
 let toggle2 = false;
-let prio = 'medium';
+let prio = '';
 let selectedCategory = "";
 
 let maxSelectedSubtasks = 10;

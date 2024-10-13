@@ -89,15 +89,15 @@ const deleteKontakt = async (name) => {
 
 
 
+let kanbanidforadd;
 
-
-
-
-
-
+function changeKanbanidForAddTask(id){
+    kanbanidforadd = id;
+}
 
 // Funktion, um ein task in Firebase zu erstellen
 const createTaskInFirebase = async (title, description, dueDate) => {
+
 
     const taskPfad = encodeURIComponent(title); // Verwende den gesamten Namen als Pfad und kodiert ihn für URLs
 
@@ -108,7 +108,7 @@ const createTaskInFirebase = async (title, description, dueDate) => {
         date: dueDate,
         prio: prio,
         category: selectedCategory,
-        kanbanId: 'to-do',
+        kanbanId: kanbanidforadd,
         subtasks: subtaskCollection.map(item => ({...item, done: false, edit: undefined }))
     };
 
@@ -124,7 +124,7 @@ const createTaskInFirebase = async (title, description, dueDate) => {
         if (response.ok) {
             const data = await response.json();
             console.log(`Task erstellt:`, data);
-            renderTask(taskData, 'to-do')
+            renderTask(taskData, kanbanidforadd)
             currentNumberOfSelectedContacts = 0;
             subtaskCollection = [];
             selectedContacts = [];

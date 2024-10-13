@@ -204,7 +204,7 @@
                         </div>
                     </div>
 
-                    <button onclick="addTaskBoardOverlayToggle()" class="add-task-button">Add task <svg width="20"
+                    <button onclick="changeKanbanidForAddTask('to-do'), addTaskBoardOverlayToggle()" class="add-task-button">Add task <svg width="20"
                             height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M8.66602 11.3327H0.666016V8.66602H8.66602V0.666016H11.3327V8.66602H19.3327V11.3327H11.3327V19.3327H8.66602V11.3327Z"
@@ -217,7 +217,7 @@
                 <div class="kanban-board">
                     <div class="kanban-title">
                         <div class="kanban-subtitle">To do</div>
-                        <div><svg onclick="addTaskBoardOverlayToggle()" class="add-task-board" width="24" height="25"
+                        <div onclick="changeKanbanidForAddTask('to-do'), addTaskBoardOverlayToggle()"><svg class="add-task-board" width="24" height="25"
                                 viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1" y="1.5" width="22px" height="22px" rx="7" stroke-width="2" />
                                 <path d="M12 8.5V16.5" stroke-width="2" stroke-linecap="round" />
@@ -232,7 +232,7 @@
                 <div class="kanban-board">
                     <div class="kanban-title">
                         <div class="kanban-subtitle">In progress</div>
-                        <div><svg onclick="addTaskBoardOverlayToggle()" class="add-task-board" width="24" height="25"
+                        <div onclick="changeKanbanidForAddTask('in-progress'), addTaskBoardOverlayToggle()"><svg class="add-task-board" width="24" height="25"
                                 viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1" y="1.5" width="22px" height="22px" rx="7" stroke-width="2" />
                                 <path d="M12 8.5V16.5" stroke-width="2" stroke-linecap="round" />
@@ -248,7 +248,7 @@
                 <div class="kanban-board">
                     <div class="kanban-title">
                         <div class="kanban-subtitle">Await feedback</div>
-                        <div><svg onclick="addTaskBoardOverlayToggle()" class="add-task-board" width="24" height="25"
+                        <div onclick="changeKanbanidForAddTask('await-feedback'), addTaskBoardOverlayToggle()"><svg class="add-task-board" width="24" height="25"
                                 viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="1" y="1.5" width="22px" height="22px" rx="7" stroke-width="2" />
                                 <path d="M12 8.5V16.5" stroke-width="2" stroke-linecap="round" />
@@ -278,13 +278,13 @@
             let on = false
 
             function addTaskBoardOverlayToggle() {
-
                 if (on === true) {
                     document.getElementById('overlay-board-background').classList.toggle('display-opacity-board')
                     document.getElementById('overlay-add-task').classList.toggle('overlay-add-task-transition')
                     setTimeout(() => {
                         document.getElementById('render-add-task').innerHTML = ''
                         on = false
+                        kanbanid = '';
                     }, 250)
                 } else {
                     document.getElementById('render-add-task').innerHTML = returnAddTaskOverlay()
