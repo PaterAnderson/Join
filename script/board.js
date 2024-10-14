@@ -461,11 +461,11 @@ async function markSubtaskDone(i, taskName) {
     let text = document.getElementById(`subtask-text${i}`)
     if (subtaskCollection[i].done === true) {
         subtaskCollection[i].done = !subtaskCollection[i].done
-        checkmark.src = "/assets/icons/check-mark-subtask-overlay-unchecked.svg"
+        checkmark.src = "../assets/icons/check-mark-subtask-overlay-unchecked.svg"
         text.style.textDecoration = ''
     } else {
         subtaskCollection[i].done = !subtaskCollection[i].done
-        checkmark.src = "/assets/icons/check-mark-subtask-ovleray-checked.svg"
+        checkmark.src = "../assets/icons/check-mark-subtask-ovleray-checked.svg"
         text.style.textDecoration = 'line-through'
     }
 

@@ -1,6 +1,6 @@
 function returnEditOverlay(data) {
     return `
-    <img onclick="closeCardOverlay()" src="/assets/icons/close-card-overlay.svg" class="card-overlay-close" style="width: 14px; height: 14px; align-self: end;">
+    <img onclick="closeCardOverlay()" src="../assets/icons/close-card-overlay.svg" class="card-overlay-close" style="width: 14px; height: 14px; align-self: end;">
     <div onclick="stopProp(event)" id="calendar-container" style="left: 150px; transform: translateX(100vw); transition: transform 0.35s ease-in-out;" class="calendar-container"></div>
 <div id="due_prio" class="container-edit-overlay" onclick="bodyOnClick()">
     <div class="title-add-task-overlay font1"><span style="color: #2A3647;">Title</span><span
@@ -109,7 +109,7 @@ function returnSubtaskCardOverlay(data, i) {
         return `
         <div onclick="markSubtaskDone(${i},'${data.title}')" class="card-overlay-subtask" style="user-select: none;">
             <div class="check-mark-wrapper">
-                <img id="checkmark${i}" src="/assets/icons/check-mark-subtask-ovleray-checked.svg">
+                <img id="checkmark${i}" src="../assets/icons/check-mark-subtask-ovleray-checked.svg">
             </div>
                 <div  id="subtask-text${i}" style="text-decoration: line-through" class="card-overlay-subtask-title">${data.subtasks[i].task}</div>
             </div>`
@@ -118,7 +118,7 @@ function returnSubtaskCardOverlay(data, i) {
         return `
         <div onclick="markSubtaskDone(${i},'${data.title}')" class="card-overlay-subtask" style="user-select: none;">
             <div class="check-mark-wrapper">
-                <img id="checkmark${i}" src="/assets/icons/check-mark-subtask-overlay-unchecked.svg">
+                <img id="checkmark${i}" src="../assets/icons/check-mark-subtask-overlay-unchecked.svg">
             </div>
                 <div id="subtask-text${i}" class="card-overlay-subtask-title">${data.subtasks[i].task}</div>
             </div>`
@@ -151,7 +151,7 @@ function returnTaskOverlay(data) {
         <div class="inner-div-overflow">
             <div class="card-overlay-category-close-wrapper">
                 <div class="card-overlay-category">${data.category}</div>
-                <img onclick="closeCardOverlay()" src="/assets/icons/close-card-overlay.svg" class="card-overlay-close">
+                <img onclick="closeCardOverlay()" src="../assets/icons/close-card-overlay.svg" class="card-overlay-close">
             </div>
             <div class="card-overlay-title">${data.title}</div>
             <div class="card-overlay-descritption">${data.description}</div>
@@ -178,7 +178,7 @@ function returnTaskOverlay(data) {
                 </svg>
                 <div>Delete</div>
                 </div>
-                <div style="display: flex; align-items: center;"><img src="/assets/icons/trennstrich.svg"></div>
+                <div style="display: flex; align-items: center;"><img src="../assets/icons/trennstrich.svg"></div>
                 <div class="card-overlay-delete-edit-wrapper" onclick="getEditTaskOvleray('${data.title}')">
                 <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 17H3.4L12.025 8.375L10.625 6.975L2 15.6V17ZM16.3 6.925L12.05 2.725L13.45 1.325C13.8333 0.941667 14.3042 0.75 14.8625 0.75C15.4208 0.75 15.8917 0.941667 16.275 1.325L17.675 2.725C18.0583 3.10833 18.2583 3.57083 18.275 4.1125C18.2917 4.65417 18.1083 5.11667 17.725 5.5L16.3 6.925ZM14.85 8.4L4.25 19H0V14.75L10.6 4.15L14.85 8.4Z" fill="#2A3647"/>
