@@ -2,7 +2,7 @@ function returnEditOverlay(data) {
     return `
     <img onclick="closeCardOverlay()" src="/assets/icons/close-card-overlay.svg" class="card-overlay-close" style="width: 14px; height: 14px; align-self: end;">
     <div onclick="stopProp(event)" id="calendar-container" style="left: 150px; transform: translateX(100vw); transition: transform 0.35s ease-in-out;" class="calendar-container"></div>
-<div id="due_prio" class="container-edit-overlay" onclick="removeZindex(), bodyOnClick()">
+<div id="due_prio" class="container-edit-overlay" onclick="bodyOnClick()">
     <div class="title-add-task-overlay font1"><span style="color: #2A3647;">Title</span><span
             style="color: #FF8190;">*</span>
         <div class="input-outside3" id="input_border1"
@@ -49,17 +49,17 @@ function returnEditOverlay(data) {
     </div>
     <div class="assigned font1"><div style="display: flex; flex-direction: column; gap: 12px;"><span style="color: #2A3647;">Assigned to</span><div class="circles-contacts-div_2" id="circles_contacts_div" style="left: 0;"></div></div>
         <div class="assigned-input assigned-input-hover"
-            onclick="openContactsList(), focusInput('contacts_list'), stopProp(event), changeZindex()">
+            onclick="openContactsList(), focusInput('contacts_list'), stopProp(event)">
             <input oninput="searchContacts()" onfocus="openContactsList()" class="input-add-task input-assigned-to"
                 id="contacts_list" maxlength="30" type="name" placeholder="Select contacts to assign"
                 autocomplete="off">
 
-            <div class="arrow-div for-center" onclick="toggleShowContacts(), changeZindex(), stopProp(event)">
+            <div class="arrow-div for-center" onclick="toggleShowContacts(), stopProp(event)">
                 <img id="assign_arrow" src="../assets/icons/arrow_drop_down.png" alt="">
             </div>
             <div class="circles-contacts-div" id="circles_contacts_div" style="height: 0; left: 0; bottom: -8px; margin-top: 4px;"></div>
         </div>
-        <div class="list-of-contacts-outside-2 postion-relativ z-index-0" id="list_of_contacts_outside">
+        <div class="list-of-contacts-outside-2 postion-relativ" id="list_of_contacts_outside">
             <div class="list-of-contacts" id="list_of_contacts" onclick=" changeContact(), stopProp(event)">
 
                 <div id="contactsContainer" class="div-contact">
@@ -68,8 +68,8 @@ function returnEditOverlay(data) {
         </div>
     </div>
     </div>
-    <div style="margin-top: 42px;" class="assigned-subtasks font1"><span style="color: #2A3647;">Subtasks</span>
-        <div class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
+    <div style="margin-top: 58px;" class="assigned-subtasks font1"><span style="color: #2A3647;">Subtasks</span>
+        <div style="z-index: 0!important;" class="assigned-input-subtasks" onclick="focusInput('subtask_input'), stopProp(event)">
             <input onkeydown="enterPressed(event)" class="input-add-task input-new-subtask" id="subtask_input" maxlength="21" type="name" placeholder="Add  new subtask" autocomplete="off" oninput="showFrame36SubtaskInput(event)">
             <div id="subtask_add_div" class="tasks-add-div for-center"><img src="../assets/icons/add_subtasks.png" alt=""></div>
             
@@ -217,14 +217,14 @@ function returnTaskCard(task, prioSVG, categoryColor) {
 function returnAddTaskOverlay() {
     return `        
     <div id="overlay-add-task" class="overlay-add-task" style="display: flex; flex-direction: column;">
-        <img onclick="closeCardOverlay()" src="/assets/icons/close-card-overlay.svg" class="card-overlay-close" style="padding: 24px; width: 14px; height: 14px; align-self: end;">
+        <img onclick="addTaskBoardOverlayToggle()" src="/assets/icons/close-card-overlay.svg" class="card-overlay-close" style="padding: 24px; width: 14px; height: 14px; align-self: end;">
  <div onclick="stopProp(event)," id="calendar-container" style="transform: translateX(100vw); transition: transform 0.35s ease-in-out;" class="calendar-container"></div>
             <div onclick="bodyOnClick()">
                 <div class="add-task-board-wrapper">
-                <div class="add-task for-center">Add task</div>
+                <div style="left: 72px!important" class="add-task for-center">Add task</div>
 
 
-                <div class="title-description-overlay">
+                <div style="left: 72px!important" class="title-description-overlay">
                     <div class="title-add-task-overlay font1"><span style="color: #2A3647;">Title</span><span
                             style="color: #FF8190;">*</span>
 
@@ -284,7 +284,7 @@ function returnAddTaskOverlay() {
                 </div>
 
 
-                <div class="separator"></div>
+                <div style="left: 569px!important;" class="separator"></div>
 
 
                 <div class="due-prio" id="due_prio">

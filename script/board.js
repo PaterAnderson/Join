@@ -519,14 +519,6 @@ function setPositionMarker(id) {
     input.setSelectionRange(valueLength, valueLength)
 }
 
-function changeZindex() {
-    document.getElementById('list_of_contacts_outside').classList.toggle('z-index-3')
-}
-
-function removeZindex() {
-    document.getElementById('list_of_contacts_outside').classList.remove('z-index-3')
-}
-
 function closeCardOverlay() {
     document.getElementById('card-board-overlay-background').classList.add('display-opacity-board')
     document.getElementById('card-board-task-overlay').classList.remove('overlay-add-task-transition')
@@ -807,5 +799,3 @@ function handleNoDropTarget() {
     renderTask(taskSave[draggedElement.id], parentStartId)
     checkIfTaskTrue()
 }
-
-

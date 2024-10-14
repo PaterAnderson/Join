@@ -89,8 +89,10 @@ const fetchAllContactNames = async () => {
  */
 function openContactsList() {
 
-    document.getElementById('contacts_list').placeholder = "";
+    document.getElementById('list_of_contacts_outside').classList.remove('z-1');
+    document.getElementById('list_of_contacts_outside').classList.add('z1');
 
+    document.getElementById('contacts_list').placeholder = "";
     document.getElementById('list_of_contacts').classList.add('list-of-contacts2');
     document.getElementById('assign_arrow').src = "../assets/icons/arrow_drop_up.png";
     toggle1 = true;
