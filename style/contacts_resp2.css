@@ -13,14 +13,11 @@
 
     .window-summary {
         scale: 0.75;
+        height: calc(100% * 1.333);
     }
 
     .main {
         width: 859px;
-    }
-
-    .contact-container {
-        height: calc((100vh - 70px)* 1.333);
     }
 
     .dialog-bg-outer {
@@ -52,8 +49,7 @@
     }
 
     .window-summary {
-        width: calc((100vw - 167px) * 1.333);
-        height: calc((100vh - 70px) * 1.333);
+        width: calc(100% * 1.333);
     }
 
     .headline-stat {
@@ -254,22 +250,16 @@
         background-color: #FFFFFF;
     }
 
-    .window-summary {
-        scale: 0.75;
-        height: calc((100vh - 160px) * 1.33);
-        width: calc(100% * 1.33);
-    }
-
     .contact-container {
-        width: calc((100% * 1.333) - 34px);
-        height: calc((100vh - 160px)* 1.333);
+        width: calc(100% - 34px);
         align-items: flex-start;
         margin-left: 34px;
+        scrollbar-width: thin;
     }
 
     .main {
         width: 100%;
-        height: calc(100vh - 160px);
+        height: calc(100% - 160px);
         left: 0px;
         top: 80px;
     }

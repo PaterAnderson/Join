@@ -30,12 +30,16 @@ header {
     left: 169px;
     top: 70px;
     z-index: 2;
-    height: -webkit-fill-available;
+    height: calc(100% - 70px);
+}
+
+.window-summary {
+    height: calc(100% * 1.25);
 }
 
 .contact-container {
-    height: calc((100vh - 70px)* 1.25);
     scrollbar-color: #a8a8a8ff white;
+    height: 100%;
 }
 
 .info-data a:first-of-type {

@@ -17,12 +17,12 @@
 .calendar-container {
     position: absolute;
     display: inline-block;
-    left: 770px;
+    left: 724px;
     top: 328px;
     scale: 1.7;
     z-index: 4;
     transition: transform 0.15s ease-in-out;
-    transform: translateX(346px);
+    transform: translateX(500px);
 }
 
 .calendar-container2 {
