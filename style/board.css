@@ -490,7 +490,7 @@
 }
 
 .display-opacity-board {
-    display: none;
+    display: none!important;
 }
 
 .card-board {
