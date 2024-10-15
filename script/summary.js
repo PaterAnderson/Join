@@ -376,8 +376,8 @@ function scrollingAnimationTextTransfer(pastTitles, urgentTitles) {
     const urgentTitlesString = urgentTitles.join(' - ');
 
     const spans = document.querySelectorAll('.scroll-text span');
-    spans[0].innerText = "⏪ - " + pastTitlesString;
-    spans[2].innerText = "⏩ - " + urgentTitlesString;
+    if (pastTitlesString != []) spans[0].innerText = "⏪ - " + pastTitlesString;
+    if (urgentTitlesString != []) spans[2].innerText = "⏩ - " + urgentTitlesString;
 
     adjustSpeed();
 }
