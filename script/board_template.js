@@ -1,7 +1,7 @@
 function returnEditOverlay(data) {
     return `
     <img onclick="closeCardOverlay()" src="../assets/icons/close-card-overlay.svg" class="card-overlay-close" style="width: 14px; height: 14px; align-self: end;">
-    <div onclick="stopProp(event)" id="calendar-container" style="left: 150px; transform: translateX(100vw); transition: transform 0.35s ease-in-out;" class="calendar-container"></div>
+    <div onclick="stopProp(event)" id="calendar-container" style="left: 150px; transform: translateX(100vw); transition: transform 0.35s ease-in-out;" class="calendar-container-edit"></div>
 <div id="due_prio" class="container-edit-overlay" onclick="bodyOnClick()">
     <div class="title-add-task-overlay font1"><span style="color: #2A3647;">Title</span><span
             style="color: #FF8190;">*</span>

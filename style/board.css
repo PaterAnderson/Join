@@ -203,6 +203,7 @@
         left: 120px!important;
         top: 650px!important;
     }
+
 }
 
 
@@ -348,6 +349,23 @@
 
     .kanban-subtitle {
         max-width: 100%;
+    }
+
+    .calendar-container-edit{
+        top: 200px!important;
+    }
+}
+
+@media (max-width:450px) {
+    .calendar-container-edit{
+        scale: 1.3!important;
+        left: 120px!important;
+    }
+}
+
+@media (max-width: 380px) {
+    .calendar-container-edit{
+        left: 80px!important;
     }
 }
 
@@ -508,8 +526,16 @@
     max-width: 228px;
 }
 
-
-
+.calendar-container-edit{
+    position: absolute;
+    display: inline-block;
+    left: 724px;
+    top: 328px;
+    scale: 1.7;
+    z-index: 4;
+    transition: transform 0.15s ease-in-out;
+    transform: translateX(500px);
+}
 
 .card-category {
     background-color: #0038FF;
