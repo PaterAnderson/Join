@@ -93,6 +93,7 @@ let kanbanidforadd;
 
 function changeKanbanidForAddTask(id){
     kanbanidforadd = id;
+    sessionStorage.setItem('kanbanId', id)
 }
 
 // Funktion, um ein task in Firebase zu erstellen

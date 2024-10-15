@@ -184,7 +184,7 @@
         </aside>
         <main>
             <div class="title">
-                <div class="heading-1">Board <button onclick="goToLink('add_task.html')"
+                <div class="heading-1">Board <button onclick="changeKanbanidForAddTask('to-do'), goToLink('add_task.html')"
                         class="mobile-add-task-button"><img src="../assets/icons/plus-mobile-add-task.svg"></button>
                 </div>
                 <div class="search-bar">
@@ -302,24 +302,24 @@
                 }
             }
 
-            let resizeTimout;
+            // let resizeTimout;
 
-            function checkScreenWidthForAddTask() {
-                clearTimeout(resizeTimout);
-                resizeTimout = setTimeout(() => {
-                    if (window.innerWidth <= 600) {
-                        if (on) {
-                            addTaskBoardOverlayToggle()
-                        }
-                    } else {
-                        return;
-                    }
-                },200);
-            }
+            // function checkScreenWidthForAddTask() {
+            //     clearTimeout(resizeTimout);
+            //     resizeTimout = setTimeout(() => {
+            //         if (window.innerWidth <= 600) {
+            //             if (on) {
+            //                 addTaskBoardOverlayToggle()
+            //             }
+            //         } else {
+            //             return;
+            //         }
+            //     },200);
+            // }
 
-            checkScreenWidthForAddTask();
+            // checkScreenWidthForAddTask();
 
-            window.addEventListener('resize', checkScreenWidthForAddTask);
+            // window.addEventListener('resize', checkScreenWidthForAddTask);
         </script>
 
 

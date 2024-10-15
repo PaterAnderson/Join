@@ -47,7 +47,7 @@ async function getTasksFromFirebase() {
             counter++
         })
     } catch (error) {
-        console.log(error)
+        return
     } finally {
         checkIfTaskTrue()
     }
