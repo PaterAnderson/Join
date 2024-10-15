@@ -4,6 +4,8 @@ let contactFarbe;
 let contactInitials;
 let nameForEdit;
 
+sessionStorage.setItem('kanbanId', '');
+
 
 /**
  * 

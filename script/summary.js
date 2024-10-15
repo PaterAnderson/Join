@@ -2,6 +2,8 @@
 let dateArray = [];
 if (!sessionStorage.getItem('user')) window.location.href = '../index.html';
 
+sessionStorage.setItem('kanbanId', '');
+
 
 /**
  * 

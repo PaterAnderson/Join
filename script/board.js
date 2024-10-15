@@ -1,3 +1,5 @@
+sessionStorage.setItem('kanbanId', '');
+
 const priorityMap = {
     "urgent": "../assets/icons/urgent.svg",
     "medium": "../assets/icons/medium.svg",

@@ -22,7 +22,12 @@ const farben = [
     "#FF745E", "#FFA35E"
 ];
 
-// Funktion, um einen Kontakt in Firebase zu erstellen
+
+/**
+ * 
+ * Function to create a contact in Firebase
+ * 
+ */
 const erstelleKontakt = async (kontakt, farbe) => {
     const kontaktPfad = encodeURIComponent(kontakt.name); // Verwende den gesamten Namen als Pfad und kodiert ihn für URLs
 
@@ -53,7 +58,12 @@ const erstelleKontakt = async (kontakt, farbe) => {
     }
 };
 
-// Alle Kontakte mit Farben in Firebase erstellen
+
+/**
+ * 
+ * Create all contacts with colors in Firebase
+ * 
+ */
 const erstelleKontakteMitFarben = () => {
     kontakte.forEach((kontakt, index) => {
         const farbe = farben[index]; // Jeder Kontakt bekommt eine andere Farbe
@@ -61,12 +71,21 @@ const erstelleKontakteMitFarben = () => {
     });
 };
 
-// Funktion aufrufen, um Kontakte zu erstellen
 
+/**
+ * 
+ * Call function to create sample contact list
+ * 
+ */
 //erstelleKontakteMitFarben();
 
 
-
+/**
+ * 
+ * delete contact - example
+ * Example: deleteContact("Anna Müller") would delete the contact named "Anna Müller" from the Firebase database.
+ * 
+ */
 const deleteKontakt = async (name) => {
     const kontaktPfad = encodeURIComponent(name); // Kodiert den Namen für die URL
 
@@ -85,17 +104,6 @@ const deleteKontakt = async (name) => {
     }
 };
 
-// Beispiel: deleteKontakt("Anna Müller") würde den Kontakt mit dem Namen "Anna Müller" aus der Firebase-Datenbank löschen.
-
-
-
-
-
-
-
-
-
-
 
 /**
  * 
@@ -113,7 +121,10 @@ const createTaskInFirebase = async (title, description, dueDate) => {
         if (response.ok) {
 
             const data = await response.json();
-            console.log(`Task erstellt:`, data);
+            createTaskAnimation();
+            setTimeout(() => { window.location.href = '../html/board.html' }, 2000);
+
+            //console.log(`Task erstellt:`, data);
 
         } else { console.error("Fehler beim Erstellen des Tasks:", response.status) }
 
@@ -128,6 +139,9 @@ const createTaskInFirebase = async (title, description, dueDate) => {
  */
 function createTaskData(title, description, dueDate) {
 
+    let kanban = sessionStorage.getItem('kanbanId');
+    if (!kanban || kanban == "") kanban = "to-do";
+
     return {
         title: title,
         description: description,
@@ -135,7 +149,7 @@ function createTaskData(title, description, dueDate) {
         date: dueDate,
         prio: prio,
         category: selectedCategory,
-        kanbanId: 'to-do',
+        kanbanId: kanban,
         subtasks: subtaskCollection.map(item => ({ ...item, done: false, edit: undefined }))
     };
 }

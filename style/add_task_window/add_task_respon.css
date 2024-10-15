@@ -118,6 +118,11 @@
             height: 113px;
             bottom: -125px;
         }
+
+        .task-added-to-board2 {
+            left: calc((100% / 2) - 603px / 2);
+            bottom: calc((100% / 2) - -36px / 2);
+        }
     }
 
     @media (max-width: 742px) {
@@ -130,6 +135,10 @@
         .main {
             width: 427px;
             left: calc((100% / 2) - (427px / 2));
+        }
+
+        .task-added-to-board2 {
+            left: calc((100% / 2) - 219px / 2);
         }
     }
 
@@ -204,6 +213,10 @@
         .new-div-for-subtasks {
             height: 184px;
             bottom: -197px;
+        }
+
+        .task-added-to-board2 {
+            bottom: calc((100% / 2) - -99px / 2);
         }
     }
 

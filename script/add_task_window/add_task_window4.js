@@ -1,4 +1,3 @@
-
 /**
  * 
  * Function called when Enter is pressed - create task click
@@ -63,10 +62,7 @@ function checkInputsInInputs3() {
     if (selectedCategory != "") {
 
         showHideError('category_error', false);
-        createTaskAnimation();
         createTaskInFirebase(title, description, dueDate);
-
-        setTimeout(() => { document.getElementById('task_added_to_board').classList.remove('task-added-to-board2') }, 2000);
 
     } else categoryEnterError();
 }
@@ -220,6 +216,7 @@ const checkFirebaseResponse = async (response, title) => {
 function createTaskAnimation() {
 
     document.getElementById('task_added_to_board').classList.add('task-added-to-board2');
+    //setTimeout(() => { document.getElementById('task_added_to_board').classList.remove('task-added-to-board2') }, 2000);
 }
 
 
