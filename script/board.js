@@ -642,22 +642,6 @@ function searcFocus() {
 
 }
 
-function updateOnClickBasedOnWidth() {
-    let elements = document.querySelectorAll('.add-task-board');
-
-    elements.forEach(element => {
-        if (window.innerWidth <= 990) {
-            element.onclick = function () {
-                goToLink('add_task.html');
-            };
-        }
-    });
-}
-
-updateOnClickBasedOnWidth();
-
-window.addEventListener('resize', updateOnClickBasedOnWidth);
-
 
 let longPressTimer;
 let isDragging = false;
