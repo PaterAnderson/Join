@@ -217,7 +217,7 @@ function returnTaskCard(task, prioSVG, categoryColor) {
 function returnAddTaskOverlay() {
     return `        
     <div id="overlay-add-task" class="overlay-add-task" style="display: flex; flex-direction: column;">
-        <img onclick="addTaskBoardOverlayToggle()" src="/assets/icons/close-card-overlay.svg" class="card-overlay-close" style="padding: 24px; width: 14px; height: 14px; align-self: end;">
+        <img onclick="addTaskBoardOverlayToggle()" src="../assets/icons/close-card-overlay.svg" class="card-overlay-close" style="padding: 24px; width: 14px; height: 14px; align-self: end;">
  <div onclick="stopProp(event)," id="calendar-container" style="transform: translateX(100vw); transition: transform 0.35s ease-in-out;" class="calendar-container"></div>
             <div onclick="bodyOnClick()">
                 <div class="add-task-board-wrapper">
