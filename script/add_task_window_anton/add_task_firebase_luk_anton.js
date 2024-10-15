@@ -130,7 +130,8 @@ const createTaskInFirebase = async (title, description, dueDate) => {
             subtaskCollection = [];
             selectedContacts = [];
             allContactNames = []
-
+            addTaskBoardOverlayToggle()
+            getOpenTaskOverlay(taskData.title)
         } else {
             console.error("Fehler beim Erstellen des Tasks:", response.status);
         }

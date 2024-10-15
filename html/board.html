@@ -206,7 +206,8 @@
                         </div>
                     </div>
 
-                    <button onclick="changeKanbanidForAddTask('to-do'), addTaskBoardOverlayToggle()"
+                    <button id="add-task-button-for-overlay"
+                        onclick="changeKanbanidForAddTask('to-do'), addTaskBoardOverlayToggle()"
                         class="add-task-button">Add task <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -313,10 +314,10 @@
                             document.getElementById('render-add-task').style.display = 'none';
                             document.getElementById('overlay-board-background').style.display = 'none';
                         }
-                    } 
-                    if(window.innerWidth >= 600){
+                    }
+                    if (window.innerWidth >= 600) {
                         document.getElementById('render-add-task').style.display = 'block';
-                        if(on){
+                        if (on) {
                             document.getElementById('overlay-board-background').style.display = 'unset';
                         }
                     }
@@ -324,6 +325,35 @@
             }
 
             checkScreenWidthForAddTask();
+
+            function updateOnClickBasedOnWidth() {
+                let elements = document.querySelectorAll('.add-task-board');
+                let button = document.getElementById('add-task-button-for-overlay');
+
+                if (window.innerWidth <= 990) {
+                    button.onclick = function () {
+                        goToLink('add_task.html');
+                    }
+                }
+
+                if(window.innerWidth >= 990){
+                    button.onclick = function () {
+                        addTaskBoardOverlayToggle();
+                    }
+                }
+
+                elements.forEach(element => {
+                    if (window.innerWidth <= 990) {
+                        element.onclick = function () {
+                            goToLink('add_task.html');
+                        };
+                    }
+                });
+            }
+
+            updateOnClickBasedOnWidth();
+
+            window.addEventListener('resize', updateOnClickBasedOnWidth);
 
             window.addEventListener('resize', checkScreenWidthForAddTask);
         </script>
