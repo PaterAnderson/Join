@@ -5,6 +5,9 @@ if (!sessionStorage.getItem('user')) window.location.href = '../index.html';
 sessionStorage.setItem('kanbanId', '');
 
 
+let titelDateArray;
+
+
 /**
  * 
  * summary onload start
@@ -100,10 +103,14 @@ const showSummary = () => {
             document.getElementById('greet_time').innerText = generateGreeting() + ",";
 
             showDateInSummaryUrgent(result.urgentArray[0], result.arrayPast.length);
+
+
+
+            getTitelDateArray(result);
+
+
         })
-        .catch(error => {
-            console.error("Fehler in showSummary:", error);
-        });
+        .catch(error => { console.error("Fehler in showSummary:", error) });
 };
 
 
@@ -304,6 +311,95 @@ function showKanbanCountsInSummary(kanbanCounts) {
     document.querySelector('.feedback-2').innerText = kanbanCounts['await-feedback'];
     document.querySelector('.board456-2').innerText = kanbanCounts['await-feedback'] + kanbanCounts['in-progress'] + kanbanCounts['done'] + kanbanCounts['to-do'];
 }
+
+
+/**
+ * 
+ * get titels and dates 
+ * 
+ */
+async function getTitelDateArray(result) {
+
+    try {
+        const response = await fetch(`${BASE_URL}/tasks.json`);
+        if (!response.ok) { throw new Error('Netzwerkantwort war nicht ok') }
+        const data = await response.json();
+        titelDateArray = [];
+
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                const task = data[key];
+                titelDateArray.push({ title: key, date: task.date });
+            }
+        }
+
+        showTitlesFromUrgent(result, titelDateArray);
+
+    } catch (error) { console.error('Fehler beim Abrufen der Aufgaben:', error) }
+}
+
+
+/**
+ * 
+ * get out titles from urgent
+ * 
+ */
+function showTitlesFromUrgent(result, titelDateArray) {
+
+    const uniquePastDates = [...new Set(result.arrayPast)];
+    const uniqueUrgentDates = [...new Set(result.urgentArray)];
+    let pastTitles = [];
+    let urgentTitles = [];
+
+    for (const date of uniquePastDates) {
+        const matchingTasks = titelDateArray.filter(task => task.date === date).map(task => task.title);
+        pastTitles.push(...matchingTasks);
+    }
+
+    for (const date of uniqueUrgentDates) {
+        const matchingTasks = titelDateArray.filter(task => task.date === date).map(task => task.title);
+        urgentTitles.push(...matchingTasks); // Füge die Titel zu urgentTitles hinzu
+    }
+
+    scrollingAnimationTextTransfer(pastTitles, urgentTitles);
+}
+
+
+/**
+ * 
+ * scrolling animation text transfer
+ * 
+ */
+function scrollingAnimationTextTransfer(pastTitles, urgentTitles) {
+
+    const pastTitlesString = pastTitles.join(' - ');
+    const urgentTitlesString = urgentTitles.join(' - ');
+
+    const spans = document.querySelectorAll('.scroll-text span');
+    spans[0].innerText = "⏪ - " + pastTitlesString;
+    spans[2].innerText = "⏩ - " + urgentTitlesString;
+
+    adjustSpeed();
+}
+
+
+/**
+ * 
+ * adjust speed for scrolling titles
+ * 
+ */
+function adjustSpeed() {
+
+    const scrollText = document.querySelector('.scroll-text');
+    const scrollingTitles = document.querySelector('.scrolling-titles');
+    const textWidth = scrollText.scrollWidth;
+    const containerWidth = scrollingTitles.clientWidth;
+    const speed = 60;
+    
+    const duration = (textWidth + containerWidth) / speed;
+    scrollText.style.animationDuration = `${duration}s`;
+}
+
 
 
 

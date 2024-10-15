@@ -151,6 +151,7 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: transform 25ms ease-in-out;
+    position: relative;
 }
 
 .summ3:hover {
@@ -336,4 +337,39 @@ body {
 
 .greet-name {
     text-align: left;
+}
+
+.scrolling-titles {
+    width: 239px;
+    height: 24px;
+    position: absolute;
+    right: 33px;
+    bottom: 17px;
+    color: #ff3c00ff;
+    font-weight: 400;
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    align-content: center;
+}
+
+.scroll-text {
+    display: inline-flex;
+    padding-left: 40px;
+    padding-right: 40px;
+    animation: scroll-left 15s linear infinite;
+}
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.spacer {
+    width: 24px;
 }
