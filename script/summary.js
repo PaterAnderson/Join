@@ -37,6 +37,7 @@ function greetingStart() {
 
             document.getElementById('greeting').style = "opacity: 1; display: flex";
             setTimeout(hideGreeting, 2700);
+            setTimeout(adjustSpeed, 2750);
 
         } else showContent();
 

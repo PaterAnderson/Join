@@ -358,6 +358,8 @@ body {
     padding-left: 40px;
     padding-right: 40px;
     animation: scroll-left 15s linear infinite;
+    -webkit-animation: scroll-left 15s linear infinite; /* Chrome (mobil) */
+    will-change: transform; /* Optimiert für mobile Geräte */
 }
 
 @keyframes scroll-left {
@@ -367,6 +369,16 @@ body {
 
     to {
         transform: translateX(-100%);
+    }
+}
+
+@-webkit-keyframes scroll-left {
+    from {
+        -webkit-transform: translateX(100%);
+    }
+
+    to {
+        -webkit-transform: translateX(-100%);
     }
 }
 
