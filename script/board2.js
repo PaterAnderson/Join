@@ -42,9 +42,9 @@ async function changePrio(prioTask, taskName) {
     await getEditToFirebase(taskName, callback)
 }
 
-function changeContact(oldTaskName) {
-    document.getElementById(`contacts${oldTaskName}`).innerHTML = ''
-    renderAssignedContacts(selectedContacts, oldTaskName)
+function changeContact(taskName) {
+    document.getElementById(`contacts${taskName}`).innerHTML = ''
+    renderAssignedContacts(selectedContacts, taskName)
 }
 
 function pushUrgent(taskName) {
